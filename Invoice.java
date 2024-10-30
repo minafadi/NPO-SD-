@@ -1,25 +1,32 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Invoice {
     private int appointmentId;
     private String patientName;
     private String doctorName;
-    private String[] drugList;
+    private List<String> drugList = new ArrayList<>();
     private Payment payment;
     private double totalPrice;
 
     public Boolean isDrugAvailable(Drug drug) {
-        return false;
+        return drugList.contains(drug.getDrugName());
     }
 
     public double getDrugPrice(Drug drug) {
-        return 0.0;
+        if (isDrugAvailable(drug))
+            return drug.getPrice();
+        else return -1;
     }
 
     public Boolean addDrug(Drug drug) {
-        return false;
+        drugList.add(drug.getDrugName());
+        return true;
     }
 
     public Boolean removeDrug(Drug drug) {
-        return false;
+        drugList.remove(drug.getDrugName());
+        return true;
     }
 
     public Boolean pay() {
@@ -54,11 +61,11 @@ public class Invoice {
         this.doctorName = doctorName;
     }
 
-    public String[] getDrugList() {
+    public List<String> getDrugList() {
         return drugList;
     }
 
-    public void setDrugList(String[] drugList) {
+    public void setDrugList(List<String> drugList) {
         this.drugList = drugList;
     }
 
