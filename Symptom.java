@@ -3,14 +3,12 @@ import java.time.Duration;
 public abstract class Symptom extends Illness {
     Illness illness;
 
-    public abstract Boolean setSeverity(Illness illness);
-
     public String getDescription(Illness illness) {
         return illness.getDescription();
     }
 
     public int getSeverity(Illness illness) {
-        return illness.getSeverity();
+        return illness.severity();
     }
 
     public Duration getDuration(Illness illness) {

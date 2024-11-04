@@ -1,10 +1,13 @@
 public class Nausea extends Symptom {
     private int intensity;
 
+    public Nausea(Illness illness) {
+        this.illness = illness;
+    }
+
     @Override
-    public Boolean setSeverity(Illness illness) {
-        illness.setSeverity(illness.getSeverity() + 3);
-        return true;
+    public int severity() {
+        return illness.severity() + 3;
     }
 
     @Override

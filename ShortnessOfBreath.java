@@ -1,8 +1,11 @@
 public class ShortnessOfBreath extends Symptom {
+    public ShortnessOfBreath(Illness illness) {
+        this.illness = illness;
+    }
+
     @Override
-    public Boolean setSeverity(Illness illness) {
-        illness.setSeverity(illness.getSeverity() + 4);
-        return true;
+    public int severity() {
+        return illness.severity() + 4;
     }
 
     @Override

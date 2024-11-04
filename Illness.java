@@ -5,12 +5,13 @@ import java.util.List;
 public abstract class Illness {
     private String description;
     private int treatmentCost;
-    private int severity;
     private Duration duration;
     private boolean contagious;
     private List<Drug> drugList = new ArrayList<>();
 
     public abstract double calculateCost();
+
+    public abstract int severity();
 
     public Boolean isDrugAvailable(Drug drug) {
         return drugList.contains(drug);
@@ -46,14 +47,6 @@ public abstract class Illness {
         this.treatmentCost = treatmentCost;
     }
 
-    public int getSeverity() {
-        return severity;
-    }
-
-    public void setSeverity(int severity) {
-        this.severity = severity;
-    }
-
     public Duration getDuration() {
         return duration;
     }
@@ -63,7 +56,7 @@ public abstract class Illness {
         return true;
     }
 
-    public boolean isContagious() {
+    public Boolean isContagious() {
         return contagious;
     }
 
