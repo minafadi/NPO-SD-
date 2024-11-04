@@ -5,7 +5,7 @@ public class Invoice {
     private int appointmentId;
     private String patientName;
     private String doctorName;
-    private List<Drug> drugList = new ArrayList<Drug>();
+    private List<Drug> drugList = new ArrayList<>();
     private Payment payment;
     private double totalPrice;
 
