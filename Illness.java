@@ -1,3 +1,4 @@
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -5,7 +6,7 @@ public abstract class Illness {
     private String description;
     private int treatmentCost;
     private int severity;
-    private int duration;
+    private Duration duration;
     private boolean contagious;
     private List<Drug> drugList = new ArrayList<>();
 
@@ -53,12 +54,13 @@ public abstract class Illness {
         this.severity = severity;
     }
 
-    public int getDuration() {
+    public Duration getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public Boolean setDuration(Duration duration) {
         this.duration = duration;
+        return true;
     }
 
     public boolean isContagious() {

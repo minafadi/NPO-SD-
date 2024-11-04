@@ -1,8 +1,7 @@
+import java.time.Duration;
+
 public abstract class Symptom extends Illness {
-    private Illness illness;
-    
-    @Override
-    public abstract double calculateCost();
+    Illness illness;
 
     public abstract Boolean setSeverity(Illness illness);
 
@@ -14,7 +13,7 @@ public abstract class Symptom extends Illness {
         return illness.getSeverity();
     }
 
-    public int getDuration(Illness illness) {
+    public Duration getDuration(Illness illness) {
         return illness.getDuration();
     }
 
