@@ -2,11 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Illness {
-    private  String description;
-    private int TreatmentCost;
-    private  int Severity;
-    private int Duration;
-    private boolean Contagious;
+    private String description;
+    private int treatmentCost;
+    private int severity;
+    private int duration;
+    private boolean contagious;
     private List<Drug> drugList = new ArrayList<>();
 
     public abstract double calculateCost();
@@ -38,35 +38,35 @@ public abstract class Illness {
     }
 
     public int getTreatmentCost() {
-        return TreatmentCost;
+        return treatmentCost;
     }
 
-    public void setTreatmentCost(int TreatmentCost) {
-        this.TreatmentCost = TreatmentCost;
+    public void setTreatmentCost(int treatmentCost) {
+        this.treatmentCost = treatmentCost;
     }
 
     public int getSeverity() {
-        return Severity;
+        return severity;
     }
 
-    public void setSeverity(int Severity) {
-        this.Severity = Severity;
+    public void setSeverity(int severity) {
+        this.severity = severity;
     }
 
     public int getDuration() {
-        return Duration;
+        return duration;
     }
 
-    public void setDuration(int Duration) {
-        this.Duration = Duration;
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     public boolean isContagious() {
-        return Contagious;
+        return contagious;
     }
 
-    public void setContagious(boolean Contagious) {
-        this.Contagious = Contagious;
+    public void setContagious(boolean contagious) {
+        this.contagious = contagious;
     }
 
     public List<Drug> getDrugList() {
