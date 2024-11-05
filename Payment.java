@@ -1,4 +1,4 @@
 public interface Payment {
-    public Boolean executePayment();
+    public boolean executePayment();
     public double getTax();
 }

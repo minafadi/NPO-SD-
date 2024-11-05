@@ -5,12 +5,12 @@ public class Invoice {
     private int appointmentId;
     private String patientName;
     private String doctorName;
-    private List<String> drugList = new ArrayList<>();
+    private List<Drug> drugList = new ArrayList<>();
     private Payment payment;
     private double totalPrice;
 
     public Boolean isDrugAvailable(Drug drug) {
-        return drugList.contains(drug.getDrugName());
+        return drugList.contains(drug);
     }
 
     public double getDrugPrice(Drug drug) {
@@ -19,13 +19,13 @@ public class Invoice {
         else return -1;
     }
 
-    public Boolean addDrug(Drug drug) {
-        drugList.add(drug.getDrugName());
+    public boolean addDrug(Drug drug) {
+        drugList.add(drug);
         return true;
     }
 
     public Boolean removeDrug(Drug drug) {
-        drugList.remove(drug.getDrugName());
+        drugList.remove(drug);
         return true;
     }
 
@@ -61,11 +61,11 @@ public class Invoice {
         this.doctorName = doctorName;
     }
 
-    public List<String> getDrugList() {
+    public List<Drug> getDrugList() {
         return drugList;
     }
 
-    public void setDrugList(List<String> drugList) {
+    public void setDrugList(List<Drug> drugList) {
         this.drugList = drugList;
     }
 

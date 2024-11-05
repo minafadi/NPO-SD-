@@ -3,7 +3,7 @@ public class FawryPayment implements Payment {
     private String description;
 
     @Override
-    public Boolean executePayment() {
+    public boolean executePayment() {
         throw new UnsupportedOperationException("Unimplemented method 'executePayment'");
     }
 
