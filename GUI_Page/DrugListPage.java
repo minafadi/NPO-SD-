@@ -2,7 +2,7 @@ package GUI_Page;
 
 import javax.swing.*;
 
-public class DrugListPage {
+public class DrugListPage extends JFrame{
     private JLabel DoctorLabel;
     private JLabel SpecialLabel;
     private JLabel BFLabel;

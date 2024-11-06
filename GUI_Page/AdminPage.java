@@ -2,7 +2,7 @@ package GUI_Page;
 
 import javax.swing.*;
 
-public class AdminPage {
+public class AdminPage extends JFrame{
     private JTextField AddDoctorTF;
     private JTextField AddAppointTF;
     private JButton AddAppointButton;

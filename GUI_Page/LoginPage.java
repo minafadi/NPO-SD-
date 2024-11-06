@@ -2,7 +2,7 @@ package GUI_Page;
 
 import javax.swing.*;
 
-public class LoginPage extends JFrame {
+public class LoginPage extends JFrame{
     private JTextField NameTF;
     private JComboBox OccupationCBox;
     private JButton LoginButton;

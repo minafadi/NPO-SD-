@@ -2,7 +2,7 @@ package GUI_Page;
 
 import javax.swing.*;
 
-public class InVoicePage {
+public class InVoicePage extends JFrame{
     private JLabel InVoiceLabel;
     private JTextField PatientTF;
     private JTextField DoctorTF;
