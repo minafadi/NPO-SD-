@@ -5,7 +5,9 @@ public class ShortnessOfBreath extends Symptom {
         this.illness = illness;
         this.illness.addDrug(Drug.readAllDrugs("ShortnessOfBreath"));
     }
-
+    public String getDescription() {
+        return super.getDescription()+"ShortnessOfBreath";
+    }
     @Override
     public int severity() {
         return illness.severity() + 4;

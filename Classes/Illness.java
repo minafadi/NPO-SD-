@@ -1,32 +1,33 @@
 package Classes;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Illness {
     protected String description;
+    protected int Severity;
     //private String description;
-    private int treatmentCost;
+    protected int treatmentCost;
     private Duration duration;
     private boolean contagious;
-    private List<Drug> drugList = new ArrayList<>();
 
-    public abstract double calculateCost();
+    private final List<Drug> drugList = new ArrayList<>();
+    static private Connection dbconn;
 
-    public abstract int severity();
+    public double calculateCost(){return treatmentCost;}
 
-    public Boolean isDrugAvailable(Drug drug) {
-        return drugList.contains(drug);
-    }
+    public  int severity(){return Severity;}
 
-    public double getDrugPrice(Drug drug) {
-        return drugList.get(drugList.indexOf(drug)).getPrice();
-    }
 
-    public Boolean addDrug(Drug drug) {
+    public void addDrug(Drug drug) {
         drugList.add(drug);
-        return true;
+        System.out.print("ketaaaaaaaafbs:        ");
+        System.out.println(drugList.size());
     }
 
     public Boolean removeDrug(Drug drug) {
@@ -58,7 +59,53 @@ public abstract class Illness {
         this.duration = duration;
         return true;
     }
+    public int getSeverity(){
+        return severity();
+    }
+    public boolean AddIllness(Patient patient) {
+        if (dbconn == null) {
+            DB db = new DB();
+            this.dbconn = db.ConnectDB();
+        }
 
+        System.out.print("Drugs associated with illness:");
+        for (Drug drug : patient.getIllness().getDrugList()) {
+            System.out.println(drug.getDrugName());
+        }
+
+        // Insert into Illness table
+        String sql = "INSERT INTO illness (description, severity, treatmentcost) VALUES (?, ?, ?)";
+        try (PreparedStatement stmt = dbconn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, this.getDescription()); // `description` attribute
+            stmt.setInt(2, this.getSeverity());       // `severity` attribute
+            stmt.setDouble(3, this.calculateCost());  // `treatmentCost` attribute
+
+            int rowsInserted = stmt.executeUpdate();
+
+            if (rowsInserted > 0) {
+                // Retrieve generated IID
+                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int illnessId = generatedKeys.getInt(1);
+
+                        // Insert into PatientIllness table
+                        String patientIllnessSql = "INSERT INTO PatientIllness (PID, IID) VALUES (?, ?)";
+                        try (PreparedStatement patientIllnessStmt = dbconn.prepareStatement(patientIllnessSql)) {
+                            patientIllnessStmt.setInt(1, patient.getid()); // patient ID (PID)
+                            patientIllnessStmt.setInt(2, illnessId);       // illness ID (IID)
+
+                            int patientIllnessRowsInserted = patientIllnessStmt.executeUpdate();
+                            return patientIllnessRowsInserted > 0; // Returns true if the row was inserted successfully
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return false;
+    }
     public Boolean isContagious() {
         return contagious;
     }
@@ -70,8 +117,9 @@ public abstract class Illness {
     public List<Drug> getDrugList() {
         return drugList;
     }
+    //public abstract int getSeverity();
 
-    public void setDrugList(List<Drug> drugList) {
-        this.drugList = drugList;
-    }
+    //public void setDrugList(List<Drug> drugList) {
+    //    this.drugList = drugList;
+    //}
 }

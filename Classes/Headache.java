@@ -1,9 +1,7 @@
 package Classes;
 
 public class Headache extends Symptom {
-    private String location;
-    private int intensity;
-    
+
     public Headache(Illness illness) {
         this.illness = illness;
         this.illness.addDrug(Drug.readAllDrugs("Headache"));
@@ -16,31 +14,12 @@ public class Headache extends Symptom {
 
     @Override
     public String getDescription() {
-        return super.getDescription()+"headache";
+        return super.getDescription()+"headache,";
     }
 
     @Override
     public double calculateCost() {
-        return illness.calculateCost()+5;
+        return illness.calculateCost()+60;
     }
 
-    public Boolean isMigraine() {
-        return intensity > 8 && "temples".equals(location);
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public int getIntensity() {
-        return intensity;
-    }
-
-    public void setIntensity(int intensity) {
-        this.intensity = intensity;
-    }
 }

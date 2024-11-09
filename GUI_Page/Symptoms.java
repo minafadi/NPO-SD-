@@ -40,12 +40,24 @@ public class Symptoms extends JFrame {
                     i=new Nausea(i);
                     patient.setIllness(i);
                     System.out.println(patient.getIllness().getDescription());
+
                 }
                 if (shortnessOfBreathCheckBox.isSelected()) {
                     Illness i = patient.getIllness();
                     i=new ShortnessOfBreath(i);
                     patient.setIllness(i);
-                    System.out.println(patient.getIllness().getDescription());
+                    /*System.out.println(patient.getIllness().getDescription());
+                    if(i.AddIllness(patient)){
+                        for (int j=0;j<i.getDrugList().size();j++){
+                            System.out.print(i.getDrugList().get(j));
+                        }
+                    }*/
+                }
+                //System.out.println("IDDDDD");
+                //System.out.println(patient.getId());
+                //System.out.println(patient.);
+                if(patient.getIllness().AddIllness(patient)){
+                    setVisible(false);
                 }
             }
         });

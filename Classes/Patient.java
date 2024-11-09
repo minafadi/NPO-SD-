@@ -9,7 +9,9 @@ public class Patient extends User {
     private boolean gender;
     static private Connection dbconn;
     private String password;
-
+    public int getid(){
+        return this.id;
+    }
     public Patient(int id, String name, String phone, Illness illness, int age, boolean gender, String password) {
         super(name, phone);
         this.id = id;
@@ -72,14 +74,12 @@ public class Patient extends User {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                // Assuming your table has fields like id, name, and password
                 this.id = rs.getInt("id");
                 this.age = rs.getInt("age");
                 this.gender = rs.getBoolean("gender");
-                // Assuming you also have an Illness field in the database
-                // This requires an Illness constructor or method that accepts illness data
                 //this.illness = new MentalIllness(); // Replace with actual column name
                 System.out.println("Patient found: " + name);
+                System.out.println("Patient found: " + this.getid());
             } else {
                 System.out.println("No patient found with the given name and password.");
             }
