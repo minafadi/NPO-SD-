@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Illness {
-    private String description;
+    protected String description;
+    //private String description;
     private int treatmentCost;
     private Duration duration;
     private boolean contagious;

@@ -5,19 +5,19 @@ import java.time.Duration;
 public abstract class Symptom extends Illness {
     Illness illness;
 
-    public String getDescription(Illness illness) {
+    public String getDescription() {
         return illness.getDescription();
     }
 
-    public int getSeverity(Illness illness) {
+    public int getSeverity() {
         return illness.severity();
     }
 
-    public Duration getDuration(Illness illness) {
+    public Duration getDuration() {
         return illness.getDuration();
     }
 
-    public Boolean isContagious(Illness illness) {
+    public Boolean isContagious() {
         return illness.isContagious();
     }
 

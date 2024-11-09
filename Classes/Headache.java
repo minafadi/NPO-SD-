@@ -6,6 +6,7 @@ public class Headache extends Symptom {
     
     public Headache(Illness illness) {
         this.illness = illness;
+        this.illness.addDrug(Drug.readAllDrugs("Headache"));
     }
 
     @Override
@@ -14,8 +15,13 @@ public class Headache extends Symptom {
     }
 
     @Override
+    public String getDescription() {
+        return super.getDescription()+"headache";
+    }
+
+    @Override
     public double calculateCost() {
-        throw new UnsupportedOperationException("Unimplemented method 'calculateCost'");
+        return illness.calculateCost()+5;
     }
 
     public Boolean isMigraine() {
