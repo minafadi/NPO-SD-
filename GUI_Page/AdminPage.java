@@ -1,6 +1,9 @@
 package GUI_Page;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AdminPage extends JFrame{
     private JTextField AddDoctorTF;
@@ -14,4 +17,20 @@ public class AdminPage extends JFrame{
     private JLabel AddDoctorLabel;
     private JLabel AddAppointLabel;
     private JLabel AddDrugLabel;
+    private JPanel Admin;
+
+    public AdminPage() {
+        setContentPane(Admin);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setSize((int)(screenSize.width * 0.8),(int)(screenSize.height * 0.8));
+        setLocationRelativeTo(null);
+
+        AddAppointButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AppointmentPage appointmentPage = new AppointmentPage();
+                appointmentPage.setVisible(true);
+            }
+        });
+    }
 }
