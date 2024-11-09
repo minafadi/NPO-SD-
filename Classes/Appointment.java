@@ -16,7 +16,7 @@ public class Appointment {
 
 
     // Constructor with patientId set to -1 by default
-    public Appointment(Date date, int doctorId, String notes) {
+    public Appointment(String date, int doctorId, String notes) {
         this.date = date;
         this.patientId = -1;  // Patient ID defaults to -1 when not provided
         this.doctorId = doctorId;
@@ -50,7 +50,7 @@ public class Appointment {
     }
 
     // Constructor with patientId provided
-    public Appointment(int patientId, Date date, int doctorId, String notes) {
+    public Appointment(int patientId, String  date, int doctorId, String notes) {
         this.patientId = patientId;
         this.date = date;
         this.doctorId = doctorId;
@@ -61,8 +61,6 @@ public class Appointment {
         }
     }
 
-    // Getters and setters
-    static private Connection dbconn;
 
     public Appointment(String d,int Did){
         if(dbconn==null){
@@ -158,11 +156,11 @@ public class Appointment {
         this.id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String  date) {
         this.date = date;
     }
 
