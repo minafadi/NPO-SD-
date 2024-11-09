@@ -19,6 +19,7 @@ public class LoginPage extends JFrame{
 
     public LoginPage() {
         setContentPane(login);
+        setSize(500,500);
         LoginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

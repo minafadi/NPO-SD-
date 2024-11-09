@@ -1,15 +1,36 @@
 package Classes;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Invoice {
+public class Invoice implements InterfaceInvoice{
     private int appointmentId;
     private String patientName;
     private String doctorName;
     private List<Drug> drugList = new ArrayList<>();
     private Payment payment;
     private double totalPrice;
+    public ArrayList<IObserver> mylist;
+
+
+    public Invoice()
+    {
+        mylist=new ArrayList<IObserver>();
+        System.out.println(mylist.size());
+    }
+    public void add(IObserver x){
+        mylist.add(x);
+    }
+    @Override
+    public String updatnotify() {
+        String str="";
+        for (IObserver k:mylist)
+        {
+           str += k.update();
+        }
+        return str;
+    }
 
     public Boolean isDrugAvailable(Drug drug) {
         return drugList.contains(drug);
