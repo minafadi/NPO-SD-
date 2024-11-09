@@ -15,7 +15,7 @@ public abstract class Illness {
 
     public abstract int severity();
 
-    public Boolean isDrugAvailable(Drug drug) {
+    public boolean isDrugAvailable(Drug drug) {
         return drugList.contains(drug);
     }
 
@@ -23,12 +23,12 @@ public abstract class Illness {
         return drugList.get(drugList.indexOf(drug)).getPrice();
     }
 
-    public Boolean addDrug(Drug drug) {
+    public boolean addDrug(Drug drug) {
         drugList.add(drug);
         return true;
     }
 
-    public Boolean removeDrug(Drug drug) {
+    public boolean removeDrug(Drug drug) {
         drugList.remove(drug);
         return true;
     }
@@ -53,12 +53,12 @@ public abstract class Illness {
         return duration;
     }
 
-    public Boolean setDuration(Duration duration) {
+    public boolean setDuration(Duration duration) {
         this.duration = duration;
         return true;
     }
 
-    public Boolean isContagious() {
+    public boolean isContagious() {
         return contagious;
     }
 

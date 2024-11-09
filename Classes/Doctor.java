@@ -29,7 +29,7 @@ public class Doctor extends User {
         this.salary = salary;
     }
 
-    public Boolean updateDoctor(Doctor doctor) {
+    public boolean updateDoctor(Doctor doctor) {
         return true;
     }
 
@@ -81,7 +81,7 @@ public class Doctor extends User {
     }
 
 
-    public Boolean removeDoctor(Doctor doctor) {
+    public boolean removeDoctor(Doctor doctor) {
         return true;
     }
 

@@ -17,7 +17,7 @@ public class Fever extends Symptom {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Boolean isHighFever() {
+    public boolean isHighFever() {
         return temperature > 38.0;
     }
 

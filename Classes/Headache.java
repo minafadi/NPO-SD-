@@ -18,7 +18,7 @@ public class Headache extends Symptom {
         throw new UnsupportedOperationException("Unimplemented method 'calculateCost'");
     }
 
-    public Boolean isMigraine() {
+    public boolean isMigraine() {
         return intensity > 8 && "temples".equals(location);
     }
 

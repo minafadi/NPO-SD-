@@ -89,7 +89,7 @@ public class Patient extends User {
     }
 
 
-    public Boolean updatePatient(Patient patient) {
+    public boolean updatePatient(Patient patient) {
         // Update patient information in the database (example)
         String query = "UPDATE patients SET name = ?, phone = ?, age = ?, gender = ? WHERE id = ?";
         try (PreparedStatement stmt = dbconn.prepareStatement(query)) {
@@ -113,7 +113,7 @@ public class Patient extends User {
         return patient;
     }
 
-    public Boolean removePatient(Patient patient) {
+    public boolean removePatient(Patient patient) {
         String query = "DELETE FROM patients WHERE id = ?";
         try (PreparedStatement stmt = dbconn.prepareStatement(query)) {
             stmt.setInt(1, patient.getId());

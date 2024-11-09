@@ -11,7 +11,7 @@ public class Invoice {
     private Payment payment;
     private double totalPrice;
 
-    public Boolean isDrugAvailable(Drug drug) {
+    public boolean isDrugAvailable(Drug drug) {
         return drugList.contains(drug);
     }
 
@@ -26,12 +26,12 @@ public class Invoice {
         return true;
     }
 
-    public Boolean removeDrug(Drug drug) {
+    public boolean removeDrug(Drug drug) {
         drugList.remove(drug);
         return true;
     }
 
-    public Boolean pay() {
+    public boolean pay() {
         return false;
     }
 

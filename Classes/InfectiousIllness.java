@@ -14,7 +14,7 @@ public class InfectiousIllness extends Illness {
     }
 
     @Override
-    public Boolean isContagious() {
+    public boolean isContagious() {
         return contagionLevel > 7;
     }
 

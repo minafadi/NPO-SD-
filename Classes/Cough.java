@@ -17,7 +17,7 @@ public class Cough extends Symptom {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Boolean isChronic() {
+    public boolean isChronic() {
         return frequency > 10;
     }
 

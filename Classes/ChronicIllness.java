@@ -14,7 +14,7 @@ public class ChronicIllness extends Illness {
         return 2;
     }
 
-    public Boolean requiresLongTermCare() {
+    public boolean requiresLongTermCare() {
         return durationInYears > 1 || isLifelong;
     }
 
@@ -26,7 +26,7 @@ public class ChronicIllness extends Illness {
         this.durationInYears = durationInYears;
     }
 
-    public Boolean getIsLifelong() {
+    public boolean getIsLifelong() {
         return isLifelong;
     }
 

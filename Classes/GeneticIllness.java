@@ -13,7 +13,7 @@ public class GeneticIllness extends Illness {
         return 4;
     }
 
-    public Boolean isHereditary() {
+    public boolean isHereditary() {
         return hereditary;
     }
 

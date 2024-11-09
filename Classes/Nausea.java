@@ -17,7 +17,7 @@ public class Nausea extends Symptom {
         throw new UnsupportedOperationException("Unimplemented method 'calculateCost'");
     }
 
-    public Boolean isSevere() {
+    public boolean isSevere() {
         return this.intensity > 6;
     }
 
