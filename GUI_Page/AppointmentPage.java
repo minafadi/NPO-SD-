@@ -49,14 +49,14 @@ public class AppointmentPage extends JFrame{
 
                 System.out.println(day + " - " + month + " - " + year);
                 LocalDate localDate = LocalDate.of(year, month, day);
-
+                String appdate = day + " - " + month + " - " + year;
                 Date appoinmentDate = java.sql.Date.valueOf(localDate);
                 System.out.println(appoinmentDate);
                 if(reserveForPatientCheckBox.isSelected()){
-                    Appointment a = new Appointment(Integer.parseInt(textField1.getText()),appoinmentDate, Integer.parseInt(textField2.getText()), textField3.getText());
+                    Appointment a = new Appointment(Integer.parseInt(textField1.getText()),appdate, Integer.parseInt(textField2.getText()), textField3.getText());
                 }
                 else {
-                    Appointment a = new Appointment(appoinmentDate, Integer.parseInt(textField2.getText()), textField3.getText());
+                    Appointment a = new Appointment(appdate, Integer.parseInt(textField2.getText()), textField3.getText());
                 }
             }
         });
