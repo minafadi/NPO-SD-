@@ -5,6 +5,7 @@ import java.sql.*;
 
 
 public class Doctor extends User {
+    private int id;
     private String specialization;
     private String degree;
     private int graduationYear;
