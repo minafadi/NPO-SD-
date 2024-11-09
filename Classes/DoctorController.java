@@ -18,5 +18,14 @@ public class DoctorController {
         }
 
         view.ReadDocsList(doctorNames);
+        view.Alldocs = doctorArray;
+        for (Doctor d : doctorArray){
+            String doctorInfo = "Name: " + d.getName() + ", Phone: " + d.getPhone() +
+                    ", Specialization: " + d.getSpecialization() +
+                    ", Degree: " + d.getDegree() + "\n";
+            view.textArea1.append(doctorInfo);
+        }
     }
+
+
 }
