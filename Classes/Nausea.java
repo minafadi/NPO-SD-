@@ -5,6 +5,7 @@ public class Nausea extends Symptom {
 
     public Nausea(Illness illness) {
         this.illness = illness;
+        this.illness.addDrug(Drug.readAllDrugs("Nausea"));
     }
 
     @Override
@@ -14,7 +15,7 @@ public class Nausea extends Symptom {
 
     @Override
     public double calculateCost() {
-        throw new UnsupportedOperationException("Unimplemented method 'calculateCost'");
+        return  illness.calculateCost()+70;
     }
 
     public Boolean isSevere() {

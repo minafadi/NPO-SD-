@@ -3,6 +3,7 @@ package Classes;
 public class Fatigue extends Symptom {
     public Fatigue(Illness illness) {
         this.illness = illness;
+        this.illness.addDrug(Drug.readAllDrugs("Fatigue"));
     }
     
     @Override
@@ -12,6 +13,6 @@ public class Fatigue extends Symptom {
 
     @Override
     public double calculateCost() {
-        throw new UnsupportedOperationException("Unimplemented method 'calculateCost'");
+        return illness.calculateCost()+30;
     }
 }

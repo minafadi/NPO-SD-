@@ -3,6 +3,7 @@ package Classes;
 public class ShortnessOfBreath extends Symptom {
     public ShortnessOfBreath(Illness illness) {
         this.illness = illness;
+        this.illness.addDrug(Drug.readAllDrugs("ShortnessOfBreath"));
     }
 
     @Override
@@ -12,6 +13,6 @@ public class ShortnessOfBreath extends Symptom {
 
     @Override
     public double calculateCost() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return illness.calculateCost() + 150;
     }
 }

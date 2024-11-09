@@ -19,7 +19,6 @@ public class LoginPage extends JFrame{
 
     public LoginPage() {
         setContentPane(login);
-        setSize(500,500);
         LoginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -34,7 +33,7 @@ public class LoginPage extends JFrame{
                 for (String st : dlist.Docs) {
                     dlist.DoctorCBox.addItem(st);
                 }
-                //dlist.DoctorList.add
+
                 dlist.setVisible(true);
             }
         });
