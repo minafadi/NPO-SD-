@@ -33,6 +33,7 @@ public class LoginPage extends JFrame{
                 for (String st : dlist.Docs) {
                     dlist.DoctorCBox.addItem(st);
                 }
+
                 dlist.setVisible(true);
             }
         });

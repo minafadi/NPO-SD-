@@ -15,6 +15,8 @@ public class AddDrug extends JFrame{
     int value2;
     double value3;
     private JPanel addrug;
+    private JComboBox comboBox1;
+    String Value4;
 
     public AddDrug() {
         setContentPane(addrug);
@@ -24,7 +26,7 @@ public class AddDrug extends JFrame{
                 try {
                     // Convert textField1 to String
                     value1 = textField1.getText();
-
+                    Value4=(String) comboBox1.getSelectedItem();
                     // Convert textField2 to int
                     value2 = Integer.parseInt(textField2.getText());
 
@@ -32,7 +34,7 @@ public class AddDrug extends JFrame{
                     value3 = Double.parseDouble(textField3.getText());
 
                     // Now you can use value1, value2, and value3 as needed
-                    Drug dd=new Drug(value1,value2,value3);
+                    Drug dd=new Drug(value1,value2,value3,Value4);
                 } catch (NumberFormatException ee) { // Fully specify the exception class
                     JOptionPane.showMessageDialog(null, "Please enter valid numeric values for fields 2 and 3.");
                     ee.printStackTrace();

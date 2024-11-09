@@ -1,11 +1,21 @@
 package Classes;
 
+import static Classes.Drug.readAllDrugs;
+
 public class InfectiousIllness extends Illness {
     private int contagionLevel;
 
+    public InfectiousIllness() {
+        super.description="Suffering from infectious disease with symptoms:";
+        super.addDrug(readAllDrugs("InfectiousIllness"));
+    }
+    public String getDescription(){
+        return super.description;
+    }
+
     @Override
     public double calculateCost() {
-        throw new UnsupportedOperationException("Unimplemented method 'calculateCost'");
+        return 30;
     }
 
     @Override
