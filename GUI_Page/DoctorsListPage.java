@@ -28,7 +28,7 @@ public class DoctorsListPage extends JFrame{
                     }
                 }
                 //System.out.println(chosendoctor.getDRid());
-                AppointmentsList AppList = new AppointmentsList(chosendoctor.getDRid());
+                AppointmentsList AppList = new AppointmentsList(chosendoctor.getDRid(),p.getid());
                 AppointmentController cont = new AppointmentController(new Appointment(chosendoctor.getDRid()),AppList);
                 cont.updateAppointmentListView();
                 AppList.setVisible(true);

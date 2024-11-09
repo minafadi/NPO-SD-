@@ -19,6 +19,43 @@ public class Doctor extends User {
             this.dbconn = db.ConnectDB();
         }
     }
+    public Doctor(int id) {
+        super(null, null);
+        if(dbconn==null){
+            DB db = new DB();
+            this.dbconn = db.ConnectDB();
+        }
+        this.id = id;
+
+        // SQL query to retrieve doctor details from the database
+        String query = "SELECT name, phone, specialization, degree, graduationYear, salary FROM doctor WHERE Id = ?";
+
+        try (PreparedStatement stmt = dbconn.prepareStatement(query)) {
+            stmt.setInt(1, id);
+
+            // Execute the query and fetch results
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    // Populate the Doctor object's attributes from the database
+                    String name = rs.getString("name");
+                    String phone = rs.getString("phone");
+                    this.specialization = rs.getString("specialization");
+                    this.degree = rs.getString("degree");
+                    this.graduationYear = rs.getInt("graduationYear");
+                    this.salary = rs.getDouble("salary");
+
+                    // Use `super` to set name and phone in the superclass
+                    super.name = name;
+                    super.phone = phone;
+                } else {
+                    throw new SQLException("Doctor with ID " + id + " not found in the database.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exception appropriately (e.g., logging or rethrowing)
+        }
+    }
 
     public Doctor(int id,String name, String phone, String specialization, String degree, int graduationYear, double salary) {
         super(name, phone);
