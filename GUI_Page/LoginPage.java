@@ -1,4 +1,6 @@
 package GUI_Page;
+import Classes.Doctor;
+import Classes.DoctorController;
 import Classes.Patient;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -26,7 +28,12 @@ public class LoginPage extends JFrame{
                 System.out.println(password);
                 Patient p = new Patient(name,password);
                 DoctorsListPage dlist = new DoctorsListPage(p);
-
+                DoctorController c = new DoctorController(new Doctor(),dlist);
+                c.updateDoctorListView();
+                for (String st : dlist.Docs) {
+                    dlist.DoctorCBox.addItem(st);
+                }
+                dlist.setVisible(true);
             }
         });
     }
