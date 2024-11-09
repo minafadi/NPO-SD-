@@ -1,8 +1,5 @@
 import Classes.DB;
-import GUI_Page.AdminPage;
-import GUI_Page.AppointmentPage;
-import GUI_Page.DoctorsListPage;
-import GUI_Page.LoginPage;
+import GUI_Page.*;
 import Classes.*;
 import java.sql.Connection;
 
@@ -13,9 +10,11 @@ public class Main {
         DB db = new DB();
         Connection c = db.ConnectDB();
         System.out.println("Connected to database");
-//        AdminPage a = new AdminPage();
-        AppointmentPage a = new AppointmentPage();
+        AddDoctorPage a = new AddDoctorPage();
         a.setVisible(true);
+//        AdminPage a = new AdminPage();
+//        AppointmentPage a = new AppointmentPage();
+//        a.setVisible(true);
 //        DoctorsListPage d = new DoctorsListPage();
         //d.setVisible(true);
 //        LoginPage l = new LoginPage();

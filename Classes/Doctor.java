@@ -10,6 +10,7 @@ public class Doctor extends User {
     private int graduationYear;
     private double salary;
     static private Connection dbconn;
+
     public Doctor(){
         super();
         if(dbconn==null){
@@ -17,6 +18,7 @@ public class Doctor extends User {
             this.dbconn = db.ConnectDB();
         }
     }
+
     public Doctor(String name, String phone, String specialization, String degree, int graduationYear, double salary) {
         super(name, phone);
         if(dbconn==null){
@@ -27,6 +29,43 @@ public class Doctor extends User {
         this.degree = degree;
         this.graduationYear = graduationYear;
         this.salary = salary;
+    }
+
+    public Doctor(String name, String phone, String specialization, String degree, int graduationYear, double salary, String password) {
+        super(name, phone);
+        if(dbconn==null){
+            DB db = new DB();
+            this.dbconn = db.ConnectDB();
+        }
+        this.specialization = specialization;
+        this.degree = degree;
+        this.graduationYear = graduationYear;
+        this.salary = salary;
+        this.password = password;
+        try (PreparedStatement stmt = dbconn.prepareStatement("INSERT INTO doctor (name, phone, password, specialization, degree, graduationyear, salary) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, this.name);
+            stmt.setString(2, super.phone);
+            stmt.setString(3, this.password);
+            stmt.setString(4, this.specialization);
+            stmt.setString(5, this.degree);
+            stmt.setInt(6, this.graduationYear);
+            stmt.setDouble(7, this.salary);
+
+            int affectedRows = stmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        this.id = generatedKeys.getInt(1); // Get the generated patient ID
+                        System.out.println("New Doctor added with ID: " + this.id);
+                    }
+                }
+            } else {
+                System.out.println("Failed to add new patient.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public Boolean updateDoctor(Doctor doctor) {
