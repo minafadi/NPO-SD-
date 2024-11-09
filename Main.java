@@ -1,5 +1,6 @@
 import Classes.DB;
 import GUI_Page.AddDrug;
+import GUI_Page.ConcreteIllness;
 import GUI_Page.DoctorsListPage;
 import GUI_Page.LoginPage;
 import Classes.*;
@@ -16,8 +17,9 @@ public class Main {
 
         //DoctorsListPage d = new DoctorsListPage();
         //d.setVisible(true);
-        LoginPage l = new LoginPage();
-        l.setVisible(true);
+        Patient p = new Patient("karim","1234");
+        ConcreteIllness conc = new ConcreteIllness(p);
+        conc.setVisible(true);
         //Patient p = new Patient("matwa","1234");
         //Patient p2 = new Patient("karim","1234",22,true,"1234");
         //Drug drug = new Drug("Augmantin",150,23.5);

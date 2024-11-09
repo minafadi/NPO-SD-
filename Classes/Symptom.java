@@ -1,6 +1,7 @@
 package Classes;
 
 import java.time.Duration;
+import java.util.List;
 
 public abstract class Symptom extends Illness {
     Illness illness;
@@ -8,9 +9,13 @@ public abstract class Symptom extends Illness {
     public String getDescription() {
         return illness.getDescription();
     }
+    public void addDrug(Drug drug) {
+        illness.addDrug(drug);  // Use the wrapped illness's drug list
+    }
 
-    public int getSeverity() {
-        return illness.severity();
+    @Override
+    public List<Drug> getDrugList() {
+        return illness.getDrugList(); // Access the original drug list
     }
 
     public Duration getDuration() {

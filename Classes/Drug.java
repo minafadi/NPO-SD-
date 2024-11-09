@@ -15,6 +15,7 @@ public class Drug {
     public Drug(String drugName,double price){
         this.drugName=drugName;
         this.price=price;
+        System.out.print("ktfbs"+drugName);
     }
     public Drug(String drugName, int quantity, double price) {
         this.drugName = drugName;
