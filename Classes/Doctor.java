@@ -20,7 +20,7 @@ public class Doctor extends User {
         }
     }
 
-    public Doctor(String name, String phone, String specialization, String degree, int graduationYear, double salary) {
+//    public Doctor(String name, String phone, String specialization, String degree, int graduationYear, double salary) {
     public Doctor(int id,String name, String phone, String specialization, String degree, int graduationYear, double salary) {
         super(name, phone);
         if(dbconn==null){
