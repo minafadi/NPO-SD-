@@ -10,13 +10,12 @@ public class AppointmentsList extends JFrame{
     private JButton reserveAppointmentButton;
     private JPanel AList;
     public JLabel labeldoc;
-    private Appointment[] DoctorAppointments;
-    private Doctor d;
+    public int Did;
 
-    public AppointmentsList(Doctor d){
+    public AppointmentsList(int Did){
         setContentPane(AList);
         setSize(500,500);
-        this.d=d;
+        this.Did=Did;
     }
 
 }

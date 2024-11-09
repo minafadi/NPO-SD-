@@ -18,7 +18,7 @@ public class Doctor extends User {
             this.dbconn = db.ConnectDB();
         }
     }
-    public Doctor(String name, String phone, String specialization, String degree, int graduationYear, double salary) {
+    public Doctor(int id,String name, String phone, String specialization, String degree, int graduationYear, double salary) {
         super(name, phone);
         if(dbconn==null){
             DB db = new DB();
@@ -28,12 +28,13 @@ public class Doctor extends User {
         this.degree = degree;
         this.graduationYear = graduationYear;
         this.salary = salary;
+        this.id=id;
     }
 
     public Boolean updateDoctor(Doctor doctor) {
         return true;
     }
-
+    public int getDRid(){return this.id;}
     public static Doctor[] readAllDoctors() {
         // Query to get all doctor records from the database
         String query = "SELECT * FROM Doctor";
@@ -56,6 +57,7 @@ public class Doctor extends User {
 
                 int i = 0;
                 while (rs.next()) {
+                    int id = rs.getInt("id");
                     String name = rs.getString("name");
                     String phone = rs.getString("phone");
                     String specialization = rs.getString("specialization");
@@ -64,7 +66,7 @@ public class Doctor extends User {
                     double salary = rs.getDouble("salary");
 
                     // Create a new Doctor object and add it to the array
-                    doctors[i++] = new Doctor(name, phone, specialization, degree, graduationYear, salary);
+                    doctors[i++] = new Doctor(id,name, phone, specialization, degree, graduationYear, salary);
                 }
             }
         } catch (SQLException e) {

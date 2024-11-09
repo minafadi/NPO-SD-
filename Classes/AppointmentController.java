@@ -15,11 +15,11 @@ public class AppointmentController {
         this.view = view;
     }
     public void updateAppointmentListView(){
-        Appointment[] Allapps = model.ReadDoctorApps(model.getDoctor());
+        Appointment[] Allapps = model.ReadDoctorApps(model.getDoctorId());
         for (Appointment a : Allapps){
-            view.comboBox1.addItem("Doctor: "+a.getDoctorName() + ", Date: "+a.getDate());
+            view.comboBox1.addItem("Doctor: "+a.getDoctorNameById() + ", Date: "+a.getDate());
         }
-        view.labeldoc.setText(model.getDoctorName()+"'s Available Appointments");
+        view.labeldoc.setText(model.getDoctorNameById()+"'s Available Appointments");
     }
 
 

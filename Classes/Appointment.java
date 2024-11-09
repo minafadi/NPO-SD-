@@ -11,72 +11,85 @@ public class Appointment {
     private int patientId;
     private int doctorId;
     private String notes;
-    private Doctor d;
+
     static private Connection dbconn;
-    public Appointment(Doctor d){
+
+    public Appointment(String d,int Did){
         if(dbconn==null){
             DB db = new DB();
             this.dbconn = db.ConnectDB();
         }
-        this.d=d;
-    }
-    public Appointment(String d,Doctor doc){
         this.date=d;
-        this.d=doc;
+        this.doctorId=Did;
     }
-    public static Appointment[] ReadDoctorApps(Doctor d) {
+    public Appointment(int Did){
+        if(dbconn==null){
+            DB db = new DB();
+            this.dbconn = db.ConnectDB();
+        }
+        this.doctorId=Did;
+    }
+    public Appointment[] ReadDoctorApps(int doctorId) {
+        //System.out.println(doctorId);
         // Count how many appointments will be returned
         int appointmentCount = 0;
-
-        // SQL query to fetch the doctor ID by name
-        String doctorQuery = "SELECT Id FROM doctor WHERE name = ?";
         // SQL query to fetch appointments for the specified doctor where patient = -1
         String appointmentQuery = "SELECT * FROM appointment WHERE Did = ? AND Pid = -1";
 
         Appointment[] appointmentsArray;
-        try (PreparedStatement doctorStmt = Appointment.dbconn.prepareStatement(doctorQuery)) {
-            // Set the doctor's name in the doctor query
-            doctorStmt.setString(1, d.getName());
 
-            // Execute the doctor query to retrieve the doctorId
-            int doctorId = -1; // Default value if doctor not found
-            try (ResultSet rs = doctorStmt.executeQuery()) {
-                if (rs.next()) {
-                    doctorId = rs.getInt("id"); // Retrieve doctorId
-                } else {
-                    return new Appointment[0]; // If no doctor is found, return an empty array
+        try (PreparedStatement appointmentStmt = Appointment.dbconn.prepareStatement(appointmentQuery)) {
+            // Set the doctorId in the appointment query
+            appointmentStmt.setInt(1, doctorId);
+
+            // Execute the query to count the rows first
+            try (ResultSet rs = appointmentStmt.executeQuery()) {
+                while (rs.next()) {
+                    appointmentCount++;
                 }
             }
+            //System.out.println(doctorId);
+            // If no appointments found, return an empty array
+            if (appointmentCount == 0) {
+                return new Appointment[0];
+            }
 
-            // Now, use the doctorId to fetch the appointments for this doctor
-            try (PreparedStatement appointmentStmt = Appointment.dbconn.prepareStatement(appointmentQuery)) {
-                // Set the doctorId in the appointment query
-                appointmentStmt.setInt(1, doctorId);
+            // Create an array to store the appointments
+            appointmentsArray = new Appointment[appointmentCount];
 
-                // Execute the query to count the rows first
-                try (ResultSet rs = appointmentStmt.executeQuery()) {
-                    while (rs.next()) {
-                        appointmentCount++;
-                    }
+            // Now retrieve the appointments and populate the array
+            try (ResultSet rs = appointmentStmt.executeQuery()) {
+                int index = 0;
+                while (rs.next()) {
+                    String date = rs.getString("date"); // Assuming date is stored under this column
+                    // Create the Appointment object and add it to the array
+                    appointmentsArray[index] = new Appointment(date, doctorId);
+                    System.out.println("oksh");
+                    index++;
                 }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null; // In case of an error, return null or handle as needed
+        }
+        //System.out.println(appointmentsArray[0].id);
+        return appointmentsArray;
+    }
 
-                // If no appointments found, return an empty array
-                if (appointmentCount == 0) {
-                    return new Appointment[0];
-                }
+    public String getDoctorNameById() {
+        // SQL query to fetch the doctor name based on doctorId
+        String query = "SELECT name FROM doctor WHERE id = ?";
+        String doctorName = null;
 
-                // Create an array to store the appointments
-                appointmentsArray = new Appointment[appointmentCount];
+        //System.out.println(doctorId);
+        try (PreparedStatement stmt = Appointment.dbconn.prepareStatement(query)) {
+            // Set the doctorId in the query
+            stmt.setInt(1, this.doctorId);
 
-                // Now retrieve the appointments and populate the array
-                try (ResultSet rs = appointmentStmt.executeQuery()) {
-                    int index = 0;
-                    while (rs.next()) {
-                        String date = rs.getString("date"); // Assuming date is stored under this column
-                        // Create the Appointment object and add it to the array
-                        appointmentsArray[index] = new Appointment(date, d);
-                        index++;
-                    }
+            // Execute the query and get the doctor's name
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    doctorName = rs.getString("name"); // Retrieve the doctor's name
                 }
             }
         } catch (SQLException e) {
@@ -84,11 +97,9 @@ public class Appointment {
             return null; // In case of an error, return null or handle as needed
         }
 
-        return appointmentsArray;
+        return doctorName; // Returns null if the doctor is not found
     }
 
-    public Doctor getDoctor(){return this.d;}
-    public String getDoctorName(){return d.getName();}
     public int getId() {
         return id;
     }
