@@ -16,6 +16,7 @@ public class Symptoms extends JFrame {
     Patient patient;
 
     public Symptoms(Patient patient) {
+        setSize(500,500);
         setContentPane(Symptomss);
         this.patient = patient;
         confirmButton.addActionListener(new ActionListener() {
@@ -58,7 +59,26 @@ public class Symptoms extends JFrame {
                 //System.out.println(patient.);
                 if(patient.getIllness().AddIllness(patient)){
                     setVisible(false);
+                    System.out.println("Drugscost:::");
+                    //System.out.println(patient.getIllness().getDrugscost());
+                    System.out.println("treatmentscost:::");
+                    System.out.println(patient.getIllness().calculateCost());
                 }
+            }
+        });
+        confirmButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("fel symptoms 7agm el array:");
+                System.out.println(patient.getIllness().getDrugList().size());
+
+                DoctorsListPage dlist = new DoctorsListPage(patient);
+                DoctorController c = new DoctorController(new Doctor(),dlist);
+                c.updateDoctorListView();
+                for (String st : dlist.Docs) {
+                    dlist.DoctorCBox.addItem(st);
+                }
+                dlist.setVisible(true);
             }
         });
     }

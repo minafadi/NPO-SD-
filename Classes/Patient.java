@@ -9,9 +9,6 @@ public class Patient extends User {
     private boolean gender;
     static private Connection dbconn;
     private String password;
-    public int getid(){
-        return this.id;
-    }
     public Patient(int id, String name, String phone, Illness illness, int age, boolean gender, String password) {
         super(name, phone);
         this.id = id;

@@ -17,7 +17,8 @@ public class Invoice implements InterfaceInvoice{
     public Invoice()
     {
         mylist=new ArrayList<IObserver>();
-        System.out.println(mylist.size());
+        //System.out.println(mylist.size());
+        setPayment(new CashPayment());
     }
     public void add(IObserver x){
         mylist.add(x);

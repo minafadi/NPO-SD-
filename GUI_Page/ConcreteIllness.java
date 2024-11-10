@@ -13,8 +13,8 @@ public class ConcreteIllness extends JFrame {
     private JButton OKButton;
     //private JPanel ConcIll;
     private JPanel Concill;
-
     public ConcreteIllness(Patient patient) {
+        setSize(500,500);
         this.patient = patient;
         setContentPane(Concill);
         OKButton.addActionListener(new ActionListener() {
@@ -56,7 +56,15 @@ public class ConcreteIllness extends JFrame {
 
                 }
                 Symptoms s=new Symptoms(patient);
+                System.out.println("fel concrete 7agm el array:");
+                System.out.println(patient.getIllness().getDrugList().size());
                 s.setVisible(true);
+
+            }
+        });
+        OKButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
             }
         });

@@ -14,14 +14,14 @@ public class InVoicePage extends JFrame{
     private JButton PayButton;
     private JLabel PatientLabel;
     private JLabel DoctorLabel;
-    private JLabel DrugsLabel;
+    public JLabel DrugsLabel;
     private JLabel PaymentLabel;
-    private JLabel AmountLabel;
-    private JTextField textField1;
-    private JTextField textField3;
+    public JLabel AmountLabel;
+    public JTextField textField1;
+    public JTextField textField3;
     private JPanel invoice;
     private JComboBox comboBox1;
-
+    String PaymentMethod;
     public InVoicePage(){
         setContentPane(invoice);
         setSize(500,500);
@@ -40,9 +40,23 @@ public class InVoicePage extends JFrame{
                 NotifybySMS SMS = new NotifybySMS(i);
                 NotifybyWhatsapp whatsapp = new NotifybyWhatsapp(i);
                 String s = i.updatnotify();
+                Invoice inv = new Invoice();
+                PaymentMethod=comboBox1.getSelectedItem().toString();
+                if(PaymentMethod=="Cash"){
+                    inv.setPayment(new CashPayment());
+                } else if (PaymentMethod=="Visa") {
+                    inv.setPayment(new VisaPayment());
+
+                } else if (PaymentMethod=="Fawry") {
+                    inv.setPayment(new FawryPayment());
+                }
                 Notifications n = new Notifications();
                 n.textArea1.setText(s);
+                n.textArea1.append(inv.getPayment().getDescription());
+
+
                 n.setVisible(true);
+
             }
         });
 

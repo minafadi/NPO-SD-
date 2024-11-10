@@ -12,9 +12,10 @@ public abstract class Illness {
     protected String description;
     protected int Severity;
     //private String description;
-    protected int treatmentCost;
+    public int treatmentCost;
     private Duration duration;
     private boolean contagious;
+    public double drugscost=0;
 
     private final List<Drug> drugList = new ArrayList<>();
     static private Connection dbconn;
@@ -26,8 +27,9 @@ public abstract class Illness {
 
     public void addDrug(Drug drug) {
         drugList.add(drug);
-        System.out.print("ketaaaaaaaafbs:        ");
-        System.out.println(drugList.size());
+        System.out.println("ketaaaaaaaafbs:        ");
+       // System.out.println(getDrugscost());
+       // System.out.println(drugList.size());
     }
 
     public Boolean removeDrug(Drug drug) {
@@ -114,8 +116,16 @@ public abstract class Illness {
         this.contagious = contagious;
     }
 
+    static public double getDrugscost(Drug[] drugList) {
+        double totalCost = 0;
+        for (Drug drug : drugList) {
+            totalCost += drug.getPrice();
+        }
+        return totalCost;
+    }
     public List<Drug> getDrugList() {
-        return drugList;
+
+        return new ArrayList<>(drugList);
     }
     //public abstract int getSeverity();
 
