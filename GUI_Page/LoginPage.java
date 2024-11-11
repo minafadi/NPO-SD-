@@ -19,6 +19,7 @@ public class LoginPage extends JFrame{
 
     public LoginPage() {
         setContentPane(login);
+        setSize(500,500);
         LoginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -27,13 +28,18 @@ public class LoginPage extends JFrame{
                 String password = PasswordPF.getText();
                 System.out.println(password);
                 Patient p = new Patient(name,password);
-                DoctorsListPage dlist = new DoctorsListPage(p);
-                DoctorController c = new DoctorController(new Doctor(),dlist);
-                c.updateDoctorListView();
-                for (String st : dlist.Docs) {
-                    dlist.DoctorCBox.addItem(st);
-                }
-                dlist.setVisible(true);
+//                DoctorsListPage dlist = new DoctorsListPage(p);
+//                DoctorController c = new DoctorController(new Doctor(),dlist);
+//                c.updateDoctorListView();
+//                for (String st : dlist.Docs) {
+//                    dlist.DoctorCBox.addItem(st);
+//                }
+
+                //dlist.setVisible(true);
+
+                ConcreteIllness conc = new ConcreteIllness(p);
+                conc.setVisible(true);
+
             }
         });
     }

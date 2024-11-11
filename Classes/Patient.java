@@ -9,7 +9,6 @@ public class Patient extends User {
     private boolean gender;
     static private Connection dbconn;
     private String password;
-
     public Patient(int id, String name, String phone, Illness illness, int age, boolean gender, String password) {
         super(name, phone);
         this.id = id;
@@ -20,8 +19,48 @@ public class Patient extends User {
         if(dbconn==null){
             DB db = new DB();
             this.dbconn = db.ConnectDB();
+        } if(dbconn==null){
+            DB db = new DB();
+            this.dbconn = db.ConnectDB();
         }
     }
+    public Patient(int id) {
+        super(null, null);
+        if(dbconn==null){
+            DB db = new DB();
+            this.dbconn = db.ConnectDB();
+        }
+        this.id = id;
+
+        // SQL query to retrieve patient details from the database
+        String query = "SELECT name, phone, age, gender, password FROM patient WHERE Id = ?";
+
+        try (PreparedStatement stmt = dbconn.prepareStatement(query)) {
+            stmt.setInt(1, id);
+
+            // Execute the query and fetch results
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    // Populate the Patient object's attributes from the database
+                    String name = rs.getString("name");
+                    String phone = rs.getString("phone");
+                    this.age = rs.getInt("age");
+                    this.gender = rs.getBoolean("gender");
+                    this.password = rs.getString("password");
+
+                    // Set name and phone in the superclass (Person)
+                    super.name = name;
+                    super.phone = phone;
+                } else {
+                    throw new SQLException("Patient with ID " + id + " not found in the database.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exception appropriately (e.g., logging or rethrowing)
+        }
+    }
+
     //to create new patient in database
     public Patient(String name, String phone, int age, boolean gender, String password) {
         super(name, phone);
@@ -72,14 +111,12 @@ public class Patient extends User {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                // Assuming your table has fields like id, name, and password
                 this.id = rs.getInt("id");
                 this.age = rs.getInt("age");
                 this.gender = rs.getBoolean("gender");
-                // Assuming you also have an Illness field in the database
-                // This requires an Illness constructor or method that accepts illness data
                 //this.illness = new MentalIllness(); // Replace with actual column name
                 System.out.println("Patient found: " + name);
+                System.out.println("Patient found: " + this.getid());
             } else {
                 System.out.println("No patient found with the given name and password.");
             }
@@ -88,8 +125,8 @@ public class Patient extends User {
         }
     }
 
-
-    public boolean updatePatient(Patient patient) {
+    public int getid(){return this.id;}
+    public Boolean updatePatient(Patient patient) {
         // Update patient information in the database (example)
         String query = "UPDATE patients SET name = ?, phone = ?, age = ?, gender = ? WHERE id = ?";
         try (PreparedStatement stmt = dbconn.prepareStatement(query)) {
@@ -113,7 +150,7 @@ public class Patient extends User {
         return patient;
     }
 
-    public boolean removePatient(Patient patient) {
+    public Boolean removePatient(Patient patient) {
         String query = "DELETE FROM patients WHERE id = ?";
         try (PreparedStatement stmt = dbconn.prepareStatement(query)) {
             stmt.setInt(1, patient.getId());

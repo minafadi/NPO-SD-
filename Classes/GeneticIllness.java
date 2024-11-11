@@ -1,24 +1,12 @@
 package Classes;
 
 public class GeneticIllness extends Illness {
-    private Boolean hereditary;
-    
-    @Override
-    public double calculateCost() {
-        throw new UnsupportedOperationException("Unimplemented method 'calculateCost'");
-    }
 
-    @Override
-    public int severity() {
-        return 4;
-    }
 
-    public boolean isHereditary() {
-        return hereditary;
-    }
-
-    public void setHereditary(Boolean hereditary) {
-        this.hereditary = hereditary;
+    public GeneticIllness() {
+            super.Severity=5;
+            super.treatmentCost=400;
+            super.description="Suffering from hereditary Genetic disease with symptoms:";
     }
 
 }

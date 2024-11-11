@@ -5,8 +5,11 @@ public class Nausea extends Symptom {
 
     public Nausea(Illness illness) {
         this.illness = illness;
+        this.illness.addDrug(Drug.readAllDrugs("Nausea"));
     }
-
+    public String getDescription() {
+        return super.getDescription()+"nausea";
+    }
     @Override
     public int severity() {
         return illness.severity() + 3;
@@ -14,19 +17,7 @@ public class Nausea extends Symptom {
 
     @Override
     public double calculateCost() {
-        throw new UnsupportedOperationException("Unimplemented method 'calculateCost'");
-    }
-
-    public boolean isSevere() {
-        return this.intensity > 6;
-    }
-
-    public int getIntensity() {
-        return intensity;
-    }
-
-    public void setIntensity(int intensity) {
-        this.intensity = intensity;
+        return  illness.calculateCost()+70;
     }
 
 }

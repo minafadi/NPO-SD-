@@ -1,29 +1,16 @@
 package Classes;
 
+import static Classes.Drug.readAllDrugs;
+
 public class InfectiousIllness extends Illness {
     private int contagionLevel;
 
-    @Override
-    public double calculateCost() {
-        throw new UnsupportedOperationException("Unimplemented method 'calculateCost'");
+    public InfectiousIllness() {
+        super.description="Suffering from infectious disease with symptoms:";
+        super.Severity=2;
+        super.treatmentCost=50;
+        super.addDrug(readAllDrugs("InfectiousIllness"));
     }
 
-    @Override
-    public int severity() {
-        return 1;
-    }
-
-    @Override
-    public boolean isContagious() {
-        return contagionLevel > 7;
-    }
-
-    public int getContagionLevel() {
-        return contagionLevel;
-    }
-
-    public void setContagionLevel(int contagionLevel) {
-        this.contagionLevel = contagionLevel;
-    }
 
 }

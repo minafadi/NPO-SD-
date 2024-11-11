@@ -1,23 +1,46 @@
 package GUI_Page;
-import Classes.Patient;
+import Classes.*;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class DoctorsListPage extends JFrame{
-    public JList DoctorList;
+    public DefaultListModel<String> listModel = new DefaultListModel<>();
     public JComboBox DoctorCBox;
     private JButton SubmitButton;
     private JPanel DList;
+    public JTextArea textArea1;
     private Patient p;
     public String [] Docs;
+    public Doctor[] Alldocs;
     public DoctorsListPage(Patient p){
         this.p=p;
         this.setContentPane(DList);
+        setSize(500,500);
         SubmitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("test");
+                Doctor chosendoctor=new Doctor();
+                for (Doctor d : Alldocs){
+                    if(d.getName().equals(DoctorCBox.getSelectedItem())){
+                        chosendoctor = d;
+                    }
+                }
+
+                System.out.println("fel doctorlist:");
+                System.out.println(p.getIllness().getDrugList().size());
+                Drug dd[]=p.getIllness().getDrugList().toArray(new Drug[0]);
+                System.out.print(dd.length);
+
+                //throw Exception(Exception eee);
+                //System.out.println(chosendoctor.getDRid());
+                System.out.println("EL SE333333333333333r");
+                //System.out.println(p.getIllness().getDrugscost());
+                AppointmentsList AppList = new AppointmentsList(chosendoctor.getDRid(),p.getid(), p.getIllness(), dd);
+                AppointmentController cont = new AppointmentController(new Appointment(chosendoctor.getDRid()),AppList);
+                cont.updateAppointmentListView();
+                AppList.setVisible(true);
             }
         });
     }

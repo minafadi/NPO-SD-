@@ -5,6 +5,7 @@ public class Fever extends Symptom {
 
     public Fever(Illness illness) {
         this.illness = illness;
+        this.illness.addDrug(Drug.readAllDrugs("Fever"));
     }
     
     @Override
@@ -13,19 +14,14 @@ public class Fever extends Symptom {
     }
 
     @Override
+    public String getDescription() {
+        return super.getDescription()+"Fever,";
+    }
+
+    @Override
     public double calculateCost() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return illness.calculateCost()+50;
     }
 
-    public boolean isHighFever() {
-        return temperature > 38.0;
-    }
 
-    public double getTemperature() {
-        return temperature;
-    }
-
-    public void setTemperature(double temperature) {
-        this.temperature = temperature;
-    }
 }

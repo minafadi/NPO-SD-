@@ -1,15 +1,10 @@
 package Classes;
 
 public class AcuteIllness extends Illness {
-
-    @Override
-    public double calculateCost() {
-        throw new UnsupportedOperationException("Unimplemented method 'calculateCost'");
-    }
-
-    @Override
-    public int severity() {
-        return 32;
+    public AcuteIllness() {
+        super.description="Suffering from Acute Illness with symptoms:";
+        super.Severity=1;
+        super.treatmentCost=20;
     }
 
 }

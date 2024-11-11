@@ -1,23 +1,28 @@
 package Classes;
 
 import java.time.Duration;
+import java.util.List;
 
 public abstract class Symptom extends Illness {
     Illness illness;
 
-    public String getDescription(Illness illness) {
+    public String getDescription() {
         return illness.getDescription();
     }
-
-    public int getSeverity(Illness illness) {
-        return illness.severity();
+    public void addDrug(Drug drug) {
+        illness.addDrug(drug);  // Use the wrapped illness's drug list
     }
 
-    public Duration getDuration(Illness illness) {
+    @Override
+    public List<Drug> getDrugList() {
+        return illness.getDrugList(); // Access the original drug list
+    }
+
+    public Duration getDuration() {
         return illness.getDuration();
     }
 
-    public boolean isContagious(Illness illness) {
+    public Boolean isContagious() {
         return illness.isContagious();
     }
 

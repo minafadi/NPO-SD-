@@ -1,15 +1,14 @@
 package Classes;
 
+import static Classes.Drug.readAllDrugs;
+
 public class AutoimmuneIllness extends Illness {
-
-    @Override
-    public double calculateCost() {
-        throw new UnsupportedOperationException("Unimplemented method 'calculateCost'");
+    public AutoimmuneIllness() {
+        super.description="Suffering from AutoImmune disease with symptoms:";
+        super.Severity=5;
+        super.treatmentCost=90;
+        super.addDrug(readAllDrugs("AutoImmuneIllness"));
     }
 
-    @Override
-    public int severity() {
-        return 8;
-    }
 
 }
