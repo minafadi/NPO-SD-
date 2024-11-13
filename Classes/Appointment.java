@@ -14,7 +14,6 @@ public class Appointment {
     private String notes;
 
 
-    // Constructor with patientId set to -1 by default
     public Appointment(String date, int doctorId, String notes) {
         this.date = date;
         this.patientId = -1;  // Patient ID defaults to -1 when not provided

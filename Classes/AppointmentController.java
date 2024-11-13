@@ -8,18 +8,20 @@ import javax.print.Doc;
 public class AppointmentController {
     private Appointment model;
     private AppointmentsList view;
+    private Patient p;
+    private Drug [] dd;
 
-
-    public AppointmentController(Appointment model, AppointmentsList view) {
+    public AppointmentController(Appointment model, Patient p,Drug[] dd) {
         this.model = model;
-        this.view = view;
+        this.p=p;
+        this.dd=dd;
+
     }
     public void updateAppointmentListView(){
         Appointment[] Allapps = model.ReadDoctorApps(model.getDoctorId());
-        for (Appointment a : Allapps){
-            view.comboBox1.addItem("Doctor: "+a.getDoctorNameById() + ", Date: "+a.getDate());
-        }
-        view.labeldoc.setText(model.getDoctorNameById()+"'s Available Appointments");
+        Doctor d = new Doctor(model.getDoctorId());
+        this.view = new AppointmentsList(d,p,dd,Allapps);
+        this.view.setVisible(true);
     }
 
 

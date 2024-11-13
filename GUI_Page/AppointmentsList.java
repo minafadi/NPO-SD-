@@ -12,29 +12,24 @@ public class AppointmentsList extends JFrame{
     private JButton reserveAppointmentButton;
     private JPanel AList;
     public JLabel labeldoc;
-    public int Did;
-    public int Pid;
-    public Illness il;
     String drugss;
-    public AppointmentsList(int Did, int Pid,Illness il ,Drug[] dd){
+    public AppointmentsList(Doctor d, Patient p,Drug[] dd,Appointment[] Allapps){
         setContentPane(AList);
         setSize(500,500);
-        this.Did=Did;
-        this.Pid=Pid;
-        this.il=il;
+        for (Appointment a : Allapps){
+            comboBox1.addItem("Doctor: "+a.getDoctorNameById() + ", Date: "+a.getDate());
+        }
+        labeldoc.setText(d.getName()+"'s Available Appointments");
         reserveAppointmentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for(int i=0;i<dd.length;i++){
                     drugss+=dd[i].getDrugName()+", ";
                 }
-                InVoicePage i = new InVoicePage(Did,Pid);
-                Doctor d = new Doctor(Did);
-                Patient p =new Patient(Pid);
-                //double total = il.getDrugscost();
+                InVoicePage i = new InVoicePage(d.getDRid(),p.getid());
                 double total = Illness.getDrugscost(dd);
                 double total2 = d.getSalary();
-                double total3=il.calculateCost();
+                double total3=p.getIllness().calculateCost();
                 i.textField3.setText(String.valueOf(total + total2 + total3));
                 i.PatientTF.setText(p.getName());
                 i.DoctorTF.setText(d.getName());

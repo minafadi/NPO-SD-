@@ -31,16 +31,10 @@ public class DoctorsListPage extends JFrame{
                 System.out.println("fel doctorlist:");
                 System.out.println(p.getIllness().getDrugList().size());
                 Drug dd[]=p.getIllness().getDrugList().toArray(new Drug[0]);
-                System.out.print(dd.length);
 
-                //throw Exception(Exception eee);
-                //System.out.println(chosendoctor.getDRid());
-                System.out.println("EL SE333333333333333r");
-                //System.out.println(p.getIllness().getDrugscost());
-                AppointmentsList AppList = new AppointmentsList(chosendoctor.getDRid(),p.getid(), p.getIllness(), dd);
-                AppointmentController cont = new AppointmentController(new Appointment(chosendoctor.getDRid()),AppList);
+                AppointmentController cont = new AppointmentController(new Appointment(chosendoctor.getDRid()),p,dd);
                 cont.updateAppointmentListView();
-                AppList.setVisible(true);
+
             }
         });
     }
