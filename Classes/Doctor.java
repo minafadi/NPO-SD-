@@ -10,27 +10,18 @@ public class Doctor extends User {
     private String degree;
     private int graduationYear;
     private double salary;
-    static private Connection dbconn;
 
     public Doctor(){
         super();
-        if(dbconn==null){
-            DB db = new DB();
-            this.dbconn = db.ConnectDB();
-        }
     }
     public Doctor(int id) {
         super(null, null);
-        if(dbconn==null){
-            DB db = new DB();
-            this.dbconn = db.ConnectDB();
-        }
         this.id = id;
 
         // SQL query to retrieve doctor details from the database
         String query = "SELECT name, phone, specialization, degree, graduationYear, salary FROM doctor WHERE Id = ?";
 
-        try (PreparedStatement stmt = dbconn.prepareStatement(query)) {
+        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement(query)) {
             stmt.setInt(1, id);
 
             // Execute the query and fetch results
@@ -59,10 +50,6 @@ public class Doctor extends User {
 
     public Doctor(int id,String name, String phone, String specialization, String degree, int graduationYear, double salary) {
         super(name, phone);
-        if(dbconn==null){
-            DB db = new DB();
-            this.dbconn = db.ConnectDB();
-        }
         this.specialization = specialization;
         this.degree = degree;
         this.graduationYear = graduationYear;
@@ -72,16 +59,12 @@ public class Doctor extends User {
 
     public Doctor(String name, String phone, String specialization, String degree, int graduationYear, double salary, String password) {
         super(name, phone);
-        if(dbconn==null){
-            DB db = new DB();
-            this.dbconn = db.ConnectDB();
-        }
         this.specialization = specialization;
         this.degree = degree;
         this.graduationYear = graduationYear;
         this.salary = salary;
         this.password = password;
-        try (PreparedStatement stmt = dbconn.prepareStatement("INSERT INTO doctor (name, phone, password, specialization, degree, graduationyear, salary) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement("INSERT INTO doctor (name, phone, password, specialization, degree, graduationyear, salary) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, this.name);
             stmt.setString(2, super.phone);
             stmt.setString(3, this.password);
@@ -120,7 +103,7 @@ public class Doctor extends User {
 
         try {
             // Create a scrollable statement
-            stmt = dbconn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            stmt = DB.getInstance().getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(query);
 
             // Check if there are results and get the count

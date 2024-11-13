@@ -12,7 +12,6 @@ public class Appointment {
     private int patientId;
     private int doctorId;
     private String notes;
-    static private Connection dbconn;
 
 
     // Constructor with patientId set to -1 by default
@@ -21,11 +20,7 @@ public class Appointment {
         this.patientId = -1;  // Patient ID defaults to -1 when not provided
         this.doctorId = doctorId;
         this.notes = notes;
-        if(dbconn==null){
-            DB db = new DB();
-            this.dbconn = db.ConnectDB();
-        }
-        try (PreparedStatement stmt = dbconn.prepareStatement("INSERT INTO appointment (date, Pid, Did, Notes) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement("INSERT INTO appointment (date, Pid, Did, Notes) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, this.date.toString());
             stmt.setInt(2, this.patientId);
             //stmt.setString(3, illness.toString());
@@ -55,26 +50,14 @@ public class Appointment {
         this.date = date;
         this.doctorId = doctorId;
         this.notes = notes;
-        if(dbconn==null){
-            DB db = new DB();
-            this.dbconn = db.ConnectDB();
-        }
     }
 
 
     public Appointment(String d,int Did){
-        if(dbconn==null){
-            DB db = new DB();
-            this.dbconn = db.ConnectDB();
-        }
         this.date=d;
         this.doctorId=Did;
     }
     public Appointment(int Did){
-        if(dbconn==null){
-            DB db = new DB();
-            this.dbconn = db.ConnectDB();
-        }
         this.doctorId=Did;
     }
     public Appointment[] ReadDoctorApps(int doctorId) {
@@ -86,7 +69,7 @@ public class Appointment {
 
         Appointment[] appointmentsArray;
 
-        try (PreparedStatement appointmentStmt = Appointment.dbconn.prepareStatement(appointmentQuery)) {
+        try (PreparedStatement appointmentStmt = DB.getInstance().getConnection().prepareStatement(appointmentQuery)) {
             // Set the doctorId in the appointment query
             appointmentStmt.setInt(1, doctorId);
 
@@ -130,7 +113,7 @@ public class Appointment {
         String doctorName = null;
 
         //System.out.println(doctorId);
-        try (PreparedStatement stmt = Appointment.dbconn.prepareStatement(query)) {
+        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement(query)) {
             // Set the doctorId in the query
             stmt.setInt(1, this.doctorId);
 

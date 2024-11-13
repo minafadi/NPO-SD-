@@ -18,7 +18,6 @@ public abstract class Illness {
     public double drugscost=0;
 
     private final List<Drug> drugList = new ArrayList<>();
-    static private Connection dbconn;
 
     public double calculateCost(){return treatmentCost;}
 
@@ -65,10 +64,6 @@ public abstract class Illness {
         return severity();
     }
     public boolean AddIllness(Patient patient) {
-        if (dbconn == null) {
-            DB db = new DB();
-            this.dbconn = db.ConnectDB();
-        }
 
         System.out.print("Drugs associated with illness:");
         for (Drug drug : patient.getIllness().getDrugList()) {
@@ -77,7 +72,7 @@ public abstract class Illness {
 
         // Insert into Illness table
         String sql = "INSERT INTO illness (description, severity, treatmentcost) VALUES (?, ?, ?)";
-        try (PreparedStatement stmt = dbconn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, this.getDescription()); // `description` attribute
             stmt.setInt(2, this.getSeverity());       // `severity` attribute
             stmt.setDouble(3, this.calculateCost());  // `treatmentCost` attribute
@@ -92,7 +87,7 @@ public abstract class Illness {
 
                         // Insert into PatientIllness table
                         String patientIllnessSql = "INSERT INTO PatientIllness (PID, IID) VALUES (?, ?)";
-                        try (PreparedStatement patientIllnessStmt = dbconn.prepareStatement(patientIllnessSql)) {
+                        try (PreparedStatement patientIllnessStmt = DB.getInstance().getConnection().prepareStatement(patientIllnessSql)) {
                             patientIllnessStmt.setInt(1, patient.getid()); // patient ID (PID)
                             patientIllnessStmt.setInt(2, illnessId);       // illness ID (IID)
 

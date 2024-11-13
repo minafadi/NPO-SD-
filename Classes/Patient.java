@@ -7,7 +7,6 @@ public class Patient extends User {
     private Illness illness;
     private int age;
     private boolean gender;
-    static private Connection dbconn;
     private String password;
     public Patient(int id, String name, String phone, Illness illness, int age, boolean gender, String password) {
         super(name, phone);
@@ -16,26 +15,15 @@ public class Patient extends User {
         this.age = age;
         this.gender = gender;
         this.password = password;
-        if(dbconn==null){
-            DB db = new DB();
-            this.dbconn = db.ConnectDB();
-        } if(dbconn==null){
-            DB db = new DB();
-            this.dbconn = db.ConnectDB();
-        }
     }
     public Patient(int id) {
         super(null, null);
-        if(dbconn==null){
-            DB db = new DB();
-            this.dbconn = db.ConnectDB();
-        }
         this.id = id;
 
         // SQL query to retrieve patient details from the database
         String query = "SELECT name, phone, age, gender, password FROM patient WHERE Id = ?";
 
-        try (PreparedStatement stmt = dbconn.prepareStatement(query)) {
+        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement(query)) {
             stmt.setInt(1, id);
 
             // Execute the query and fetch results
@@ -67,12 +55,8 @@ public class Patient extends User {
         this.age = age;
         this.gender = gender;
         this.password = password;
-        if(dbconn==null){
-            DB db = new DB();
-            this.dbconn = db.ConnectDB();
-        }
         // Insert the new patient into the database
-        try (PreparedStatement stmt = dbconn.prepareStatement("INSERT INTO patient (name, phone,age, gender, password) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement("INSERT INTO patient (name, phone,age, gender, password) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, this.name);
             stmt.setString(2, this.phone);
             //stmt.setString(3, illness.toString());
@@ -99,12 +83,8 @@ public class Patient extends User {
     //get existing object from db
     public Patient(String name, String password) {
         super(name, password);
-        if(dbconn==null){
-            DB db = new DB();
-            this.dbconn = db.ConnectDB();
-        }
         // Use the static dbconn attribute to retrieve patient from the database
-        try (PreparedStatement stmt = dbconn.prepareStatement("SELECT * FROM patient WHERE name = ? AND password = ?")) {
+        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement("SELECT * FROM patient WHERE name = ? AND password = ?")) {
             stmt.setString(1, name);
             stmt.setString(2, password);
 
@@ -129,7 +109,7 @@ public class Patient extends User {
     public Boolean updatePatient(Patient patient) {
         // Update patient information in the database (example)
         String query = "UPDATE patients SET name = ?, phone = ?, age = ?, gender = ? WHERE id = ?";
-        try (PreparedStatement stmt = dbconn.prepareStatement(query)) {
+        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement(query)) {
             stmt.setString(1, patient.getName());
             stmt.setString(2, patient.getPhone());
             //stmt.setString(3, patient.getIllness().toString()); // Adjust for Illness type
@@ -152,7 +132,7 @@ public class Patient extends User {
 
     public Boolean removePatient(Patient patient) {
         String query = "DELETE FROM patients WHERE id = ?";
-        try (PreparedStatement stmt = dbconn.prepareStatement(query)) {
+        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement(query)) {
             stmt.setInt(1, patient.getId());
             int result = stmt.executeUpdate();
             return result > 0;  // Returns true if removal was successful
@@ -190,8 +170,8 @@ public class Patient extends User {
     // Static method to close the database connection when done
     public static void closeConnection() {
         try {
-            if (dbconn != null && !dbconn.isClosed()) {
-                dbconn.close();
+            if (DB.getInstance().getConnection() != null && !DB.getInstance().getConnection().isClosed()) {
+                DB.getInstance().getConnection().close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
