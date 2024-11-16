@@ -4,6 +4,7 @@ import Classes.*;
 
 import javax.swing.*;
 import javax.swing.plaf.ActionMapUIResource;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,7 +15,9 @@ public class ConcreteIllness extends JFrame {
     //private JPanel ConcIll;
     private JPanel Concill;
     public ConcreteIllness(Patient patient) {
-        setSize(500,500);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setSize((int)(screenSize.width * 0.8),(int)(screenSize.height * 0.8));
+        setLocationRelativeTo(null);
         this.patient = patient;
         setContentPane(Concill);
         OKButton.addActionListener(new ActionListener() {

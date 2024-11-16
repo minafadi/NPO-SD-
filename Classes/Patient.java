@@ -3,11 +3,9 @@ package Classes;
 import java.sql.*;
 
 public class Patient extends User {
-    private int id;
     private Illness illness;
     private int age;
     private boolean gender;
-    private String password;
     public Patient(int id, String name, String phone, Illness illness, int age, boolean gender, String password) {
         super(name, phone);
         this.id = id;
@@ -137,6 +135,27 @@ public class Patient extends User {
             int result = stmt.executeUpdate();
             return result > 0;  // Returns true if removal was successful
         } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static Boolean AuthenticatePatient(String name, String password) {
+        String query = "SELECT COUNT(*) FROM patient WHERE name = ? AND password = ?";
+
+        try (PreparedStatement statement = DB.getInstance().getConnection().prepareStatement(query)) {
+            // Set query parameters
+            statement.setString(1, name);
+            statement.setString(2, password);
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next() && resultSet.getInt(1) > 0) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }

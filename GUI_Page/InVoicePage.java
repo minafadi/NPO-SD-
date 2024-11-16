@@ -3,6 +3,7 @@ package GUI_Page;
 import Classes.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.classfile.instruction.InvokeDynamicInstruction;
@@ -29,7 +30,9 @@ public class InVoicePage extends JFrame{
     }
     public InVoicePage(int Did,int Pid){
         setContentPane(invoice);
-        setSize(500,500);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setSize((int)(screenSize.width * 0.8),(int)(screenSize.height * 0.8));
+        setLocationRelativeTo(null);
         PayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

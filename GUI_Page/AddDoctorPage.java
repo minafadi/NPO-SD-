@@ -21,6 +21,7 @@ public class AddDoctorPage extends JFrame{
     private JButton addButton;
     private JPanel addDoctor;
     private JLabel errorMessage;
+    private JLabel idlabel;
 
 
     public AddDoctorPage() {
@@ -46,6 +47,7 @@ public class AddDoctorPage extends JFrame{
                 double salary = (int) spinner2.getValue();
 
                 Doctor d = new Doctor(name, phoneNumeber, specialization, degree, graduationYear, salary, password);
+                idlabel.setText("New Doctor Added with ID: "+String.valueOf(d.getDRid()));
             }
         });
     }
