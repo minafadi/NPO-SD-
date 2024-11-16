@@ -37,8 +37,8 @@ public class DoctorsListPage extends JFrame{
                 }
                 Drug dd[]=p.getIllness().getDrugList().toArray(new Drug[0]);
                 //Appointment MVC
-                AppointmentController cont = new AppointmentController(new Appointment(chosendoctor.getDRid()),p,dd);
-                cont.updateAppointmentListView();
+                AppointmentController cont = new AppointmentController(new Appointment(chosendoctor.getDRid()));
+                cont.updateAppointmentListView(p,dd);
 
             }
         });

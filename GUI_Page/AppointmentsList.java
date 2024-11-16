@@ -14,7 +14,7 @@ public class AppointmentsList extends JFrame{
     private JPanel AList;
     public JLabel labeldoc;
     String drugss;
-    public AppointmentsList(Doctor d, Patient p,Drug[] dd,Appointment[] Allapps){
+    public AppointmentsList(Doctor d, Patient p,Drug[] dd,Appointment[] Allapps,double total){
         setContentPane(AList);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize((int)(screenSize.width * 0.8),(int)(screenSize.height * 0.8));
@@ -30,10 +30,7 @@ public class AppointmentsList extends JFrame{
                     drugss+=dd[i].getDrugName()+", ";
                 }
                 InVoicePage i = new InVoicePage(d.getDRid(),p.getid());
-                double total = Illness.getDrugscost(dd);
-                double total2 = d.getSalary();
-                double total3=p.getIllness().calculateCost();
-                i.textField3.setText(String.valueOf(total + total2 + total3));
+                i.textField3.setText(String.valueOf(total));
                 i.PatientTF.setText(p.getName());
                 i.DoctorTF.setText(d.getName());
                 i.PatientTF.setEnabled(false);

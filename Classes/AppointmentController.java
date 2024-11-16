@@ -8,19 +8,19 @@ import javax.print.Doc;
 public class AppointmentController {
     private Appointment model;
     private AppointmentsList view;
-    private Patient p;
-    private Drug [] dd;
 
-    public AppointmentController(Appointment model, Patient p,Drug[] dd) {
+    public AppointmentController(Appointment model) {
         this.model = model;
-        this.p=p;
-        this.dd=dd;
-
     }
-    public void updateAppointmentListView(){
+    public void updateAppointmentListView(Patient p,Drug [] dd){
         Appointment[] Allapps = model.ReadDoctorApps(model.getDoctorId());
         Doctor d = new Doctor(model.getDoctorId());
-        this.view = new AppointmentsList(d,p,dd,Allapps);
+        double total = Illness.getDrugscost(dd);
+        double total2 = d.getSalary();
+        double total3=p.getIllness().calculateCost();
+        //Insert invoice to db
+        Invoice.insert(p.getName(),d.getName(),dd,(total+total2+total3));
+        this.view = new AppointmentsList(d,p,dd,Allapps,(total+total2+total3));
         this.view.setVisible(true);
     }
 
