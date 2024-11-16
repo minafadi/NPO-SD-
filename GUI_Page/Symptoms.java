@@ -47,38 +47,18 @@ public class Symptoms extends JFrame {
                     Illness i = patient.getIllness();
                     i=new ShortnessOfBreath(i);
                     patient.setIllness(i);
-                    /*System.out.println(patient.getIllness().getDescription());
-                    if(i.AddIllness(patient)){
-                        for (int j=0;j<i.getDrugList().size();j++){
-                            System.out.print(i.getDrugList().get(j));
-                        }
-                    }*/
                 }
-                //System.out.println("IDDDDD");
-                //System.out.println(patient.getId());
-                //System.out.println(patient.);
                 if(patient.getIllness().AddIllness(patient)){
                     setVisible(false);
-                    System.out.println("Drugscost:::");
-                    //System.out.println(patient.getIllness().getDrugscost());
-                    System.out.println("treatmentscost:::");
-                    System.out.println(patient.getIllness().calculateCost());
                 }
             }
         });
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("fel symptoms 7agm el array:");
-                System.out.println(patient.getIllness().getDrugList().size());
+                DoctorController c = new DoctorController(new Doctor());
+                c.updateDoctorListView(patient);
 
-                DoctorsListPage dlist = new DoctorsListPage(patient);
-                DoctorController c = new DoctorController(new Doctor(),dlist);
-                c.updateDoctorListView();
-                for (String st : dlist.Docs) {
-                    dlist.DoctorCBox.addItem(st);
-                }
-                dlist.setVisible(true);
             }
         });
     }

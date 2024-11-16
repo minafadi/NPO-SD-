@@ -11,13 +11,18 @@ public class DoctorsListPage extends JFrame{
     private JButton SubmitButton;
     private JPanel DList;
     public JTextArea textArea1;
-    private Patient p;
-    public String [] Docs;
-    public Doctor[] Alldocs;
-    public DoctorsListPage(Patient p){
-        this.p=p;
+    public DoctorsListPage(Patient p,Doctor[] Alldocs){
         this.setContentPane(DList);
         setSize(500,500);
+        for (Doctor d : Alldocs){
+            String doctorInfo = "Name: " + d.getName() + ", Phone: " + d.getPhone() +
+                    ", Specialization: " + d.getSpecialization() +
+                    ", Degree: " + d.getDegree() + "\n";
+            textArea1.append(doctorInfo);
+        }
+        for(Doctor d : Alldocs){
+            DoctorCBox.addItem(d.getName());
+        }
         SubmitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -27,29 +32,12 @@ public class DoctorsListPage extends JFrame{
                         chosendoctor = d;
                     }
                 }
-
-                System.out.println("fel doctorlist:");
-                System.out.println(p.getIllness().getDrugList().size());
                 Drug dd[]=p.getIllness().getDrugList().toArray(new Drug[0]);
-
+                //Appointment MVC
                 AppointmentController cont = new AppointmentController(new Appointment(chosendoctor.getDRid()),p,dd);
                 cont.updateAppointmentListView();
 
             }
         });
-    }
-    public DoctorsListPage() {
-        this.setContentPane(DList);
-        SubmitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("test");
-            }
-        });
-    }
-    public boolean ReadDocsList(String [] d){
-        Docs=d;
-        System.out.println(d[0]);
-        return true;
     }
 }
