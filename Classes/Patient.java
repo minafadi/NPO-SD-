@@ -94,7 +94,7 @@ public class Patient extends User {
                 this.gender = rs.getBoolean("gender");
                 //this.illness = new MentalIllness(); // Replace with actual column name
                 System.out.println("Patient found: " + name);
-                System.out.println("Patient found: " + this.getid());
+                System.out.println("Patient found: " + this.getId());
             } else {
                 System.out.println("No patient found with the given name and password.");
             }
@@ -103,7 +103,7 @@ public class Patient extends User {
         }
     }
 
-    public int getid(){return this.id;}
+    //public int getid(){return this.id;}
     public Boolean updatePatient(Patient patient) {
         // Update patient information in the database (example)
         String query = "UPDATE patients SET name = ?, phone = ?, age = ?, gender = ? WHERE id = ?";
