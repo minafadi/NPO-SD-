@@ -1,10 +1,6 @@
 package Classes;
 
 import java.sql.*;
-import java.sql.Connection;
-import java.util.Date;
-import java.sql.Connection;
-import java.sql.*;
 
 public class Appointment {
     private int id;

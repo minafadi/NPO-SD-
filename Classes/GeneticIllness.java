@@ -2,6 +2,7 @@ package Classes;
 
 public class GeneticIllness extends Illness {
 
+    private double hereditaryFactor;
 
     public GeneticIllness() {
             super.Severity=5;

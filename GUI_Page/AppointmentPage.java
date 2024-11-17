@@ -1,6 +1,8 @@
 package GUI_Page;
 
 import Classes.Appointment;
+import Classes.DB;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
