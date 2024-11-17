@@ -24,22 +24,6 @@
           <text value="Doctor"/>
         </properties>
       </component>
-      <component id="fd67c" class="javax.swing.JTextField" binding="AddDoctorTF">
-        <constraints>
-          <grid row="3" column="2" row-span="2" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="ce389" class="javax.swing.JTextField" binding="AddAppointTF">
-        <constraints>
-          <grid row="5" column="2" row-span="2" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties/>
-      </component>
       <component id="458b6" class="javax.swing.JLabel" binding="AddAppointLabel">
         <constraints>
           <grid row="5" column="1" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="1" use-parent-layout="false"/>
@@ -71,14 +55,6 @@
         <properties>
           <text value="Drug"/>
         </properties>
-      </component>
-      <component id="e6353" class="javax.swing.JTextField" binding="AddDrugTF">
-        <constraints>
-          <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties/>
       </component>
       <component id="7ff8c" class="javax.swing.JButton" binding="AddDrugButton">
         <constraints>

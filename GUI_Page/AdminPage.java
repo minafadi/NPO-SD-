@@ -6,11 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AdminPage extends JFrame{
-    private JTextField AddDoctorTF;
-    private JTextField AddAppointTF;
     private JButton AddAppointButton;
     private JButton AddDocButton;
-    private JTextField AddDrugTF;
     private JButton AddDrugButton;
     private JLabel AdminDashLabel;
     private JButton DoneButton;
@@ -30,6 +27,20 @@ public class AdminPage extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 AppointmentPage appointmentPage = new AppointmentPage();
                 appointmentPage.setVisible(true);
+            }
+        });
+        AddDocButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddDoctorPage d = new AddDoctorPage();
+                d.setVisible(true);
+            }
+        });
+        AddDrugButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddDrug d = new AddDrug();
+                d.setVisible(true);
             }
         });
     }
