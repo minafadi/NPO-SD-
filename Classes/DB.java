@@ -8,14 +8,15 @@ public class DB {
     String url = "jdbc:mysql://localhost:3306/hospitaldb";
     String username = "root";
     String password = "";
-    public Connection ConnectDB(){
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection(url, username, password);
-            return connection;
-        } catch (ClassNotFoundException | SQLException e) {
-            throw new RuntimeException(e);
-        }
-
+    private static DB instance;
+    private Connection dbconn;
+    private DB() throws SQLException {
+        dbconn = DriverManager.getConnection(url,username,password);
     }
+
+    public static DB getInstance() throws SQLException {
+        if(instance == null)instance = new DB();
+        return instance;
+    }
+    public Connection getConnection(){return dbconn;}
 }

@@ -4,6 +4,7 @@ import Classes.*;
 
 import javax.swing.*;
 import javax.swing.plaf.ActionMapUIResource;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,8 +14,10 @@ public class ConcreteIllness extends JFrame {
     private JButton OKButton;
     //private JPanel ConcIll;
     private JPanel Concill;
-
     public ConcreteIllness(Patient patient) {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setSize((int)(screenSize.width * 0.8),(int)(screenSize.height * 0.8));
+        setLocationRelativeTo(null);
         this.patient = patient;
         setContentPane(Concill);
         OKButton.addActionListener(new ActionListener() {
@@ -56,7 +59,15 @@ public class ConcreteIllness extends JFrame {
 
                 }
                 Symptoms s=new Symptoms(patient);
+                System.out.println("fel concrete 7agm el array:");
+                System.out.println(patient.getIllness().getDrugList().size());
                 s.setVisible(true);
+
+            }
+        });
+        OKButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
             }
         });

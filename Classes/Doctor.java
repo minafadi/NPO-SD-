@@ -1,6 +1,5 @@
 package Classes;
 
-import java.sql.Connection;
 import java.sql.*;
 
 
@@ -9,30 +8,90 @@ public class Doctor extends User {
     private String degree;
     private int graduationYear;
     private double salary;
-    static private Connection dbconn;
+
     public Doctor(){
         super();
-        if(dbconn==null){
-            DB db = new DB();
-            this.dbconn = db.ConnectDB();
+    }
+    public Doctor(int id) {
+        super(null, null);
+        this.id = id;
+
+        // SQL query to retrieve doctor details from the database
+        String query = "SELECT name, phone, specialization, degree, graduationYear, salary FROM doctor WHERE Id = ?";
+
+        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement(query)) {
+            stmt.setInt(1, id);
+
+            // Execute the query and fetch results
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    // Populate the Doctor object's attributes from the database
+                    String name = rs.getString("name");
+                    String phone = rs.getString("phone");
+                    this.specialization = rs.getString("specialization");
+                    this.degree = rs.getString("degree");
+                    this.graduationYear = rs.getInt("graduationYear");
+                    this.salary = rs.getDouble("salary");
+
+                    // Use `super` to set name and phone in the superclass
+                    super.name = name;
+                    super.phone = phone;
+                } else {
+                    throw new SQLException("Doctor with ID " + id + " not found in the database.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle exception appropriately (e.g., logging or rethrowing)
         }
     }
-    public Doctor(String name, String phone, String specialization, String degree, int graduationYear, double salary) {
+
+    public Doctor(int id,String name, String phone, String specialization, String degree, int graduationYear, double salary) {
         super(name, phone);
-        if(dbconn==null){
-            DB db = new DB();
-            this.dbconn = db.ConnectDB();
-        }
         this.specialization = specialization;
         this.degree = degree;
         this.graduationYear = graduationYear;
         this.salary = salary;
+        this.id=id;
+    }
+
+    public Doctor(String name, String phone, String specialization, String degree, int graduationYear, double salary, String password) {
+        super(name, phone);
+        this.specialization = specialization;
+        this.degree = degree;
+        this.graduationYear = graduationYear;
+        this.salary = salary;
+        this.password = password;
+        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement("INSERT INTO doctor (name, phone, password, specialization, degree, graduationyear, salary) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, this.name);
+            stmt.setString(2, super.phone);
+            stmt.setString(3, this.password);
+            stmt.setString(4, this.specialization);
+            stmt.setString(5, this.degree);
+            stmt.setInt(6, this.graduationYear);
+            stmt.setDouble(7, this.salary);
+
+            int affectedRows = stmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        this.id = generatedKeys.getInt(1); // Get the generated patient ID
+                        System.out.println("New Doctor added with ID: " + this.id);
+                    }
+                }
+            } else {
+                System.out.println("Failed to add new patient.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public Boolean updateDoctor(Doctor doctor) {
         return true;
     }
-
+    //public int getDRid(){return this.id;}
     public static Doctor[] readAllDoctors() {
         // Query to get all doctor records from the database
         String query = "SELECT * FROM Doctor";
@@ -42,7 +101,7 @@ public class Doctor extends User {
 
         try {
             // Create a scrollable statement
-            stmt = dbconn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            stmt = DB.getInstance().getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(query);
 
             // Check if there are results and get the count
@@ -55,6 +114,7 @@ public class Doctor extends User {
 
                 int i = 0;
                 while (rs.next()) {
+                    int id = rs.getInt("id");
                     String name = rs.getString("name");
                     String phone = rs.getString("phone");
                     String specialization = rs.getString("specialization");
@@ -63,7 +123,7 @@ public class Doctor extends User {
                     double salary = rs.getDouble("salary");
 
                     // Create a new Doctor object and add it to the array
-                    doctors[i++] = new Doctor(name, phone, specialization, degree, graduationYear, salary);
+                    doctors[i++] = new Doctor(id,name, phone, specialization, degree, graduationYear, salary);
                 }
             }
         } catch (SQLException e) {

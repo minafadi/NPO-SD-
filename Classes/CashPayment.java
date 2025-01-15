@@ -2,7 +2,7 @@ package Classes;
 
 public class CashPayment implements Payment {
     private double tax;
-    private String description;
+    private String description="Invoice Paid using Cash Method";
 
     @Override
     public boolean executePayment() {
@@ -17,7 +17,7 @@ public class CashPayment implements Payment {
     public void setTax(double tax) {
         this.tax = tax;
     }
-
+    @Override
     public String getDescription() {
         return description;
     }

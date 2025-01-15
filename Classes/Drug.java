@@ -1,6 +1,5 @@
 package Classes;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +10,7 @@ public class Drug {
     private String treatment;
     private int quantity;
     private double price;
-    static private Connection dbconn;
+
     public Drug(String drugName,double price){
         this.drugName=drugName;
         this.price=price;
@@ -20,13 +19,9 @@ public class Drug {
         this.drugName = drugName;
         this.quantity = quantity;
         this.price = price;
-        if(dbconn==null){
-            DB db = new DB();
-            this.dbconn = db.ConnectDB();
-        }
         try {
             String sql = "INSERT INTO drug (name, quantity, price) VALUES (?, ?, ?)";
-            PreparedStatement stmt = dbconn.prepareStatement(sql);
+            PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement(sql);
             stmt.setString(1, this.drugName);
             stmt.setInt(2, this.quantity);
             stmt.setDouble(3, this.price);
@@ -40,13 +35,9 @@ public class Drug {
         this.quantity = quantity;
         this.treatment = treatment;
         this.price = price;
-        if(dbconn==null){
-            DB db = new DB();
-            this.dbconn = db.ConnectDB();
-        }
         try {
             String sql = "INSERT INTO drug (name, quantity, price,treatment) VALUES (?, ?, ?,?)";
-            PreparedStatement stmt = dbconn.prepareStatement(sql);
+            PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement(sql);
             stmt.setString(1, this.drugName);
             stmt.setInt(2, this.quantity);
             stmt.setDouble(3, this.price);
@@ -64,13 +55,9 @@ public class Drug {
     }
     public static Drug readAllDrugs(String treatment) {
         try {
-            if(dbconn==null){
-                DB db = new DB();
-                dbconn = db.ConnectDB();
-            }
             // Query to select the drug where treatment matches
             String selectSql = "SELECT id, name, quantity, price FROM drug WHERE Treatment = ?";
-            PreparedStatement selectStmt = dbconn.prepareStatement(selectSql);
+            PreparedStatement selectStmt = DB.getInstance().getConnection().prepareStatement(selectSql);
             selectStmt.setString(1, treatment); // Set the treatment parameter
 
             // Execute the query and retrieve the results
@@ -89,7 +76,7 @@ public class Drug {
 
                     // Update the drug's quantity in the database
                     String updateSql = "UPDATE drug SET quantity = ? WHERE id = ?";
-                    PreparedStatement updateStmt = dbconn.prepareStatement(updateSql);
+                    PreparedStatement updateStmt = DB.getInstance().getConnection().prepareStatement(updateSql);
                     updateStmt.setInt(1, quantity);
                     updateStmt.setInt(2, drugId);
                     updateStmt.executeUpdate();
