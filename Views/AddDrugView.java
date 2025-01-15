@@ -45,8 +45,6 @@ public class AddDrugView extends JFrame{
                     AddDrugController addDrugController = new AddDrugController();
                     Drug drug = addDrugController.AddNewDrug(drugName,quantity,price,treatment);
 
-
-
                 } catch (NumberFormatException ee) { // Fully specify the exception class
                     JOptionPane.showMessageDialog(null, "Please enter valid numeric values for fields 2 and 3.");
                     ee.printStackTrace();
