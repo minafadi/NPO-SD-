@@ -1,8 +1,6 @@
 package Controllers;
 
 import Models.Doctor;
-import Models.User;
-import Views.AddDoctorView;
 
 public class AddDoctorController {
     private Doctor DocModel;
