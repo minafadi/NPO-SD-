@@ -1,9 +1,4 @@
-import Classes.DB;
-import GUI_Page.AddDrug;
-import GUI_Page.DoctorsListPage;
-import GUI_Page.LoginPage;
-import Classes.*;
-import java.sql.Connection;
+import Views.LoginView;
 
 
 public class Main {
@@ -12,7 +7,7 @@ public class Main {
 
         //DoctorsListPage d = new DoctorsListPage();
         //d.setVisible(true);
-        LoginPage l = new LoginPage();
+        LoginView l = new LoginView();
         l.setVisible(true);
         //Patient p = new Patient("matwa","1234");
         //Patient p2 = new Patient("karim","1234",22,true,"1234");
