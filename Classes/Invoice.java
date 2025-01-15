@@ -1,14 +1,11 @@
 package Classes;
 
-import Interfaces.IObserver;
-import Interfaces.InterfaceInvoice;
-import Interfaces.Payment;
-
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
 
-public class Invoice implements InterfaceInvoice {
+public class Invoice implements InterfaceInvoice{
     private int appointmentId;
     private String patientName;
     private String doctorName;

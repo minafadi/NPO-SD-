@@ -1,4 +1,4 @@
-package Interfaces;
+package Classes;
 
 public interface IObserver {
 

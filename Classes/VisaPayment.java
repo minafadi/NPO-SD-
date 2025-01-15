@@ -1,7 +1,5 @@
 package Classes;
 
-import Interfaces.Payment;
-
 public class VisaPayment implements Payment {
     private double tax;
     private String description="Invoice Paid by Visa Card";

@@ -1,7 +1,5 @@
 package Classes;
 
-import Interfaces.Payment;
-
 public class CashPayment implements Payment {
     private double tax;
     private String description="Invoice Paid using Cash Method";

@@ -1,4 +1,4 @@
-package Interfaces;
+package Classes;
 
 public interface InterfaceInvoice {
     public void add(IObserver x);

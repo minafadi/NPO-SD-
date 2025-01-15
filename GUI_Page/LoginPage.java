@@ -1,4 +1,6 @@
 package GUI_Page;
+import Classes.Doctor;
+import Classes.DoctorController;
 import Classes.Patient;
 import Classes.Admin;
 import javax.swing.*;
