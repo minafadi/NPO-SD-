@@ -1,5 +1,6 @@
 package Views;
 
+import Controllers.AddDoctorController;
 import Models.Doctor;
 
 import javax.swing.*;
@@ -24,6 +25,7 @@ public class AddDoctorView extends JFrame{
     private JLabel idlabel;
 
 
+
     public AddDoctorView() {
         spinner1.setModel(gradYear);
         setContentPane(addDoctor);
@@ -46,8 +48,9 @@ public class AddDoctorView extends JFrame{
                 int graduationYear = (int) spinner1.getValue();
                 double salary = (int) spinner2.getValue();
 
-                Doctor d = new Doctor(name, phoneNumeber, specialization, degree, graduationYear, salary, password);
-                idlabel.setText("New Doctor Added with ID: "+String.valueOf(d.getDRid()));
+                AddDoctorController addDoctorController = new AddDoctorController();
+                Doctor doc = addDoctorController.AddNewDoctor(name, phoneNumeber, specialization, degree, graduationYear, salary, password);
+                idlabel.setText("New Doctor Added with ID: "+String.valueOf(doc.getDRid()));
             }
         });
     }
