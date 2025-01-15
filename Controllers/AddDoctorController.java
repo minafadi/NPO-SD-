@@ -1,12 +1,21 @@
 package Controllers;
 
 import Models.Doctor;
+import Views.AddDoctorView;
 
 public class AddDoctorController {
-    private Doctor DocModel;
+    private static Doctor DocModel;
+    private AddDoctorView addDoctorView;
 
-    public Doctor AddNewDoctor(String name, String phoneNumeber, String specialization, String degree, int graduationYear, double salary, String password){
+    public AddDoctorController() {
+        addDoctorView = new AddDoctorView();
+        addDoctorView.setVisible(true);
+    }
+
+    public static String AddNewDoctor(String name, String phoneNumeber, String specialization, String degree, int graduationYear, double salary, String password){
         DocModel = new Doctor(name, phoneNumeber, specialization, degree, graduationYear, salary, password);
-        return DocModel;
+
+        String docID = String.valueOf(DocModel.getDRid());
+        return docID;
     }
 }

@@ -48,9 +48,9 @@ public class AddDoctorView extends JFrame{
                 int graduationYear = (int) spinner1.getValue();
                 double salary = (int) spinner2.getValue();
 
-                AddDoctorController addDoctorController = new AddDoctorController();
-                Doctor doc = addDoctorController.AddNewDoctor(name, phoneNumeber, specialization, degree, graduationYear, salary, password);
-                idlabel.setText("New Doctor Added with ID: "+String.valueOf(doc.getDRid()));
+                //Adding new Doctor using Static Function
+                String docID = AddDoctorController.AddNewDoctor(name, phoneNumeber, specialization, degree, graduationYear, salary, password);
+                idlabel.setText("New Doctor Added with ID: "+ docID);
             }
         });
     }
