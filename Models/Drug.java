@@ -15,6 +15,7 @@ public class Drug {
         this.drugName=drugName;
         this.price=price;
     }
+
     public Drug(String drugName, int quantity, double price) {
         this.drugName = drugName;
         this.quantity = quantity;
@@ -30,7 +31,9 @@ public class Drug {
             e.printStackTrace();
         }
 
-    }public Drug(String drugName, int quantity, double price,String treatment) {
+    }
+
+    public Drug(String drugName, int quantity, double price, String treatment) {
         this.drugName = drugName;
         this.quantity = quantity;
         this.treatment = treatment;
@@ -53,6 +56,7 @@ public class Drug {
     public int getDrugId() {
         return drugId;
     }
+
     public static Drug readAllDrugs(String treatment) {
         try {
             // Query to select the drug where treatment matches

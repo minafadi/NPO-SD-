@@ -22,7 +22,6 @@ public abstract class Illness {
 
     public  int severity(){return Severity;}
 
-
     public void addDrug(Drug drug) {
         drugList.add(drug);
         System.out.println("ketaaaaaaaafbs:        ");
@@ -59,9 +58,11 @@ public abstract class Illness {
         this.duration = duration;
         return true;
     }
+
     public int getSeverity(){
         return severity();
     }
+
     public boolean AddIllness(Patient patient) {
 
         System.out.print("Drugs associated with illness:");
@@ -102,6 +103,7 @@ public abstract class Illness {
         }
         return false;
     }
+
     public Boolean isContagious() {
         return contagious;
     }
@@ -117,6 +119,7 @@ public abstract class Illness {
         }
         return totalCost;
     }
+
     public List<Drug> getDrugList() {
 
         return new ArrayList<>(drugList);
