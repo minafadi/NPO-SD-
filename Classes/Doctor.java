@@ -91,7 +91,7 @@ public class Doctor extends User {
     public Boolean updateDoctor(Doctor doctor) {
         return true;
     }
-    //public int getDRid(){return this.id;}
+    public int getDRid(){return this.id;}
     public static Doctor[] readAllDoctors() {
         // Query to get all doctor records from the database
         String query = "SELECT * FROM Doctor";
