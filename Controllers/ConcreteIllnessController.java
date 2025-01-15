@@ -6,6 +6,7 @@ import Views.ConcreteIllnessView;
 public class ConcreteIllnessController {
     Patient patient;
     ConcreteIllnessView view;
+
     public ConcreteIllnessController(Patient patient) {
         this.patient = patient;
         view = new ConcreteIllnessView(patient);
@@ -34,4 +35,5 @@ public class ConcreteIllnessController {
         }
         SymptomsController s = new SymptomsController(patient);
 
+    }
 }

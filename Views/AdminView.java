@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import Controllers.*;
 
 public class AdminView extends JFrame{
     private JButton AddAppointButton;
@@ -32,15 +33,18 @@ public class AdminView extends JFrame{
         AddDocButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AddDoctorView d = new AddDoctorView();
-                d.setVisible(true);
+                /*AddDoctorView d = new AddDoctorView();
+                d.setVisible(true);*/
+                AddDoctorController addDoctorController=new AddDoctorController();
             }
         });
         AddDrugButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AddDrugView d = new AddDrugView();
-                d.setVisible(true);
+                /*AddDrugView d = new AddDrugView();
+                d.setVisible(true);*/
+                AddDrugController addDrugController=new AddDrugController();
+
             }
         });
     }

@@ -1,5 +1,7 @@
 package Views;
 
+import Controllers.InvoiceController;
+import Controllers.NotificationsController;
 import Models.Doctor;
 import Models.*;
 
@@ -37,29 +39,14 @@ public class InVoiceView extends JFrame{
         PayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Doctor d = new Doctor(Did);
-                Patient p =new Patient(Pid);
-                Invoice i = new Invoice();
-                NotifybyEmail email = new NotifybyEmail(i);
-                NotifybySMS SMS = new NotifybySMS(i);
-                NotifybyWhatsapp whatsapp = new NotifybyWhatsapp(i);
-                String s = i.updatnotify();
-                Invoice inv = new Invoice();
-                PaymentMethod=comboBox1.getSelectedItem().toString();
-                if(PaymentMethod=="Cash"){
-                    inv.setPayment(new CashPayment());
-                } else if (PaymentMethod=="Visa") {
-                    inv.setPayment(new VisaPayment());
+                String s = InvoiceController.PayPressed(comboBox1.getSelectedItem().toString());
 
-                } else if (PaymentMethod=="Fawry") {
-                    inv.setPayment(new FawryPayment());
-                }
-                NotificationsView n = new NotificationsView();
-                n.textArea1.setText(s);
-                n.textArea1.append(inv.getPayment().getDescription());
+                NotificationsController cont = new NotificationsController(s);
 
 
-                n.setVisible(true);
+//                NotificationsView n = new NotificationsView();
+//                n.textArea1.setText(s);
+//                n.setVisible(true);
 
             }
         });

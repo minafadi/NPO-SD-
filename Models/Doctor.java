@@ -12,6 +12,7 @@ public class Doctor extends User {
     public Doctor(){
         super();
     }
+
     public Doctor(int id) {
         super(null, null);
         this.id = id;
@@ -91,7 +92,9 @@ public class Doctor extends User {
     public Boolean updateDoctor(Doctor doctor) {
         return true;
     }
+
     public int getDRid(){return this.id;}
+
     public static Doctor[] readAllDoctors() {
         // Query to get all doctor records from the database
         String query = "SELECT * FROM Doctor";
@@ -139,7 +142,6 @@ public class Doctor extends User {
 
         return doctors;
     }
-
 
     public Boolean removeDoctor(Doctor doctor) {
         return true;
