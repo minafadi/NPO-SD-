@@ -87,7 +87,7 @@ public abstract class Illness {
                         // Insert into PatientIllness table
                         String patientIllnessSql = "INSERT INTO PatientIllness (PID, IID) VALUES (?, ?)";
                         try (PreparedStatement patientIllnessStmt = DB.getInstance().getConnection().prepareStatement(patientIllnessSql)) {
-                            patientIllnessStmt.setInt(1, patient.getid()); // patient ID (PID)
+                            patientIllnessStmt.setInt(1, patient.getId()); // patient ID (PID)
                             patientIllnessStmt.setInt(2, illnessId);       // illness ID (IID)
 
                             int patientIllnessRowsInserted = patientIllnessStmt.executeUpdate();
