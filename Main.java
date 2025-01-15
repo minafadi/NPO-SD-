@@ -8,7 +8,7 @@ import java.sql.Connection;
 
 public class Main {
     public static void main(String[] args) {
-        //Illness i= new InfectiousIllness();
+        //Illness i= new InfectiousIllness()l;
 
         //DoctorsListPage d = new DoctorsListPage();
         //d.setVisible(true);
