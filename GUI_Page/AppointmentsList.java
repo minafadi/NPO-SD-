@@ -29,7 +29,7 @@ public class AppointmentsList extends JFrame{
                 for(int i=0;i<dd.length;i++){
                     drugss+=dd[i].getDrugName()+", ";
                 }
-                InVoicePage i = new InVoicePage(d.getDRid(),p.getid());
+                InVoicePage i = new InVoicePage(d.getDRid(),p.getId());
                 i.textField3.setText(String.valueOf(total));
                 i.PatientTF.setText(p.getName());
                 i.DoctorTF.setText(d.getName());
