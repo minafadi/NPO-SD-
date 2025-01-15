@@ -1,5 +1,6 @@
 package Views;
 
+import Controllers.InvoiceController;
 import Models.Doctor;
 import Models.*;
 
@@ -29,16 +30,18 @@ public class AppointmentsListView extends JFrame{
                 for(int i=0;i<dd.length;i++){
                     drugss+=dd[i].getDrugName()+", ";
                 }
-                InVoiceView i = new InVoiceView(d.getDRid(),p.getId());
-                i.textField3.setText(String.valueOf(total));
-                i.PatientTF.setText(p.getName());
-                i.DoctorTF.setText(d.getName());
-                i.PatientTF.setEnabled(false);
-                i.DoctorTF.setEnabled(false);
-                i.textField1.setEnabled(false);
-                i.textField3.setEnabled(false);
-                i.textField1.setText(drugss);
-                i.setVisible(true);
+
+                InvoiceController i = new InvoiceController(String.valueOf(total) , p , d , drugss);
+                //InVoiceView i = new InVoiceView(d.getDRid(),p.getId());
+//                i.textField3.setText(String.valueOf(total));
+//                i.PatientTF.setText(p.getName());
+//                i.DoctorTF.setText(d.getName());
+//                i.PatientTF.setEnabled(false);
+//                i.DoctorTF.setEnabled(false);
+//                i.textField1.setEnabled(false);
+//                i.textField3.setEnabled(false);
+//                i.textField1.setText(drugss);
+//                i.setVisible(true);
             }
         });
     }
