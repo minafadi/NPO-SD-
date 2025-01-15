@@ -10,9 +10,11 @@ public class SymptomsController {
     private static SymptomsView view;
     private static Patient patient;
 
-    public SymptomsController(SymptomsView view, Patient patient) {
-        this.view = view;
+    public SymptomsController(Patient patient) {
+
         this.patient = patient;
+        view = new SymptomsView(patient);
+        view.setVisible(true);
     }
 
     public static void handleSymptomsSelection(boolean headacheSelected, boolean feverSelected, boolean nauseaSelected, boolean shortnessOfBreathSelected) {

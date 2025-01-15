@@ -1,6 +1,7 @@
 package Views;
 
 import Controllers.InvoiceController;
+import Controllers.NotificationsController;
 import Models.Doctor;
 import Models.*;
 

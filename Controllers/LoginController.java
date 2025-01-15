@@ -1,5 +1,6 @@
 package Controllers;
 import Models.*;
+import Controllers.ConcreteIllnessController;
 import Views.*;
 public class LoginController {
     //private Patient patient;
@@ -12,7 +13,7 @@ public class LoginController {
     public static void login(String name, String password, String selecteditem){
         if(selecteditem == "Patient" && Patient.AuthenticatePatient(name,password)){
             Patient p = new Patient(name,password);
-            ConcreteIllnessController ConcreteIllnessController= new ConcreteIllnesscontroller(p);
+            ConcreteIllnessController ConcreteIllnessController= new ConcreteIllnessController(p);
 
         }
         else if(selecteditem == "Admin" && Admin.AuthenticateAdmin(name,password)){
