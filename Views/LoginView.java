@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import Controllers.*;
 
 public class LoginView extends JFrame{
     private JTextField NameTF;
@@ -27,7 +28,10 @@ public class LoginView extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 String name = NameTF.getText();
                 String password = PasswordPF.getText();
-                if (OccupationCBox.getSelectedItem() == "Patient" && Patient.AuthenticatePatient(name,password)){
+                String selectedOccupation = (String) OccupationCBox.getSelectedItem();
+
+                LoginController.login(name,password,selectedOccupation);
+                /*if (OccupationCBox.getSelectedItem() == "Patient" && Patient.AuthenticatePatient(name,password)){
                     Patient p = new Patient(name,password);
                     ConcreteIllnessView conc = new ConcreteIllnessView(p);
                     conc.setVisible(true);
@@ -35,7 +39,7 @@ public class LoginView extends JFrame{
                 else if(OccupationCBox.getSelectedItem() == "Admin" && Admin.AuthenticateAdmin(name,password)){
                     AdminView p = new AdminView();
                     p.setVisible(true);
-                }
+                }*/
 
 
             }
