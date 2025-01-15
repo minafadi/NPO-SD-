@@ -1,9 +1,7 @@
-package Classes;
+package Controller;
 
+import Classes.*;
 import GUI_Page.AppointmentsList;
-import GUI_Page.DoctorsListPage;
-
-import javax.print.Doc;
 
 public class AppointmentController {
     private Appointment model;
@@ -12,7 +10,7 @@ public class AppointmentController {
     public AppointmentController(Appointment model) {
         this.model = model;
     }
-    public void updateAppointmentListView(Patient p,Drug [] dd){
+    public void updateAppointmentListView(Patient p, Drug[] dd){
         Appointment[] Allapps = model.ReadDoctorApps(model.getDoctorId());
         Doctor d = new Doctor(model.getDoctorId());
         double total = Illness.getDrugscost(dd);

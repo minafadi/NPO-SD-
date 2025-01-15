@@ -1,5 +1,6 @@
 package GUI_Page;
 import Classes.*;
+import Controller.AppointmentController;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,5 +1,7 @@
 package Classes;
 
+import Interfaces.Payment;
+
 public class FawryPayment implements Payment {
     private double tax;
     private String description="Invoice Paid by Fawry";

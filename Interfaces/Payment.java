@@ -1,4 +1,4 @@
-package Classes;
+package Interfaces;
 
 public interface Payment {
     public boolean executePayment();

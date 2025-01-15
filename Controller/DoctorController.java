@@ -1,4 +1,6 @@
-package Classes;
+package Controller;
+import Classes.Doctor;
+import Classes.Patient;
 import GUI_Page.DoctorsListPage;
 
 public class DoctorController {

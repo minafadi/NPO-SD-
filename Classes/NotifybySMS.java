@@ -1,6 +1,9 @@
 package Classes;
 
-public class NotifybySMS implements IObserver{
+import Interfaces.IObserver;
+import Interfaces.InterfaceInvoice;
+
+public class NotifybySMS implements IObserver {
     InterfaceInvoice ref;
 
 

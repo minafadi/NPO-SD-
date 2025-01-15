@@ -1,6 +1,9 @@
 package Classes;
 
-public class NotifybyWhatsapp implements IObserver{
+import Interfaces.IObserver;
+import Interfaces.InterfaceInvoice;
+
+public class NotifybyWhatsapp implements IObserver {
     InterfaceInvoice ref;
 
 

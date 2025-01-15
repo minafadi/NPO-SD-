@@ -1,6 +1,7 @@
 package GUI_Page;
 
 import Classes.*;
+import Controller.DoctorController;
 
 import javax.swing.*;
 import java.awt.*;
