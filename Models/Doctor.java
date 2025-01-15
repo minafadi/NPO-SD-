@@ -95,7 +95,7 @@ public class Doctor extends User {
 
     public int getDRid(){return this.id;}
 
-    public static Doctor[] readAllDoctors() {
+    public static DoctorsCollection readAllDoctors() {
         // Query to get all doctor records from the database
         String query = "SELECT * FROM Doctor";
         Statement stmt = null;
@@ -140,7 +140,7 @@ public class Doctor extends User {
             }
         }
 
-        return doctors;
+        return new DoctorsCollection(doctors);
     }
 
     public Boolean removeDoctor(Doctor doctor) {
