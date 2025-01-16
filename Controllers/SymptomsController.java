@@ -35,7 +35,7 @@ public class SymptomsController {
 
         patient.setIllness(illness);
 
-        if (illness.AddIllness(patient)) {
+        if (illness.addIllnessToPatient(patient)) {
             view.setVisible(false);
         }
     }

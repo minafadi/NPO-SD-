@@ -13,7 +13,7 @@ public class AppointmentController {
     public void updateAppointmentListView(Patient p, Drug[] dd){
         Appointment[] Allapps = model.ReadDoctorApps(model.getDoctorId());
         Doctor d = new Doctor(model.getDoctorId());
-        double total = Illness.getDrugscost(dd);
+        double total = Illness.getDrugsCost(dd);
         double total2 = d.getSalary();
         double total3=p.getIllness().calculateCost();
         //Insert invoice to db
