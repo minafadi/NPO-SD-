@@ -17,7 +17,11 @@ public class SymptomsController {
         view.setVisible(true);
     }
 
-    public static void handleSymptomsSelection(boolean headacheSelected, boolean feverSelected, boolean nauseaSelected, boolean shortnessOfBreathSelected) {
+    public static void handleSymptomsSelection(
+            boolean headacheSelected,
+            boolean feverSelected,
+            boolean nauseaSelected,
+            boolean shortnessOfBreathSelected) {
         Illness illness = patient.getIllness();
 
         if (headacheSelected) {
@@ -35,7 +39,7 @@ public class SymptomsController {
 
         patient.setIllness(illness);
 
-        if (illness.AddIllness(patient)) {
+        if (illness.addIllnessToPatient(patient)) {
             view.setVisible(false);
         }
     }

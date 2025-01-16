@@ -6,6 +6,7 @@ public class Patient extends User {
     private Illness illness;
     private int age;
     private boolean gender;
+
     public Patient(int id, String name, String phone, Illness illness, int age, boolean gender, String password) {
         super(name, phone);
         this.id = id;
@@ -14,6 +15,7 @@ public class Patient extends User {
         this.gender = gender;
         this.password = password;
     }
+
     public Patient(int id) {
         super(null, null);
         this.id = id;
@@ -78,6 +80,7 @@ public class Patient extends User {
             e.printStackTrace();
         }
     }
+
     //get existing object from db
     public Patient(String name, String password) {
         super(name, password);
@@ -155,7 +158,8 @@ public class Patient extends User {
                 return false;
             }
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -192,7 +196,8 @@ public class Patient extends User {
             if (DB.getInstance().getConnection() != null && !DB.getInstance().getConnection().isClosed()) {
                 DB.getInstance().getConnection().close();
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }

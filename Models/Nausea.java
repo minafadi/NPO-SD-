@@ -1,14 +1,38 @@
 package Models;
 
 public class Nausea extends Symptom {
-    private int intensity;
 
     public Nausea(Illness illness) {
         this.illness = illness;
-        this.illness.addDrug(Drug.readAllDrugs("Nausea"));
     }
+    @Override
+    protected void diagnose() {
+        illness.diagnose();
+        System.out.println("Adding diagnosis for nausea...");
+    }
+
+    @Override
+    protected void prescribeDrugs() {
+        illness.prescribeDrugs(); // Delegate to the wrapped illness
+        System.out.println("Adding prescription for nausea...");
+        Drug drug = Drug.readAllDrugs("Nausea");
+        if (drug != null) {
+            illness.addDrug(drug); // Add the drug only if it's not null
+        }
+        else {
+            System.out.println("No specific drugs found for nausea Symptom.");
+        }
+    }
+
+    @Override
+    protected double calculateTreatmentCost() {
+        // Delegate to the wrapped illness
+        System.out.println("Adding additional cost for nausea...");
+        return illness.calculateTreatmentCost() + 70;
+    }
+
     public String getDescription() {
-        return super.getDescription()+"nausea";
+        return illness.getDescription()+" nausea, ";
     }
     @Override
     public int severity() {
@@ -17,7 +41,7 @@ public class Nausea extends Symptom {
 
     @Override
     public double calculateCost() {
-        return  illness.calculateCost()+70;
+        return  calculateTreatmentCost();
     }
 
 }
