@@ -112,7 +112,7 @@ public class Doctor extends User {
 
     public int getDRid(){return this.id;}
 
-    public static Doctor[] readAllDoctors(DBProxy dbProxy) {
+    public static DoctorsCollection readAllDoctors(DBProxy dbProxy) {
         // Query to get all doctor records from the database
         String query = "SELECT * FROM Doctor";
 //        Statement stmt = null;
@@ -127,7 +127,7 @@ public class Doctor extends User {
             while (resultSet.next()){
                 doctors[i++] = new Doctor(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("phone"), resultSet.getString("specialization"), resultSet.getString("degree"), resultSet.getInt("garduationyear"), resultSet.getDouble("salary"));
             }
-            return doctors;
+            return new DoctorsCollection(doctors);
         }
         catch (Exception e){
             return null;
