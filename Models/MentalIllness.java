@@ -3,7 +3,7 @@ package Models;
 public class MentalIllness extends Illness {
 
     public MentalIllness() {
-        this.description = "suffering from Mental Illness with symptoms: ";
+        this.description = "Suffering from Mental Illness with symptoms: ";
         this.Severity=9;
         this.treatmentCost=700;
     }
