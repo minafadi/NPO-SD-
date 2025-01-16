@@ -1,9 +1,9 @@
 package Models;
 
 public class Fatigue extends Symptom {
-    public Fatigue(Illness illness) {
+    public Fatigue(Illness illness, DBProxy dbProxy) {
         this.illness = illness;
-        this.illness.addDrug(Drug.readAllDrugs("Fatigue"));
+        this.illness.addDrug(Drug.readAllDrugs("Fatigue", dbProxy));
     }
     
     @Override

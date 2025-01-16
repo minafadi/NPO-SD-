@@ -63,45 +63,56 @@ public abstract class Illness {
         return severity();
     }
 
-    public boolean AddIllness(Patient patient) {
+    public boolean AddIllness(Patient patient, DBProxy dbProxy) {
 
         System.out.print("Drugs associated with illness:");
         for (Drug drug : patient.getIllness().getDrugList()) {
             System.out.println(drug.getDrugName());
         }
 
-        // Insert into Illness table
-        String sql = "INSERT INTO illness (description, severity, treatmentcost) VALUES (?, ?, ?)";
-        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            stmt.setString(1, this.getDescription()); // `description` attribute
-            stmt.setInt(2, this.getSeverity());       // `severity` attribute
-            stmt.setDouble(3, this.calculateCost());  // `treatmentCost` attribute
+        String query = "INSERT INTO illness (description, severity, treatmentcost) VALUES (" + this.getDescription() + ", " + this.getSeverity() + ", " + this.calculateCost() + ")";
+        ResultSet resultSet = dbProxy.executeQuery(query);
 
-            int rowsInserted = stmt.executeUpdate();
-
-            if (rowsInserted > 0) {
-                // Retrieve generated IID
-                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        int illnessId = generatedKeys.getInt(1);
-
-                        // Insert into PatientIllness table
-                        String patientIllnessSql = "INSERT INTO PatientIllness (PID, IID) VALUES (?, ?)";
-                        try (PreparedStatement patientIllnessStmt = DB.getInstance().getConnection().prepareStatement(patientIllnessSql)) {
-                            patientIllnessStmt.setInt(1, patient.getId()); // patient ID (PID)
-                            patientIllnessStmt.setInt(2, illnessId);       // illness ID (IID)
-
-                            int patientIllnessRowsInserted = patientIllnessStmt.executeUpdate();
-                            return patientIllnessRowsInserted > 0; // Returns true if the row was inserted successfully
-                        }
-                    }
-                }
-            }
+        try {
+            query = "INSERT INTO PatientIllness (PID, IID) Values (" + patient.getId() + ", " + resultSet.getInt("id");
+            resultSet = dbProxy.executeQuery(query);
+            return resultSet!=null;
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
-        return false;
+
+        // Insert into Illness table
+//        String sql = "INSERT INTO illness (description, severity, treatmentcost) VALUES (?, ?, ?)";
+//        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+//            stmt.setString(1, this.getDescription()); // `description` attribute
+//            stmt.setInt(2, this.getSeverity());       // `severity` attribute
+//            stmt.setDouble(3, this.calculateCost());  // `treatmentCost` attribute
+//
+//            int rowsInserted = stmt.executeUpdate();
+//
+//            if (rowsInserted > 0) {
+//                // Retrieve generated IID
+//                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+//                    if (generatedKeys.next()) {
+//                        int illnessId = generatedKeys.getInt(1);
+//
+//                        // Insert into PatientIllness table
+//                        String patientIllnessSql = "INSERT INTO PatientIllness (PID, IID) VALUES (?, ?)";
+//                        try (PreparedStatement patientIllnessStmt = DB.getInstance().getConnection().prepareStatement(patientIllnessSql)) {
+//                            patientIllnessStmt.setInt(1, patient.getId()); // patient ID (PID)
+//                            patientIllnessStmt.setInt(2, illnessId);       // illness ID (IID)
+//
+//                            int patientIllnessRowsInserted = patientIllnessStmt.executeUpdate();
+//                            return patientIllnessRowsInserted > 0; // Returns true if the row was inserted successfully
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//        return false;
     }
 
     public Boolean isContagious() {

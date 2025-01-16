@@ -5,19 +5,23 @@ import Views.*;
 public class LoginController {
     //private Patient patient;
     private LoginView view;
+    static DBProxy dbProxy;
 
     public LoginController() {
         view = new LoginView();
         view.setVisible(true);
     }
     public static void login(String name, String password, String selecteditem){
-        if(selecteditem == "Patient" && Patient.AuthenticatePatient(name,password)){
-            Patient p = new Patient(name,password);
-            ConcreteIllnessController ConcreteIllnessController= new ConcreteIllnessController(p);
-
+        if(selecteditem == "Patient") {
+            dbProxy = new DBProxy(0);
+            if (Patient.AuthenticatePatient(name,password, dbProxy)) {
+                Patient p = new Patient(name, password, dbProxy);
+                ConcreteIllnessController ConcreteIllnessController = new ConcreteIllnessController(p, dbProxy);
+            }
         }
         else if(selecteditem == "Admin" && Admin.AuthenticateAdmin(name,password)){
-            AdminController adminController=new AdminController();
+            dbProxy = new DBProxy(1);
+            AdminController adminController=new AdminController(dbProxy);
         }
 
 

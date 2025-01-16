@@ -1,19 +1,18 @@
 package Controllers;
 
-import Models.Appointment;
-import Models.Doctor;
-import Models.Drug;
-import Models.Patient;
+import Models.*;
 import Views.DoctorsListView;
 
 public class DoctorsListController {
     Doctor[] allDocs;
     Patient p;
     DoctorsListView v;
+    static DBProxy dbProxy;
 
-    public DoctorsListController(Doctor[] allDocs, Patient p) {
+    public DoctorsListController(Doctor[] allDocs, Patient p, DBProxy dbProxy) {
         this.allDocs = allDocs;
         this.p = p;
+        this.dbProxy = dbProxy;
         v = new DoctorsListView(p, allDocs);
     }
 
@@ -26,7 +25,7 @@ public class DoctorsListController {
             }
         }
         Drug[] patientDrugs = patient.getIllness().getDrugList().toArray(new Drug[0]);
-        AppointmentController appointmentController = new AppointmentController(new Appointment(chosenDoctor.getDRid()));
+        AppointmentController appointmentController = new AppointmentController(new Appointment(chosenDoctor.getDRid()),dbProxy);
         appointmentController.updateAppointmentListView(patient,patientDrugs);
     }
 }

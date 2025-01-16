@@ -6,4 +6,6 @@ public class AdminController {
         AV = new AdminView();
         AV.setVisible(true);
     }
+
+    void a
 }

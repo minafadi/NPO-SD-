@@ -3,9 +3,9 @@ package Models;
 public class Nausea extends Symptom {
     private int intensity;
 
-    public Nausea(Illness illness) {
+    public Nausea(Illness illness, DBProxy dbProxy) {
         this.illness = illness;
-        this.illness.addDrug(Drug.readAllDrugs("Nausea"));
+        this.illness.addDrug(Drug.readAllDrugs("Nausea", dbProxy));
     }
     public String getDescription() {
         return super.getDescription()+"nausea";

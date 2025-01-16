@@ -21,7 +21,7 @@ public class AppointmentsListView extends JFrame{
         this.setSize((int)(screenSize.width * 0.8),(int)(screenSize.height * 0.8));
         setLocationRelativeTo(null);
         for (Appointment a : Allapps){
-            comboBox1.addItem("Doctor: "+a.getDoctorNameById() + ", Date: "+a.getDate());
+            comboBox1.addItem("Doctor: "+a.getDoctorName() + ", Date: "+a.getDate());
         }
         labeldoc.setText(d.getName()+"'s Available Appointments");
         reserveAppointmentButton.addActionListener(new ActionListener() {

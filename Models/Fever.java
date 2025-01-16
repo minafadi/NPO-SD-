@@ -3,9 +3,9 @@ package Models;
 public class Fever extends Symptom {
     private double temperature;
 
-    public Fever(Illness illness) {
+    public Fever(Illness illness, DBProxy dbproxy) {
         this.illness = illness;
-        this.illness.addDrug(Drug.readAllDrugs("Fever"));
+        this.illness.addDrug(Drug.readAllDrugs("Fever", dbproxy));
     }
     
     @Override

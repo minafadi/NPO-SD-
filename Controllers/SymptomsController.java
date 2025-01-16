@@ -9,9 +9,10 @@ import Views.SymptomsView;
 public class SymptomsController {
     private static SymptomsView view;
     private static Patient patient;
+    static DBProxy dbProxy;
 
-    public SymptomsController(Patient patient) {
-
+    public SymptomsController(Patient patient, DBProxy dbProxy) {
+        this.dbProxy = dbProxy;
         this.patient = patient;
         view = new SymptomsView(patient);
         view.setVisible(true);
@@ -21,27 +22,27 @@ public class SymptomsController {
         Illness illness = patient.getIllness();
 
         if (headacheSelected) {
-            illness = new Headache(illness);
+            illness = new Headache(illness,dbProxy);
         }
         if (feverSelected) {
-            illness = new Fever(illness);
+            illness = new Fever(illness,dbProxy);
         }
         if (nauseaSelected) {
-            illness = new Nausea(illness);
+            illness = new Nausea(illness,dbProxy);
         }
         if (shortnessOfBreathSelected) {
-            illness = new ShortnessOfBreath(illness);
+            illness = new ShortnessOfBreath(illness,dbProxy);
         }
 
         patient.setIllness(illness);
 
-        if (illness.AddIllness(patient)) {
+        if (illness.AddIllness(patient,dbProxy)) {
             view.setVisible(false);
         }
     }
 
     public static void updateDoctorList() {
-        DoctorController doctorController = new DoctorController(new Doctor());
+        DoctorController doctorController = new DoctorController(new Doctor(),dbProxy);
         doctorController.updateDoctorListView(patient);
     }
 }

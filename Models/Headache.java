@@ -2,9 +2,9 @@ package Models;
 
 public class Headache extends Symptom {
 
-    public Headache(Illness illness) {
+    public Headache(Illness illness, DBProxy dbProxy) {
         this.illness = illness;
-        this.illness.addDrug(Drug.readAllDrugs("Headache"));
+        this.illness.addDrug(Drug.readAllDrugs("Headache", dbProxy));
     }
 
     @Override
