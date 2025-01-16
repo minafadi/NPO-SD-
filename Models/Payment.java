@@ -1,7 +1,7 @@
 package Models;
 
 public interface Payment {
-    public boolean executePayment();
+    public boolean executePayment(int amount);
 
     public double getTax();
 
