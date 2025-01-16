@@ -21,7 +21,9 @@ public class SymptomsController {
             boolean headacheSelected,
             boolean feverSelected,
             boolean nauseaSelected,
-            boolean shortnessOfBreathSelected) {
+            boolean shortnessOfBreathSelected,
+            boolean fatigueSelected,
+            boolean coughSelected) {
         Illness illness = patient.getIllness();
 
         if (headacheSelected) {
@@ -35,6 +37,12 @@ public class SymptomsController {
         }
         if (shortnessOfBreathSelected) {
             illness = new ShortnessOfBreath(illness);
+        }
+        if (fatigueSelected) {
+            illness = new Fatigue(illness);
+        }
+        if (coughSelected) {
+            illness = new Cough(illness);
         }
 
         patient.setIllness(illness);
