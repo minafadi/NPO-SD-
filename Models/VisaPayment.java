@@ -4,8 +4,9 @@ public class VisaPayment implements Payment {
     private double tax;
     private String description="Invoice Paid by Visa Card";
     @Override
-    public boolean executePayment() {
-        throw new UnsupportedOperationException("Unimplemented method 'executePayment'");
+    public boolean executePayment(int amount) {
+        description = "Invoice Paid by Visa Card : "+amount+" LE";
+        return true;
     }
 
     @Override

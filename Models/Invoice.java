@@ -18,7 +18,7 @@ public class Invoice implements InterfaceInvoice{
     {
         mylist=new ArrayList<IObserver>();
         //System.out.println(mylist.size());
-        setPayment(new CashPayment());
+        setPayment(new CashPaymentAdapter(new CashPayment()));
     }
     public void add(IObserver x){
         mylist.add(x);
@@ -53,8 +53,9 @@ public class Invoice implements InterfaceInvoice{
         return true;
     }
 
-    public Boolean pay() {
-        return false;
+    public Boolean pay(int total) {
+        payment.executePayment(total);
+        return true;
     }
 
     public double getTax() {

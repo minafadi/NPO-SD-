@@ -1,3 +1,4 @@
+
 package Models;
 
 public class FawryPayment implements Payment {
@@ -5,8 +6,9 @@ public class FawryPayment implements Payment {
     private String description="Invoice Paid by Fawry";
 
     @Override
-    public boolean executePayment() {
-        throw new UnsupportedOperationException("Unimplemented method 'executePayment'");
+    public boolean executePayment(int amount) {
+        description = "Invoice Paid by Fawry : "+amount + "LE";
+        return true;
     }
 
     @Override

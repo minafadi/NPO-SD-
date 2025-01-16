@@ -8,12 +8,13 @@ import javax.print.Doc;
 public class InvoiceController {
     public InVoiceView view;
     public Invoice model = new Invoice();
-
+    static String total;
     public Doctor d;
     public Patient p;
     public  InvoiceController(String total , Patient patient , Doctor doctor, String drugs){
         p = patient;
         d = doctor;
+        this.total = total;
         view = new InVoiceView(patient.getId(), doctor.getDRid());
         view.textField3.setText(total);
         view.PatientTF.setText(patient.getName());
@@ -35,13 +36,16 @@ public class InvoiceController {
         Invoice inv = new Invoice();
         //PaymentMethod=comboBox1.getSelectedItem().toString();
         if(paymethod=="Cash"){
-            inv.setPayment(new CashPayment());
+            inv.setPayment(new CashPaymentAdapter(new CashPayment()));
         } else if (paymethod=="Visa") {
             inv.setPayment(new VisaPayment());
 
         } else if (paymethod=="Fawry") {
             inv.setPayment(new FawryPayment());
         }
+        //Double tot = Double.parseDouble(total);
+        double tota = Double.parseDouble(String.valueOf(total));
+        inv.pay((int) tota);
         String method = inv.getPayment().getDescription();
         s+=method;
         //String contains notifications + payment method
