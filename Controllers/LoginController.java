@@ -18,6 +18,7 @@ public class LoginController {
         }
         else if(selecteditem == "Admin" && Admin.AuthenticateAdmin(name,password)){
             AdminController adminController=new AdminController();
+            adminController.ExecuteCommand();
         }
 
 

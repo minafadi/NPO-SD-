@@ -4,7 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import Commands.CommandHomeAdmin;
 import Controllers.*;
+import Commands.CommandAddAppointmentAdmin;
+import Commands.CommandAddDoctorAdmin;
+import Commands.CommandAddDrugAdmin;
+import Models.ICommandAdmin;
 
 public class AdminView extends JFrame{
     private JButton AddAppointButton;
@@ -22,29 +28,36 @@ public class AdminView extends JFrame{
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize((int)(screenSize.width * 0.8),(int)(screenSize.height * 0.8));
         setLocationRelativeTo(null);
-
+        ICommandAdmin appCommand = new CommandAddAppointmentAdmin(new AppointmentView());
+        ICommandAdmin docCommand = new CommandAddDoctorAdmin(new AddDoctorView());
+        ICommandAdmin drugCommand = new CommandAddDrugAdmin(new AddDrugView());
+        ICommandAdmin homeCommand = new CommandHomeAdmin(this);
         AddAppointButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AppointmentView appointmentView = new AppointmentView();
-                appointmentView.setVisible(true);
+                AdminController.setCommand(appCommand);
+                AdminController.ExecuteCommand();
             }
         });
         AddDocButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                /*AddDoctorView d = new AddDoctorView();
-                d.setVisible(true);*/
-                AddDoctorController addDoctorController=new AddDoctorController();
+                AdminController.setCommand(docCommand);
+                AdminController.ExecuteCommand();
             }
         });
         AddDrugButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                /*AddDrugView d = new AddDrugView();
-                d.setVisible(true);*/
-                AddDrugController addDrugController=new AddDrugController();
-
+                AdminController.setCommand(drugCommand);
+                AdminController.ExecuteCommand();
+            }
+        });
+        DoneButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdminController.setCommand(homeCommand);
+                AdminController.UndoCommand();
             }
         });
     }
