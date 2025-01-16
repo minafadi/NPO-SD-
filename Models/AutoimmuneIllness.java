@@ -27,7 +27,7 @@ public class AutoimmuneIllness extends Illness {
 
     @Override
     protected double calculateTreatmentCost() {
-        System.out.println("Calculating treatment cost for autoImmune illness...");
+        System.out.println("Calculating treatment cost for autoImmune illness = " + treatmentCost);
         return treatmentCost;
     }
 

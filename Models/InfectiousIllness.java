@@ -27,7 +27,7 @@ public class InfectiousIllness extends Illness {
 
     @Override
     protected double calculateTreatmentCost() {
-        System.out.println("Calculating treatment cost for infectious illness...");
+        System.out.println("Calculating treatment cost for infectious illness = " + treatmentCost);
         return treatmentCost;
     }
 }

@@ -29,7 +29,7 @@ public class GeneticIllness extends Illness {
 
     @Override
     protected double calculateTreatmentCost() {
-        System.out.println("Calculating treatment cost for genetic illness...");
+        System.out.println("Calculating treatment cost for genetic illness = " + treatmentCost);
         return treatmentCost;
     }
 }

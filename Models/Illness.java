@@ -73,7 +73,9 @@ public abstract class Illness {
     }
 
     //For subclasses of symptoms
-    public double calculateCost(){return treatmentCost;}
+    public double calculateCost(){
+        return treatmentCost;
+    }
 
     //For subclasses of symptoms
     public  int severity(){return Severity;}

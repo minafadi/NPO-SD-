@@ -3,7 +3,6 @@ package Models;
 public class Fatigue extends Symptom {
     public Fatigue(Illness illness) {
         this.illness = illness;
-        this.illness.addDrug(Drug.readAllDrugs("Fatigue"));
     }
 
     @Override

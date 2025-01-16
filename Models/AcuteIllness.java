@@ -27,7 +27,7 @@ public class AcuteIllness extends Illness {
 
     @Override
     protected double calculateTreatmentCost() {
-        System.out.println("Calculating treatment cost for acute illness...");
+        System.out.println("Calculating treatment cost for acute illness = " + treatmentCost);
         return treatmentCost;
     }
 }

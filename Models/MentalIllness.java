@@ -27,7 +27,7 @@ public class MentalIllness extends Illness {
 
     @Override
     protected double calculateTreatmentCost() {
-        System.out.println("Calculating treatment cost for mental illness...");
+        System.out.println("Calculating treatment cost for mental illness = " + treatmentCost);
         return treatmentCost;
     }
 

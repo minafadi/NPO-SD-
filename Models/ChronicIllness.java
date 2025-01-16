@@ -27,7 +27,7 @@ public class ChronicIllness extends Illness {
 
     @Override
     protected double calculateTreatmentCost() {
-        System.out.println("Calculating treatment cost for chronic illness...");
+        System.out.println("Calculating treatment cost for chronic illness = " + treatmentCost);
         return treatmentCost;
     }
 }
