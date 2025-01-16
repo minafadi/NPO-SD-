@@ -10,60 +10,28 @@ import java.util.List;
 public abstract class Illness {
     protected String description;
     protected int Severity;
-    //private String description;
-    public int treatmentCost;
+    protected int treatmentCost;
     private Duration duration;
     private boolean contagious;
-    public double drugscost=0;
+    public double drugsCost = 0;
 
     private final List<Drug> drugList = new ArrayList<>();
 
-    public double calculateCost(){return treatmentCost;}
-
-    public  int severity(){return Severity;}
-
-    public void addDrug(Drug drug) {
-        drugList.add(drug);
-        System.out.println("ketaaaaaaaafbs:        ");
-       // System.out.println(getDrugscost());
-       // System.out.println(drugList.size());
+    // Template Design Pattern for defining the skeleton of the treatment process.
+    public final void treatIllness(Patient patient) {
+        diagnose(); // For Diagnose the illness
+        prescribeDrugs(); // For Prescribe of drugs
+        calculateTreatmentCost(); // Calculate treatment cost
+        addIllnessToPatient(patient); // Add illness to the patient record in the database
     }
 
-    public Boolean removeDrug(Drug drug) {
-        drugList.remove(drug);
-        return true;
-    }
+    // Abstract methods to be implemented by subclasses illnesses
+    protected abstract void diagnose();
+    protected abstract void prescribeDrugs();
+    protected abstract void calculateTreatmentCost();
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getTreatmentCost() {
-        return treatmentCost;
-    }
-
-    public void setTreatmentCost(int treatmentCost) {
-        this.treatmentCost = treatmentCost;
-    }
-
-    public Duration getDuration() {
-        return duration;
-    }
-
-    public Boolean setDuration(Duration duration) {
-        this.duration = duration;
-        return true;
-    }
-
-    public int getSeverity(){
-        return severity();
-    }
-
-    public boolean AddIllness(Patient patient) {
+    // Concrete method to add illness to the patient's record
+    public boolean addIllnessToPatient(Patient patient) {
 
         System.out.print("Drugs associated with illness:");
         for (Drug drug : patient.getIllness().getDrugList()) {
@@ -104,6 +72,54 @@ public abstract class Illness {
         return false;
     }
 
+    //For subclasses of symptoms
+    public double calculateCost(){return treatmentCost;}
+
+    //For subclasses of symptoms
+    public  int severity(){return Severity;}
+
+    //For subclasses of symptoms
+    public void addDrug(Drug drug) {
+        drugList.add(drug);
+    }
+
+    public Boolean removeDrug(Drug drug) {
+        drugList.remove(drug);
+        return true;
+    }
+
+    //For subclasses of symptoms
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getTreatmentCost() {
+        return treatmentCost;
+    }
+
+    public void setTreatmentCost(int treatmentCost) {
+        this.treatmentCost = treatmentCost;
+    }
+
+    //For class Symptom
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public Boolean setDuration(Duration duration) {
+        this.duration = duration;
+        return true;
+    }
+
+    public int getSeverity(){
+        return severity();
+    }
+
+    //For class of Symptoms
     public Boolean isContagious() {
         return contagious;
     }
@@ -112,7 +128,7 @@ public abstract class Illness {
         this.contagious = contagious;
     }
 
-    static public double getDrugscost(Drug[] drugList) {
+    static public double getDrugsCost(Drug[] drugList) {
         double totalCost = 0;
         for (Drug drug : drugList) {
             totalCost += drug.getPrice();
@@ -120,13 +136,9 @@ public abstract class Illness {
         return totalCost;
     }
 
+    //For class of Symptoms
     public List<Drug> getDrugList() {
-
         return new ArrayList<>(drugList);
     }
-    //public abstract int getSeverity();
 
-    //public void setDrugList(List<Drug> drugList) {
-    //    this.drugList = drugList;
-    //}
 }
