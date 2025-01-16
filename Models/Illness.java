@@ -1,8 +1,5 @@
 package Models;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +10,7 @@ public abstract class Illness {
     protected int treatmentCost;
     private Duration duration;
     private boolean contagious;
+    protected int illnessId;
     public double drugsCost = 0;
 
     private final List<Drug> drugList = new ArrayList<>();
@@ -32,44 +30,14 @@ public abstract class Illness {
 
     // Concrete method to add illness to the patient's record
     public final boolean addIllnessToPatient(Patient patient) {
-
-        System.out.print("Drugs associated with illness:");
-        for (Drug drug : patient.getIllness().getDrugList()) {
+        System.out.print("Drugs associated with illness: ");
+        for (Drug drug : this.getDrugList()) {
             System.out.println(drug.getDrugName());
         }
 
-        // Insert into Illness table
-        String sql = "INSERT INTO illness (description, severity, treatmentcost) VALUES (?, ?, ?)";
-        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            stmt.setString(1, this.getDescription()); // `description` attribute
-            stmt.setInt(2, this.getSeverity());       // `severity` attribute
-            stmt.setDouble(3, this.calculateCost());  // `treatmentCost` attribute
-
-            int rowsInserted = stmt.executeUpdate();
-
-            if (rowsInserted > 0) {
-                // Retrieve generated IID
-                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        int illnessId = generatedKeys.getInt(1);
-
-                        // Insert into PatientIllness table
-                        String patientIllnessSql = "INSERT INTO PatientIllness (PID, IID) VALUES (?, ?)";
-                        try (PreparedStatement patientIllnessStmt = DB.getInstance().getConnection().prepareStatement(patientIllnessSql)) {
-                            patientIllnessStmt.setInt(1, patient.getId()); // patient ID (PID)
-                            patientIllnessStmt.setInt(2, illnessId);       // illness ID (IID)
-
-                            int patientIllnessRowsInserted = patientIllnessStmt.executeUpdate();
-                            return patientIllnessRowsInserted > 0; // Returns true if the row was inserted successfully
-                        }
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return false;
+        // Use IllnessFacade to handle the operation
+        IllnessFacade illnessFacade = new IllnessFacade();
+        return illnessFacade.addIllnessToPatient(patient, this);
     }
 
     //For subclasses of symptoms
@@ -143,4 +111,11 @@ public abstract class Illness {
         return new ArrayList<>(drugList);
     }
 
+    public int getIllnessId() {
+        return illnessId;
+    }
+
+    public void setIllnessId(int illnessId) {
+        this.illnessId = illnessId;
+    }
 }
