@@ -28,10 +28,10 @@ public abstract class Illness {
     // Abstract methods to be implemented by subclasses illnesses
     protected abstract void diagnose();
     protected abstract void prescribeDrugs();
-    protected abstract void calculateTreatmentCost();
+    protected abstract double calculateTreatmentCost();
 
     // Concrete method to add illness to the patient's record
-    public boolean addIllnessToPatient(Patient patient) {
+    public final boolean addIllnessToPatient(Patient patient) {
 
         System.out.print("Drugs associated with illness:");
         for (Drug drug : patient.getIllness().getDrugList()) {
@@ -120,7 +120,7 @@ public abstract class Illness {
     }
 
     //For class of Symptoms
-    public Boolean isContagious() {
+    public boolean isContagious() {
         return contagious;
     }
 
