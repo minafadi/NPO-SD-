@@ -16,35 +16,37 @@ public class ConcreteIllnessController {
     }
 
     public static void updateIllness(String illness, Patient patient) {
+        Illness i;
         if (illness == "MentalIllness") {
-            Illness i = new MentalIllness(dbProxy);
+            i = new MentalIllness(dbProxy);
             patient.setIllness(i);
         } else if (illness == "InfectiousIllness") {
-            Illness i = new InfectiousIllness(dbProxy);
+            i = new InfectiousIllness(dbProxy);
             patient.setIllness(i);
         } else if (illness == "GeneticIllness") {
-            Illness i = new GeneticIllness();
+            i = new GeneticIllness(dbProxy);
             patient.setIllness(i);
         } else if (illness == "AcuteIllness") {
-            Illness i = new AcuteIllness();
+            i = new AcuteIllness(dbProxy);
             patient.setIllness(i);
         } else if (illness == "AutoImmuneIllness") {
-            Illness i = new AutoimmuneIllness(dbProxy);
+            i = new AutoimmuneIllness(dbProxy);
             patient.setIllness(i);
-        } else if (illness == "ChronicIllness") {
-            Illness i = new ChronicIllness();
+        } else{
+            i = new ChronicIllness(dbProxy);
             patient.setIllness(i);
         }
 
         // Update the patient's illness
-        if (illness != null) {
-            patient.setIllness(illness);
+//        if (illness != null) {
+//            patient.setIllness(illness);
 
             // Use the Template Design Pattern to treat the illness
-            illness.treatIllness(patient);
+        i.treatIllness(patient, dbProxy);
+
         SymptomsController s = new SymptomsController(patient,dbProxy);
 
             // After treating illness, proceed with the symptoms controller
-        }
+//        }
     }
 }

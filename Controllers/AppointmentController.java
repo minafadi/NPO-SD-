@@ -17,7 +17,7 @@ public class AppointmentController implements ICommandAdmin {
 
     @Override
     public void executecommand() {
-        this.view = new AppointmentView();
+        this.view = new AppointmentView(this);
         this.view.setVisible(true);
         this.view.getAddAppointmentButton().addActionListener(new ActionListener() {
             @Override
@@ -31,6 +31,13 @@ public class AppointmentController implements ICommandAdmin {
     public void undocommand() {
         this.view.setVisible(false);
 
+    }
+    public void insertAppRes(int i,String ss,int k,String s){
+        Appointment a = new Appointment(i,ss,k,s,dbProxy);
+
+    }
+    public void insertApp(String s,int x,String ss){
+        Appointment a = new Appointment(s, x, ss,dbProxy);
     }
 
     public AppointmentController(DBProxy dbProxy) {

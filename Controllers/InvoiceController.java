@@ -3,6 +3,7 @@ package Controllers;
 import Models.*;
 import Views.InVoiceView;
 
+import java.util.*;
 import javax.print.Doc;
 
 public class InvoiceController {
@@ -15,6 +16,16 @@ public class InvoiceController {
     Appointment appointment;
 
     DBProxy dbProxy;
+
+    public static String removeDuplicates(String inputString) {
+        String[] words = inputString.split("\\s+");  // Split the string into words
+        Set<String> uniqueWords = new LinkedHashSet<>();  // Preserve the order of words
+        for (String word : words) {
+            uniqueWords.add(word);  // Add each word to the set (duplicates will be ignored)
+        }
+        return String.join(" ", uniqueWords);  // Join the unique words back into a string
+    }
+
     public  InvoiceController(String total , Patient patient , Doctor doctor, String drugs, Appointment appointment, DBProxy dbProxy){
         this.appointment = appointment;
         this.dbProxy = dbProxy;
@@ -22,6 +33,8 @@ public class InvoiceController {
         d = doctor;
         view = new InVoiceView(patient.getId(), doctor.getDRid(),this);
         this.total = total;
+        drugs = drugs.replaceAll("null","");
+        drugs = removeDuplicates(drugs);
 //        view = new InVoiceView(patient.getId(), doctor.getDRid());
         view.textField3.setText(total);
         view.PatientTF.setText(patient.getName());

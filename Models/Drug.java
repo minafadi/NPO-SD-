@@ -79,7 +79,7 @@ public class Drug {
 
 //            // Execute the query and retrieve the results
 //            ResultSet rs = selectStmt.executeQuery();
-        String query = "SELECT id, name, quantity, price FROM drug WHERE Treatment = '" + treatment + "'";
+        String query = "SELECT * FROM drug WHERE Treatment = '" + treatment + "'";
         ResultSet resultSet = dbProxy.executeQuery(query);
         Drug drug;
         try {

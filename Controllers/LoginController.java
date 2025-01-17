@@ -11,24 +11,25 @@ public class LoginController {
         view = new LoginView();
         view.setVisible(true);
     }
-    public static void login(String name, String password, String selecteditem){
-        if(selecteditem == "Patient") {
+    public static void login(String name, String password, String selecteditem) {
+        if (selecteditem == "Patient") {
             dbProxy = new DBProxy(0);
-            if (Patient.AuthenticatePatient(name,password, dbProxy)) {
-                Patient p = new Patient(name, password, dbProxy);
+//            if (Patient.AuthenticatePatient(name, password, dbProxy)) {
+//                Patient p = new Patient(name, password, dbProxy);
+//                ConcreteIllnessController ConcreteIllnessController = new ConcreteIllnessController(p, dbProxy);
+//            }
+            if (selecteditem == "Patient" && Patient.AuthenticatePatient(name, password, dbProxy)) {
+                Patient p = (Patient) UserFactory.createUser("Patient", name, password,dbProxy);
                 ConcreteIllnessController ConcreteIllnessController = new ConcreteIllnessController(p, dbProxy);
+
             }
-        if(selecteditem == "Patient" && Patient.AuthenticatePatient(name,password)){
-            Patient p = (Patient)UserFactory.createUser("Patient",name,password);
-            ConcreteIllnessController ConcreteIllnessController= new ConcreteIllnessController(p);
+
 
         }
-        else if(selecteditem == "Admin" && Admin.AuthenticateAdmin(name,password)){
-            AdminController adminController=new AdminController();
+        else if (selecteditem == "Admin" && Admin.AuthenticateAdmin(name, password)) {
+            AdminController adminController = new AdminController();
 //            AdminController adminController=new AdminController();
             adminController.ExecuteCommand();
         }
-
-
     }
 }

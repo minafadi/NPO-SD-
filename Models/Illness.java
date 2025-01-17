@@ -16,10 +16,10 @@ public abstract class Illness {
     private final List<Drug> drugList = new ArrayList<>();
 
     // Template Design Pattern for defining the skeleton of the treatment process.
-    public final void treatIllness(Patient patient) {
+    public final void treatIllness(Patient patient, DBProxy dbProxy) {
         prescribeDrugs(); // For Prescribe of drugs
         calculateTreatmentCost(); // Calculate treatment cost
-        addIllnessToPatient(patient); // Add illness to the patient record in the database
+        addIllnessToPatient(patient, dbProxy); // Add illness to the patient record in the database
     }
 
     // Abstract methods to be implemented by subclasses illnesses
@@ -27,14 +27,14 @@ public abstract class Illness {
     protected abstract double calculateTreatmentCost();
 
     // Concrete method to add illness to the patient's record
-    public final boolean addIllnessToPatient(Patient patient) {
+    public final boolean addIllnessToPatient(Patient patient, DBProxy dbProxy) {
 //        for (Drug drug : this.getDrugList()) {
 //            System.out.println(drug.getDrugName());
 //        }
 
         // Use IllnessFacade to handle the operation
         IllnessFacade illnessFacade = new IllnessFacade();
-        return illnessFacade.addIllnessToPatient(patient, this);
+        return illnessFacade.addIllnessToPatient(patient, this, dbProxy);
     }
 
     //For subclasses of symptoms
@@ -86,58 +86,58 @@ public abstract class Illness {
         return severity();
     }
 
-    public boolean AddIllness(Patient patient, DBProxy dbProxy) {
-
-        System.out.print("Drugs associated with illness:");
-        for (Drug drug : this.getDrugList()) {
-            System.out.println(drug.getDrugName());
-        }
-
-        String query = "INSERT INTO illness (description, severity, treatmentcost) VALUES ('" + this.getDescription() + "', " + this.getSeverity() + ", " + this.calculateCost() + ")";
-        ResultSet resultSet = dbProxy.executeQuery(query);
-
-        try {
-            resultSet.next();
-            query = "INSERT INTO PatientIllness (PID, IID) Values (" + patient.getId() + ", " + resultSet.getInt("id");
-            resultSet = dbProxy.executeQuery(query);
-            return resultSet!=null;
-        } catch (SQLException e) {
-            return false;
-        }
-
-        // Insert into Illness table
-//        String sql = "INSERT INTO illness (description, severity, treatmentcost) VALUES (?, ?, ?)";
-//        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-//            stmt.setString(1, this.getDescription()); // `description` attribute
-//            stmt.setInt(2, this.getSeverity());       // `severity` attribute
-//            stmt.setDouble(3, this.calculateCost());  // `treatmentCost` attribute
+//    public boolean AddIllness(Patient patient, DBProxy dbProxy) {
 //
-//            int rowsInserted = stmt.executeUpdate();
+//        System.out.print("Drugs associated with illness:");
+//        for (Drug drug : this.getDrugList()) {
+//            System.out.println(drug.getDrugName());
+//        }
 //
-//            if (rowsInserted > 0) {
-//                // Retrieve generated IID
-//                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-//                    if (generatedKeys.next()) {
-//                        int illnessId = generatedKeys.getInt(1);
+//        String query = "INSERT INTO illness (description, severity, treatmentcost) VALUES ('" + this.getDescription() + "', " + this.getSeverity() + ", " + this.calculateCost() + ")";
+//        ResultSet resultSet = dbProxy.executeQuery(query);
 //
-//                        // Insert into PatientIllness table
-//                        String patientIllnessSql = "INSERT INTO PatientIllness (PID, IID) VALUES (?, ?)";
-//                        try (PreparedStatement patientIllnessStmt = DB.getInstance().getConnection().prepareStatement(patientIllnessSql)) {
-//                            patientIllnessStmt.setInt(1, patient.getId()); // patient ID (PID)
-//                            patientIllnessStmt.setInt(2, illnessId);       // illness ID (IID)
-//
-//                            int patientIllnessRowsInserted = patientIllnessStmt.executeUpdate();
-//                            return patientIllnessRowsInserted > 0; // Returns true if the row was inserted successfully
-//                        }
-//                    }
-//                }
-//            }
+//        try {
+//            resultSet.next();
+//            query = "INSERT INTO PatientIllness (PID, IID) Values (" + patient.getId() + ", " + resultSet.getInt("id");
+//            resultSet = dbProxy.executeQuery(query);
+//            return resultSet!=null;
 //        } catch (SQLException e) {
-//            e.printStackTrace();
 //            return false;
 //        }
-//        return false;
-    }
+//
+//        // Insert into Illness table
+////        String sql = "INSERT INTO illness (description, severity, treatmentcost) VALUES (?, ?, ?)";
+////        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+////            stmt.setString(1, this.getDescription()); // `description` attribute
+////            stmt.setInt(2, this.getSeverity());       // `severity` attribute
+////            stmt.setDouble(3, this.calculateCost());  // `treatmentCost` attribute
+////
+////            int rowsInserted = stmt.executeUpdate();
+////
+////            if (rowsInserted > 0) {
+////                // Retrieve generated IID
+////                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+////                    if (generatedKeys.next()) {
+////                        int illnessId = generatedKeys.getInt(1);
+////
+////                        // Insert into PatientIllness table
+////                        String patientIllnessSql = "INSERT INTO PatientIllness (PID, IID) VALUES (?, ?)";
+////                        try (PreparedStatement patientIllnessStmt = DB.getInstance().getConnection().prepareStatement(patientIllnessSql)) {
+////                            patientIllnessStmt.setInt(1, patient.getId()); // patient ID (PID)
+////                            patientIllnessStmt.setInt(2, illnessId);       // illness ID (IID)
+////
+////                            int patientIllnessRowsInserted = patientIllnessStmt.executeUpdate();
+////                            return patientIllnessRowsInserted > 0; // Returns true if the row was inserted successfully
+////                        }
+////                    }
+////                }
+////            }
+////        } catch (SQLException e) {
+////            e.printStackTrace();
+////            return false;
+////        }
+////        return false;
+//    }
 
     public Boolean isContagious() {
         return contagious;
@@ -167,4 +167,16 @@ public abstract class Illness {
     public void setIllnessId(int illnessId) {
         this.illnessId = illnessId;
     }
+
+//    public double getDrugsCost() {
+//        return drugsCost;
+//    }
+//
+//    static public double getDrugsCost(Drug[] drugList) {
+//        double totalCost = 0;
+//        for (Drug drug : drugList) {
+//            totalCost += drug.getPrice();
+//        }
+//        return totalCost;
+//    }
 }

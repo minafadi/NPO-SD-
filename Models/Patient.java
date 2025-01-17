@@ -15,6 +15,7 @@ public class Patient extends User {
         this.gender = gender;
         this.password = password;
     }
+
     public Patient(int id, DBProxy dbProxy) {
         super(null, null);
         this.id = id;
@@ -23,14 +24,13 @@ public class Patient extends User {
         String query = "SELECT name, phone, age, gender, password FROM patient WHERE Id = " + id;
         ResultSet resultSet = dbProxy.executeQuery(query);
 
-        try{
+        try {
             super.name = resultSet.getString("name");
             super.phone = resultSet.getString("phone");
             this.age = resultSet.getInt("age");
             this.gender = resultSet.getBoolean("gender");
             this.password = resultSet.getString("password");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -100,13 +100,12 @@ public class Patient extends User {
         String query = "SELECT * FROM patient WHERE name = '" + name + "' AND password = '" + password + "'";
         ResultSet resultSet = dbProxy.executeQuery(query);
         try {
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 this.id = resultSet.getInt("id");
                 this.age = resultSet.getInt("age");
                 this.gender = resultSet.getBoolean("gender");
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
 
         }
         // Use the static dbconn attribute to retrieve patient from the database
@@ -154,22 +153,16 @@ public class Patient extends User {
 //            int result = stmt.executeUpdate();
 //            return result > 0;  // Returns true if update was successful
 //        }
-        catch (SQLException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
     }
 
-
-    public static Boolean AuthenticatePatient(String name, String password, DBProxy dbProxy) {
-        String query = "SELECT COUNT(*) FROM patient WHERE name = '" + name + "' AND password = '" + password + "'";
-        ResultSet resultSet = dbProxy.executeQuery(query);
-        try{
-            return (resultSet.next() && (resultSet.getInt(1) > 0 ));
-        }
-        catch (Exception e){
-            return false;
-        }
+        public static Boolean AuthenticatePatient (String name, String password, DBProxy dbProxy){
+            String query = "SELECT COUNT(*) FROM patient WHERE name = '" + name + "' AND password = '" + password + "'";
+            ResultSet resultSet = dbProxy.executeQuery(query);
+            try {
+                return (resultSet.next() && (resultSet.getInt(1) > 0));
+            } catch (Exception e) {
+                return false;
+            }
 //        try (PreparedStatement statement = DB.getInstance().getConnection().prepareStatement(query)) {
 //            // Set query parameters
 //            statement.setString(1, name);
@@ -186,41 +179,43 @@ public class Patient extends User {
 //            e.printStackTrace();
 //            return false;
 //        }
-    }
+        }
 
-    // Getter and Setter methods
-    public Illness getIllness() {
-        return illness;
-    }
 
-    public void setIllness(Illness illness) {
-        this.illness = illness;
-    }
+        // Getter and Setter methods
+        public Illness getIllness () {
+            return illness;
+        }
 
-    public int getAge() {
-        return age;
-    }
+        public void setIllness (Illness illness){
+            this.illness = illness;
+        }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+        public int getAge () {
+            return age;
+        }
 
-    public boolean getGender() {
-        return gender;
-    }
+        public void setAge ( int age){
+            this.age = age;
+        }
 
-    public void setGender(boolean gender) {
-        this.gender = gender;
-    }
+        public boolean getGender () {
+            return gender;
+        }
 
-    // Static method to close the database connection when done
-    public static void closeConnection() {
-        try {
-            if (DB.getInstance().getConnection() != null && !DB.getInstance().getConnection().isClosed()) {
-                DB.getInstance().getConnection().close();
+        public void setGender ( boolean gender){
+            this.gender = gender;
+        }
+
+        // Static method to close the database connection when done
+        public static void closeConnection () {
+            try {
+                if (DB.getInstance().getConnection() != null && !DB.getInstance().getConnection().isClosed()) {
+                    DB.getInstance().getConnection().close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
-}
+

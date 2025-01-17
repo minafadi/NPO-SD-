@@ -17,7 +17,7 @@ public class AppointmentListController {
     public void updateAppointmentListView(Patient p, Drug[] dd){
         //Appointment[] Allapps = model.ReadDoctorApps(model.getDoctorId(), dbProxy);
         Doctor d = new Doctor(model.getDoctorId(), dbProxy);
-        double total = Illness.getDrugscost(dd);
+        double total = Illness.getDrugsCost(dd);
         double total2 = d.getSalary();
         double total3=p.getIllness().calculateCost();
         //Insert invoice to db

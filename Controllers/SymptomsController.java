@@ -40,15 +40,15 @@ public class SymptomsController {
             illness = new ShortnessOfBreath(illness,dbProxy);
         }
         if (fatigueSelected) {
-            illness = new Fatigue(illness);
+            illness = new Fatigue(illness, dbProxy);
         }
         if (coughSelected) {
-            illness = new Cough(illness);
+            illness = new Cough(illness, dbProxy);
         }
 
         patient.setIllness(illness);
-
-        if (illness.addIllnessToPatient(patient)) {
+        System.out.println(illness);
+        if (illness.addIllnessToPatient(patient, dbProxy)) {
             view.setVisible(false);
         }
     }
