@@ -46,7 +46,7 @@ public class SymptomsController {
             illness = new Cough(illness, dbProxy);
         }
 
-        illness.treatIllness(patient);
+        illness.treatIllness(patient,dbProxy);
         patient.setIllness(illness);
         System.out.println(illness);
         if (illness.addIllnessToPatient(patient, dbProxy)) {
