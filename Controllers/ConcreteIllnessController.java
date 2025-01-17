@@ -3,7 +3,7 @@ package Controllers;
 import Models.*;
 import Views.ConcreteIllnessView;
 
-public class ConcreteIllnessController {
+public class ConcreteIllnessController extends ParentController implements State {
     Patient patient;
     ConcreteIllnessView view;
     static DBProxy dbProxy;
@@ -11,11 +11,12 @@ public class ConcreteIllnessController {
     public ConcreteIllnessController(Patient patient, DBProxy dbProxy) {
         this.patient = patient;
         this.dbProxy = dbProxy;
-        view = new ConcreteIllnessView(patient);
-        view.setVisible(true);
+        view = new ConcreteIllnessView(patient,this);
+        ParentController.setnextState(this);
+        //view.setVisible(true);
     }
 
-    public static void updateIllness(String illness, Patient patient) {
+    public void updateIllness(String illness, Patient patient) {
         Illness i;
         if (illness == "MentalIllness") {
             i = new MentalIllness(dbProxy);
@@ -44,9 +45,25 @@ public class ConcreteIllnessController {
             // Use the Template Design Pattern to treat the illness
         i.treatIllness(patient, dbProxy);
 
-        SymptomsController s = new SymptomsController(patient,dbProxy);
+        //SymptomsController s = new SymptomsController(patient,dbProxy);
+        ParentController.nextPage();
 
             // After treating illness, proceed with the symptoms controller
 //        }
+    }
+
+    @Override
+    public void show() {
+        view.setVisible(true);
+    }
+
+    @Override
+    public void hide() {
+        view.setVisible(false);
+    }
+
+    @Override
+    public void init() {
+        new SymptomsController(patient,dbProxy);
     }
 }

@@ -6,7 +6,7 @@ import Views.InVoiceView;
 import java.util.*;
 import javax.print.Doc;
 
-public class InvoiceController {
+public class InvoiceController extends ParentController implements State {
     public InVoiceView view;
     public Invoice model = new Invoice();
     static String total;
@@ -44,7 +44,8 @@ public class InvoiceController {
         view.textField1.setEnabled(false);
         view.textField3.setEnabled(false);
         view.textField1.setText(drugs);
-        view.setVisible(true);
+        //view.setVisible(true);
+        ParentController.setnextState(this);
     }
 
     public String PayPressed(String paymethod){
@@ -69,9 +70,24 @@ public class InvoiceController {
         String method = inv.getPayment().getDescription();
         s+=method;
         appointment.reserve(dbProxy,p);
+        hide();
         //String contains notifications + payment method
         return s;
 
     }
 
+    @Override
+    public void show() {
+        view.setVisible(true);
+    }
+
+    @Override
+    public void hide() {
+        view.setVisible(false);
+    }
+
+    @Override
+    public void init() {
+
+    }
 }

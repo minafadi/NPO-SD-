@@ -4,7 +4,7 @@ import Views.DoctorsListView;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/*
 public class DoctorController {
     private Doctor model;
     private DoctorsListView view;
@@ -28,8 +28,8 @@ public class DoctorController {
 
         Doctor[] doctorArray = doctorList.toArray(new Doctor[0]);
 
-        view = new DoctorsListView(p,doctorArray);
+        view = new DoctorsListView(p,doctorArray,this);
         view.setVisible(true);
 
     }
-}
+}*/
