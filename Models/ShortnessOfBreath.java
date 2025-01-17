@@ -1,11 +1,10 @@
 package Models;
 
 public class ShortnessOfBreath extends Symptom {
-    DBProxy dbProxy;
+
     public ShortnessOfBreath(Illness illness, DBProxy dbProxy) {
         this.illness = illness;
         this.dbProxy = dbProxy;
-//        this.illness.addDrug(Drug.readAllDrugs("ShortnessOfBreath"));
     }
 
 

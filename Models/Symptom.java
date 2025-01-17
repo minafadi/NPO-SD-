@@ -24,7 +24,7 @@ public abstract class Symptom extends Illness {
     }
 
     @Override
-    public Boolean isContagious() {
+    public boolean isContagious() {
         return illness.isContagious();
     }
 

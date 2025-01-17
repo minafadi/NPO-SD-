@@ -3,7 +3,7 @@ package Models;
 import static Models.Drug.readAllDrugs;
 
 public class AutoimmuneIllness extends Illness {
-    DBProxy dbProxy;
+
     public AutoimmuneIllness(DBProxy dbProxy) {
         this.description="Suffering from AutoImmune disease with symptoms:";
         this.Severity=5;

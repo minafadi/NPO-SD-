@@ -1,9 +1,6 @@
 package Models;
 
 public class GeneticIllness extends Illness {
-    DBProxy dbProxy;
-
-    private double hereditaryFactor;
 
     public GeneticIllness(DBProxy dbProxy) {
         this.description="Suffering from hereditary Genetic illness with symptoms:";

@@ -12,7 +12,6 @@ public class IllnessFacade {
         pageCount++;
         //This is for checking if it is after the symptoms declaration
         if(pageCount%2==0) {
-            illness.prescribeDrugs();
             String sql = "INSERT INTO illness (description, severity, treatmentcost) VALUES ('" + illness.getDescription() + "', " + illness.getSeverity() + ", " + (int) illness.calculateCost() + ")";
             dbProxy.executeQuery(sql);
             sql = "SELECT * FROM illness WHERE description = '" + illness.getDescription() + "' AND severity = " + illness.getSeverity() + " AND treatmentcost = " + (int) illness.calculateCost();
