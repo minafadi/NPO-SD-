@@ -1,6 +1,4 @@
 package Views;
-import Models.Patient;
-import Models.Admin;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,6 +15,7 @@ public class LoginView extends JFrame{
     private JLabel ForgetLabel;
     private JPasswordField PasswordPF;
     private JPanel login;
+    private JButton signUpButton;
 
     public LoginView() {
         setContentPane(login);
@@ -42,6 +41,12 @@ public class LoginView extends JFrame{
                 }*/
 
 
+            }
+        });
+        signUpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoginController.signUp();
             }
         });
     }

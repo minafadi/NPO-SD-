@@ -32,4 +32,8 @@ public class LoginController {
             adminController.ExecuteCommand();
         }
     }
+
+    public static void signUp(){
+        new SignUpController(new DBProxy(0));
+    }
 }
