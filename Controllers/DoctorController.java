@@ -1,9 +1,5 @@
 package Controllers;
-import Models.DBProxy;
-import Models.Doctor;
-import Models.DoctorsCollection;
-import Models.Iterator;
-import Models.Patient;
+import Models.*;
 import Views.DoctorsListView;
 
 import java.util.ArrayList;
@@ -18,9 +14,10 @@ public class DoctorController {
         this.dbProxy = dbProxy;
     }
 
-    public void updateDoctorListView(Patient p) {
-        Doctor[] doctorArray = model.readAllDoctors(dbProxy);
-        DoctorsCollection doctorsCollection = model.readAllDoctors();
+    public void updateDoctorListView(Patient p, DBProxy dbProxy) {
+        this.dbProxy=dbProxy;
+        DoctorsCollection doctorsCollection = model.readAllDoctors(dbProxy);
+//        DoctorsCollection doctorsCollection = model.readAllDoctors();
 
         Iterator<Doctor> iterator = doctorsCollection.getIterator();
         List<Doctor> doctorList = new ArrayList<>();

@@ -66,14 +66,15 @@ public abstract class Illness {
     public boolean AddIllness(Patient patient, DBProxy dbProxy) {
 
         System.out.print("Drugs associated with illness:");
-        for (Drug drug : patient.getIllness().getDrugList()) {
+        for (Drug drug : this.getDrugList()) {
             System.out.println(drug.getDrugName());
         }
 
-        String query = "INSERT INTO illness (description, severity, treatmentcost) VALUES (" + this.getDescription() + ", " + this.getSeverity() + ", " + this.calculateCost() + ")";
+        String query = "INSERT INTO illness (description, severity, treatmentcost) VALUES ('" + this.getDescription() + "', " + this.getSeverity() + ", " + this.calculateCost() + ")";
         ResultSet resultSet = dbProxy.executeQuery(query);
 
         try {
+            resultSet.next();
             query = "INSERT INTO PatientIllness (PID, IID) Values (" + patient.getId() + ", " + resultSet.getInt("id");
             resultSet = dbProxy.executeQuery(query);
             return resultSet!=null;

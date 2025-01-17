@@ -11,10 +11,16 @@ public class InvoiceController {
 
     public Doctor d;
     public Patient p;
-    public  InvoiceController(String total , Patient patient , Doctor doctor, String drugs){
+
+    Appointment appointment;
+
+    DBProxy dbProxy;
+    public  InvoiceController(String total , Patient patient , Doctor doctor, String drugs, Appointment appointment, DBProxy dbProxy){
+        this.appointment = appointment;
+        this.dbProxy = dbProxy;
         p = patient;
         d = doctor;
-        view = new InVoiceView(patient.getId(), doctor.getDRid());
+        view = new InVoiceView(patient.getId(), doctor.getDRid(),this);
         view.textField3.setText(total);
         view.PatientTF.setText(patient.getName());
         view.DoctorTF.setText(doctor.getName());
@@ -26,7 +32,7 @@ public class InvoiceController {
         view.setVisible(true);
     }
 
-    public static String PayPressed(String paymethod){
+    public String PayPressed(String paymethod){
         Invoice i = new Invoice();
         NotifybyEmail email = new NotifybyEmail(i);
         NotifybySMS SMS = new NotifybySMS(i);
@@ -44,6 +50,7 @@ public class InvoiceController {
         }
         String method = inv.getPayment().getDescription();
         s+=method;
+        appointment.reserve(dbProxy,p);
         //String contains notifications + payment method
         return s;
 

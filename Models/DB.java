@@ -18,15 +18,34 @@ public class DB implements DBInterface{
     }
     public Connection getConnection(){return dbconn;}
 
+
+
     @Override
-    public ResultSet executeQuery(String query){
+    public ResultSet executeQuery(String query) {
         try {
-            PreparedStatement statement = dbconn.prepareStatement(query);
-            return statement.executeQuery(query);
-        }
-        catch (SQLException e){
+            PreparedStatement statement;
+            if (query.startsWith("INSERT")) {
+                // Prepare statement with RETURN_GENERATED_KEYS for INSERT
+                statement = getInstance().getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                statement.executeUpdate();
+                // Return the generated keys
+                return statement.getGeneratedKeys();
+            } else if (query.startsWith("SELECT")) {
+                // Prepare and execute SELECT statement
+                statement = getInstance().getConnection().prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE);
+                return statement.executeQuery();
+            } else {
+                // Prepare and execute other types of queries
+                statement = getInstance().getConnection().prepareStatement(query);
+                statement.executeUpdate();
+                return null;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return null;
         }
     }
+
+
 
 }

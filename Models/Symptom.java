@@ -11,6 +11,7 @@ public abstract class Symptom extends Illness {
     }
     public void addDrug(Drug drug) {
         illness.addDrug(drug);  // Use the wrapped illness's drug list
+        System.out.println("ADD DRUG!");
     }
 
     @Override

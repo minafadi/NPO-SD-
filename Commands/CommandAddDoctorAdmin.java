@@ -1,22 +1,19 @@
 package Commands;
 
 import Controllers.AdminController;
+import Controllers.IAdminControllers;
 import Models.ICommandAdmin;
 import Views.AddDoctorView;
 
 public class CommandAddDoctorAdmin implements ICommandAdmin {
-    AddDoctorView receiver;
-    public CommandAddDoctorAdmin(){}
-    public CommandAddDoctorAdmin(AddDoctorView v){
-        receiver = v;
-    }
+    IAdminControllers receiver;
+    public CommandAddDoctorAdmin(IAdminControllers receiver){this.receiver = receiver;}
+//    public CommandAddDoctorAdmin(AddDoctorView v){
+//        receiver = v;
+//    }
     @Override
-    public void executecommand() {
-        receiver.setVisible(true);
-    }
+    public void executecommand() {}
 
     @Override
-    public void undocommand() {
-        receiver.setVisible(false);
-    }
+    public void undocommand() {}
 }

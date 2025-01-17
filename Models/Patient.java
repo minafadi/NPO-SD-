@@ -65,7 +65,7 @@ public class Patient extends User {
         this.age = age;
         this.gender = gender;
         this.password = password;
-        String query = "INSERT INTO patient (name, phone,age, gender, password) VALUES (" + name + ", " + phone + ", " + age + ", " + gender + ", " + password + ")";
+        String query = "INSERT INTO patient (name, phone,age, gender, password) VALUES ('" + name + "', " + phone + ", " + age + ", '" + gender + "', '" + password + "')";
         dbProxy.executeQuery(query);
         // Insert the new patient into the database
 //        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement("INSERT INTO patient (name, phone,age, gender, password) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
@@ -95,7 +95,7 @@ public class Patient extends User {
     //get existing object from db
     public Patient(String name, String password, DBProxy dbProxy) {
         super(name, password);
-        String query = "SELECT * FROM patient WHERE name = " + name + " AND password = " + password;
+        String query = "SELECT * FROM patient WHERE name = '" + name + "' AND password = '" + password + "'";
         ResultSet resultSet = dbProxy.executeQuery(query);
         try {
             if (resultSet.next()){
@@ -132,7 +132,7 @@ public class Patient extends User {
     //public int getid(){return this.id;}
     public Boolean updatePatient(Patient patient, DBProxy dbProxy) {
         // Update patient information in the database (example)
-        String query = "UPDATE patients SET name = " + patient.getName() + ", phone = " + patient.getPhone() + ", age = " + patient.getAge() + ", gender = " + patient.getGender() + " WHERE id = " + patient.getId();
+        String query = "UPDATE patients SET name = '" + patient.getName() + "', phone = '" + patient.getPhone() + "', age = " + patient.getAge() + ", gender = '" + patient.getGender() + "' WHERE id = " + patient.getId();
         ResultSet resultSet = dbProxy.executeQuery(query);
         try {
             return resultSet.next();
@@ -159,7 +159,7 @@ public class Patient extends User {
 
 
     public static Boolean AuthenticatePatient(String name, String password, DBProxy dbProxy) {
-        String query = "SELECT COUNT(*) FROM patient WHERE name = " + name + " AND password = " + password;
+        String query = "SELECT COUNT(*) FROM patient WHERE name = '" + name + "' AND password = '" + password + "'";
         ResultSet resultSet = dbProxy.executeQuery(query);
         try{
             return (resultSet.next() && (resultSet.getInt(1) > 0 ));

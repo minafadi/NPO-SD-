@@ -9,7 +9,8 @@ public class Admin extends User{
     }
 
     public static boolean AuthenticateAdmin(String name,String password){
-        String query = "SELECT COUNT(*) FROM admin WHERE name = " + name + " AND password = " + password;
+        String query = "SELECT COUNT(*) FROM admin WHERE name = '" + name + "' AND password = '" + password + "'";
+        System.out.println(query);
         try{
             ResultSet resultSet = db.executeQuery(query);
             if (resultSet.next() && resultSet.getInt(1) > 0) {

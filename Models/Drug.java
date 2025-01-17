@@ -30,7 +30,7 @@ public class Drug {
 //        } catch (SQLException e) {
 //            e.printStackTrace();
 //        }
-        String query = "INSERT INTO drug (name, quantity, price) VALUES (" + this.drugName + ", " + this.quantity + ", " + this.price + ")";
+        String query = "INSERT INTO drug (name, quantity, price) VALUES ('" + this.drugName + "', " + this.quantity + ", " + this.price + ")";
         try {
             dbProxy.executeQuery(query);
         }
@@ -56,7 +56,7 @@ public class Drug {
 //        } catch (SQLException e) {
 //            e.printStackTrace();
 //        }
-        String query = "INSERT INTO drug (name, quantity, price, treatment VALUES (" + this.drugName + ", " + this.quantity + ", " + this.price + ", " + this.treatment +")";
+        String query = "INSERT INTO drug (name, quantity, price, treatment) VALUES ('" + this.drugName + "', " + this.quantity + ", " + this.price + ", '" + this.treatment +"')";
         try{
             dbProxy.executeQuery(query);
         }
@@ -79,12 +79,14 @@ public class Drug {
 
 //            // Execute the query and retrieve the results
 //            ResultSet rs = selectStmt.executeQuery();
-        String query = "SELECT id, name, quantity, price FROM drug WHERE Treatment = " + treatment;
+        String query = "SELECT id, name, quantity, price FROM drug WHERE Treatment = '" + treatment + "'";
         ResultSet resultSet = dbProxy.executeQuery(query);
         Drug drug;
         try {
-            drug = new Drug(resultSet.getString("name"), resultSet.getDouble("price"));
+            resultSet.next();
+            drug = new Drug(resultSet.getString("name"), resultSet.getFloat("price"));
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             System.out.println("Failed to read drug!");
             return  null;
         }

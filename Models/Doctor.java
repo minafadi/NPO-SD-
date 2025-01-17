@@ -1,6 +1,7 @@
 package Models;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 
 public class Doctor extends User {
@@ -17,10 +18,12 @@ public class Doctor extends User {
     public Doctor(int id, DBProxy dbProxy) {
         super(null, null);
         this.id = id;
+        this.db = dbProxy;
 
         // SQL query to retrieve doctor details from the database
         String query = "SELECT name, phone, specialization, degree, graduationYear, salary FROM doctor WHERE Id = " + this.id;
         try(ResultSet resultSet = dbProxy.executeQuery(query)){
+            resultSet.next();
             super.name = resultSet.getString("name");
             super.phone = resultSet.getString("phone");
             this.specialization = resultSet.getString("specialization");
@@ -75,12 +78,19 @@ public class Doctor extends User {
         this.graduationYear = graduationYear;
         this.salary = salary;
         this.password = password;
-        String query = "INSERT INTO doctor (name, phone, password, specialization, degree, graduationyear, salary) VALUES (" + this.name + ", " + super.phone + ", " + this.password + ", " + this.specialization + ", " + this.degree + ", " + this.graduationYear + ", " + this.salary + ")";
+        this.db = dbProxy;
+        String query = "INSERT INTO doctor (name, phone, password, specialization, degree, graduationyear, salary) VALUES ('" + this.name + "', '" + super.phone + "', '" + this.password + "', '" + this.specialization + "', '" + this.degree + "', " + this.graduationYear + ", " + this.salary + ")";
+        System.out.println(query);
+        dbProxy.executeQuery(query);
+        query = "SELECT * FROM doctor WHERE phone = '" + super.phone + "'";
+        System.out.println(query);
         ResultSet resultSet = dbProxy.executeQuery(query);
         try {
+            resultSet.next();
             super.id = resultSet.getInt("id");
         } catch (SQLException e) {
             System.out.println("Failed to add new doctor");
+            System.out.println(e.getMessage());
         }
 
 //        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement("INSERT INTO doctor (name, phone, password, specialization, degree, graduationyear, salary) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
@@ -114,65 +124,40 @@ public class Doctor extends User {
 
     public static DoctorsCollection readAllDoctors(DBProxy dbProxy) {
         // Query to get all doctor records from the database
-        String query = "SELECT * FROM Doctor";
-//        Statement stmt = null;
-//        ResultSet rs = null;
+        String query = "SELECT * FROM doctor";
         ResultSet resultSet = dbProxy.executeQuery(query);
+
         try {
-            resultSet.last();
-            int numberOfDoctors = resultSet.getRow();
-            resultSet.beforeFirst();
-            Doctor[] doctors = new Doctor[numberOfDoctors];
-            int i = 0;
-            while (resultSet.next()){
-                doctors[i++] = new Doctor(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getString("phone"), resultSet.getString("specialization"), resultSet.getString("degree"), resultSet.getInt("garduationyear"), resultSet.getDouble("salary"));
+            // Use ArrayList to store doctors first
+            ArrayList<Doctor> doctorList = new ArrayList<>();
+
+            // Iterate over the resultSet and add Doctor objects to the list
+            while (resultSet.next()) {
+                Doctor doctor = new Doctor(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("phone"),
+                        resultSet.getString("specialization"),
+                        resultSet.getString("degree"),
+                        resultSet.getInt("graduationyear"),
+                        resultSet.getDouble("salary")
+                );
+                doctorList.add(doctor);
             }
-            return new DoctorsCollection(doctors);
-        }
-        catch (Exception e){
+
+            // Convert the ArrayList to an array
+            Doctor[] doctorsArray = new Doctor[doctorList.size()];
+            doctorList.toArray(doctorsArray);
+
+            // Return the DoctorsCollection with the array of doctors
+            return new DoctorsCollection(doctorsArray);
+
+        } catch (Exception e) {
+            System.out.println("Error occurred while reading doctors: " + e.getMessage());
             return null;
         }
-
-//        try {
-//            // Create a scrollable statement
-//            stmt = DB.getInstance().getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-//            rs = stmt.executeQuery(query);
-//
-//            // Check if there are results and get the count
-//            if (rs.last()) { // Moves to the last row to get the row count
-//                int rowCount = rs.getRow();
-//                rs.beforeFirst(); // Move back to the start for iteration
-//
-//                // Initialize the array of doctors with the row count
-//                doctors = new Doctor[rowCount];
-//
-//                int i = 0;
-//                while (rs.next()) {
-//                    int id = rs.getInt("id");
-//                    String name = rs.getString("name");
-//                    String phone = rs.getString("phone");
-//                    String specialization = rs.getString("specialization");
-//                    String degree = rs.getString("degree");
-//                    int graduationYear = rs.getInt("graduationYear");
-//                    double salary = rs.getDouble("salary");
-//
-//                    // Create a new Doctor object and add it to the array
-//                    doctors[i++] = new Doctor(id,name, phone, specialization, degree, graduationYear, salary);
-//                }
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                if (rs != null) rs.close();
-//                if (stmt != null) stmt.close();
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-
-//        return doctors;
     }
+
 
     public Boolean removeDoctor(Doctor doctor) {
         return true;

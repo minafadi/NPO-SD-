@@ -1,5 +1,6 @@
 package Models;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -18,9 +19,11 @@ public class DBProxy implements DBInterface {
     @Override
     public ResultSet executeQuery(String query) {
         if (isAdmin){
+            System.out.println("Admin");
             return db.executeQuery(query);
         }
-        else if (query.contains("INSERT") && (query.contains("drug") || query.contains("doctor") || query.contains("admin"))){
+        else if (query.contains("INSERT") && (query.contains("drug ") || query.contains("doctor") || query.contains("admin"))){
+            System.out.println("denied");
             return null;
         }
         else {

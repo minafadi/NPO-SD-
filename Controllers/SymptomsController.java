@@ -42,8 +42,12 @@ public class SymptomsController {
     }
 
     public static void updateDoctorList() {
-        DoctorController doctorController = new DoctorController(new Doctor(),dbProxy);
-        doctorController.updateDoctorListView(patient);
+//        DoctorController doctorController = new DoctorController(new Doctor(),dbProxy);
+//        doctorController.updateDoctorListView(patient);
+
+        DoctorsListController doctorsListController = new DoctorsListController(new Doctor(), dbProxy);
+        doctorsListController.updateDoctorListView(patient);
+
     }
 }
 

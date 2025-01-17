@@ -3,15 +3,26 @@ package Controllers;
 import Models.DB;
 import Models.DBProxy;
 import Models.Drug;
+import Models.ICommandAdmin;
 import Views.*;
 
-public class AddDrugController {
+public class AddDrugController implements ICommandAdmin {
     private static Drug drugModel;
     private AddDrugView addDrugView;
     static DBProxy dbProxy;
-    public AddDrugController(DBProxy dbProxy) {
+
+    @Override
+    public void executecommand() {
         addDrugView=new AddDrugView();
         addDrugView.setVisible(true);
+    }
+
+    @Override
+    public void undocommand() {
+        this.addDrugView.setVisible(false);
+    }
+
+    public AddDrugController(DBProxy dbProxy) {
         this.dbProxy = dbProxy;
     }
 

@@ -1,5 +1,6 @@
 package Views;
 
+import Controllers.AppointmentListController;
 import Controllers.InvoiceController;
 import Models.Doctor;
 import Models.*;
@@ -15,13 +16,15 @@ public class AppointmentsListView extends JFrame{
     private JPanel AList;
     public JLabel labeldoc;
     String drugss;
-    public AppointmentsListView(Doctor d, Patient p, Drug[] dd, Appointment[] Allapps, double total){
+    AppointmentListController controller;
+    public AppointmentsListView(Doctor d, Patient p, Drug[] dd, Appointment[] Allapps, double total, AppointmentListController controller){
         setContentPane(AList);
+        this.controller = controller;
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize((int)(screenSize.width * 0.8),(int)(screenSize.height * 0.8));
         setLocationRelativeTo(null);
         for (Appointment a : Allapps){
-            comboBox1.addItem("Doctor: "+a.getDoctorName() + ", Date: "+a.getDate());
+            comboBox1.addItem("Doctor: "+d.getName() + ", Date: "+a.getDate());
         }
         labeldoc.setText(d.getName()+"'s Available Appointments");
         reserveAppointmentButton.addActionListener(new ActionListener() {
@@ -30,8 +33,9 @@ public class AppointmentsListView extends JFrame{
                 for(int i=0;i<dd.length;i++){
                     drugss+=dd[i].getDrugName()+", ";
                 }
+                String datePart = comboBox1.getSelectedItem().toString().substring(comboBox1.getSelectedItem().toString().indexOf("Date:") + 6); // +6 to skip "Date: "
+                controller.reserve(String.valueOf(total) , p , d , drugss, datePart);
 
-                InvoiceController i = new InvoiceController(String.valueOf(total) , p , d , drugss);
                 //InVoiceView i = new InVoiceView(d.getDRid(),p.getId());
 //                i.textField3.setText(String.valueOf(total));
 //                i.PatientTF.setText(p.getName());

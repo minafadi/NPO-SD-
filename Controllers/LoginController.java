@@ -20,9 +20,8 @@ public class LoginController {
             }
         }
         else if(selecteditem == "Admin" && Admin.AuthenticateAdmin(name,password)){
-            dbProxy = new DBProxy(1);
-            AdminController adminController=new AdminController(dbProxy);
             AdminController adminController=new AdminController();
+//            AdminController adminController=new AdminController();
             adminController.ExecuteCommand();
         }
 

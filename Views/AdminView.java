@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Commands.CommandHomeAdmin;
 import Controllers.*;
 import Commands.CommandAddAppointmentAdmin;
 import Commands.CommandAddDoctorAdmin;
@@ -28,10 +27,9 @@ public class AdminView extends JFrame{
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize((int)(screenSize.width * 0.8),(int)(screenSize.height * 0.8));
         setLocationRelativeTo(null);
-        ICommandAdmin appCommand = new CommandAddAppointmentAdmin(new AppointmentView());
-        ICommandAdmin docCommand = new CommandAddDoctorAdmin(new AddDoctorView());
-        ICommandAdmin drugCommand = new CommandAddDrugAdmin(new AddDrugView());
-        ICommandAdmin homeCommand = new CommandHomeAdmin(this);
+        ICommandAdmin appCommand = new AppointmentController(AdminController.getDbProxy());
+        ICommandAdmin docCommand = new AddDoctorController(AdminController.getDbProxy());
+        ICommandAdmin drugCommand = new AddDrugController(AdminController.getDbProxy());
         AddAppointButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -56,8 +54,7 @@ public class AdminView extends JFrame{
         DoneButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AdminController.setCommand(homeCommand);
-                AdminController.UndoCommand();
+                setVisible(false);
             }
         });
     }

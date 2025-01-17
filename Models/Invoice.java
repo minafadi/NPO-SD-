@@ -110,18 +110,31 @@ public class Invoice implements InterfaceInvoice{
     }
 
     public static void insert(String name, String docname, Drug[] dd, double total, DBProxy dbProxy) {
-        String invoiceQuery = "INSERT INTO invoice (pname, dname, total) VALUES (" + name + ", " + docname + ", " + total + ")";
+        String invoiceQuery = "INSERT INTO invoice (pname, dname, total) VALUES ('" + name + "', '" + docname + "', " + total + ")";
         ResultSet resultSet = dbProxy.executeQuery(invoiceQuery);
+        try {
+            if (resultSet.next()) {
+                int generatedId = resultSet.getInt(1);
 
+                // After insertion, fetch the inserted row using the generated key
+                String selectQuery = "SELECT * FROM invoice WHERE id = " + generatedId;  // Adjust the table and column names as needed
+                resultSet = dbProxy.executeQuery(selectQuery);
+                // Execute SELECT query and return the ResultSet
+            }
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
         String orgInvDrugsQuery = null;
         try {
-            orgInvDrugsQuery = "INSERT INTO invdrugs (IId, Drugname) VALUES (" + resultSet.getInt("id") + ", ";
+            resultSet.next();
+            orgInvDrugsQuery = "INSERT INTO invdrugs (IID, DrugName) VALUES (" + resultSet.getInt("id") + ", '";
             for (Drug drug : dd){
-                String invDrugsQuery = orgInvDrugsQuery + drug.getDrugName() + ")";
+                String invDrugsQuery = orgInvDrugsQuery + drug.getDrugName() + "')";
                 dbProxy.executeQuery(invDrugsQuery);
             }
         } catch (SQLException e) {
             System.out.println("Failed to add drugs!");
+            System.out.println(e.getMessage());
         }
 
 

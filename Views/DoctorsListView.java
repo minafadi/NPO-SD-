@@ -1,5 +1,4 @@
 package Views;
-import Controllers.AppointmentController;
 import Controllers.DoctorsListController;
 import Models.Doctor;
 import Models.*;
