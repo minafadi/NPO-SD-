@@ -19,47 +19,7 @@ public class Doctor extends User {
         super(null, null);
         this.id = id;
         this.db = dbProxy;
-
-        // SQL query to retrieve doctor details from the database
-        String query = "SELECT name, phone, specialization, degree, graduationYear, salary FROM doctor WHERE Id = " + this.id;
-        try(ResultSet resultSet = dbProxy.executeQuery(query)){
-            resultSet.next();
-            super.name = resultSet.getString("name");
-            super.phone = resultSet.getString("phone");
-            this.specialization = resultSet.getString("specialization");
-            this.degree = resultSet.getString("degree");
-            this.graduationYear = resultSet.getInt("graduationYear");
-            this.salary = resultSet.getDouble("salary");
-        }
-        catch(Exception e){
-
-        }
-
-//        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement(query)) {
-//            stmt.setInt(1, id);
-//
-//            // Execute the query and fetch results
-//            try (ResultSet rs = stmt.executeQuery()) {
-//                if (rs.next()) {
-//                    // Populate the Doctor object's attributes from the database
-//                    String name = rs.getString("name");
-//                    String phone = rs.getString("phone");
-//                    this.specialization = rs.getString("specialization");
-//                    this.degree = rs.getString("degree");
-//                    this.graduationYear = rs.getInt("graduationYear");
-//                    this.salary = rs.getDouble("salary");
-//
-//                    // Use `super` to set name and phone in the superclass
-//                    super.name = name;
-//                    super.phone = phone;
-//                } else {
-//                    throw new SQLException("Doctor with ID " + id + " not found in the database.");
-//                }
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            // Handle exception appropriately (e.g., logging or rethrowing)
-//        }
+        initializedoctor(id,dbProxy);
     }
 
     public Doctor(int id,String name, String phone, String specialization, String degree, int graduationYear, double salary) {
@@ -79,6 +39,11 @@ public class Doctor extends User {
         this.salary = salary;
         this.password = password;
         this.db = dbProxy;
+        insertdoctortodb(name,phone,specialization,degree,graduationYear,salary,password,dbProxy);
+    }
+
+
+    public void insertdoctortodb(String name, String phone, String specialization, String degree, int graduationYear, double salary, String password, DBProxy dbProxy){
         String query = "INSERT INTO doctor (name, phone, password, specialization, degree, graduationyear, salary) VALUES ('" + this.name + "', '" + super.phone + "', '" + this.password + "', '" + this.specialization + "', '" + this.degree + "', " + this.graduationYear + ", " + this.salary + ")";
         System.out.println(query);
         dbProxy.executeQuery(query);
@@ -92,33 +57,22 @@ public class Doctor extends User {
             System.out.println("Failed to add new doctor");
             System.out.println(e.getMessage());
         }
-
-//        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement("INSERT INTO doctor (name, phone, password, specialization, degree, graduationyear, salary) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
-//            stmt.setString(1, this.name);
-//            stmt.setString(2, super.phone);
-//            stmt.setString(3, this.password);
-//            stmt.setString(4, this.specialization);
-//            stmt.setString(5, this.degree);
-//            stmt.setInt(6, this.graduationYear);
-//            stmt.setDouble(7, this.salary);
-//
-//            int affectedRows = stmt.executeUpdate();
-//
-//            if (affectedRows > 0) {
-//                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-//                    if (generatedKeys.next()) {
-//                        this.id = generatedKeys.getInt(1); // Get the generated patient ID
-//                        System.out.println("New Doctor added with ID: " + this.id);
-//                    }
-//                }
-//            } else {
-//                System.out.println("Failed to add new patient.");
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
     }
+    public void initializedoctor(int id, DBProxy dbProxy){
+        String query = "SELECT name, phone, specialization, degree, graduationYear, salary FROM doctor WHERE Id = " + this.id;
+        try(ResultSet resultSet = dbProxy.executeQuery(query)){
+            resultSet.next();
+            super.name = resultSet.getString("name");
+            super.phone = resultSet.getString("phone");
+            this.specialization = resultSet.getString("specialization");
+            this.degree = resultSet.getString("degree");
+            this.graduationYear = resultSet.getInt("graduationYear");
+            this.salary = resultSet.getDouble("salary");
+        }
+        catch(Exception e){
 
+        }
+    }
 
     public int getDRid(){return this.id;}
 
