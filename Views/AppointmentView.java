@@ -1,7 +1,13 @@
 package Views;
 
+import Models.Appointment;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.util.Date;
 
 public class AppointmentView extends JFrame {
     private JPanel Appointment;
@@ -24,6 +30,24 @@ public class AppointmentView extends JFrame {
         spinner1.setModel(new SpinnerNumberModel(1, 1, 31, 1));
         spinner2.setModel(new SpinnerNumberModel(1, 1, 12, 1));
         spinner3.setModel(new SpinnerNumberModel(2024, 2024, 2040, 1));
+        addAppointmentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int day = (int) spinner1.getValue();
+                int month = (int) spinner2.getValue();
+                int year = (int) spinner3.getValue();
+
+                LocalDate localDate = LocalDate.of(year, month, day);
+                String appdate = day + " - " + month + " - " + year;
+                Date appoinmentDate = java.sql.Date.valueOf(localDate);
+                if(reserveForPatientCheckBox.isSelected()){
+                    Models.Appointment a = new Appointment(Integer.parseInt(textField1.getText()),appdate, Integer.parseInt(textField2.getText()), textField3.getText());
+                }
+                else {
+                    Appointment a = new Appointment(appdate, Integer.parseInt(textField2.getText()), textField3.getText());
+                }
+            }
+        });
     }
 
     public JTextField getTextField1() {

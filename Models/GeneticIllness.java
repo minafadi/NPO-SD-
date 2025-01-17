@@ -5,9 +5,21 @@ public class GeneticIllness extends Illness {
     private double hereditaryFactor;
 
     public GeneticIllness() {
-            super.Severity=5;
-            super.treatmentCost=400;
-            super.description="Suffering from hereditary Genetic disease with symptoms:";
+        this.description="Suffering from hereditary Genetic illness with symptoms:";
+        this.Severity=5;
+        this.treatmentCost=400;
     }
 
+    @Override
+    protected void prescribeDrugs() {
+        Drug drug = Drug.readAllDrugs("GeneticIllness");
+        if (drug != null) {
+            addDrug(drug); // Add the drug only if it's not null
+        }
+    }
+
+    @Override
+    protected double calculateTreatmentCost() {
+        return treatmentCost;
+    }
 }

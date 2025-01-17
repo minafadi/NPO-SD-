@@ -23,7 +23,7 @@ public abstract class Symptom extends Illness {
         return illness.getDuration();
     }
 
-    public Boolean isContagious() {
+    public boolean isContagious() {
         return illness.isContagious();
     }
 

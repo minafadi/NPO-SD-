@@ -15,6 +15,8 @@ public class SymptomsView extends JFrame {
     private JCheckBox shortnessOfBreathCheckBox;
     private JPanel Symptomss;
     private JButton confirmButton;
+    private JCheckBox fatigueCheckBox;
+    private JCheckBox coughCheckBox;
 
     public SymptomsView(Patient patient) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -29,7 +31,9 @@ public class SymptomsView extends JFrame {
                         headacheCheckBox.isSelected(),
                         feverCheckBox.isSelected(),
                         nauseaCheckBox.isSelected(),
-                        shortnessOfBreathCheckBox.isSelected()
+                        shortnessOfBreathCheckBox.isSelected(),
+                        fatigueCheckBox.isSelected(),
+                        coughCheckBox.isSelected()
                 );
                 SymptomsController.updateDoctorList();
             }

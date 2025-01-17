@@ -1,15 +1,16 @@
 package Models;
 
-public class CashPayment implements Payment {
+import javax.management.Descriptor;
+
+public class CashPayment{
     private double tax;
     private String description="Invoice Paid using Cash Method";
 
-    @Override
-    public boolean executePayment() {
-        throw new UnsupportedOperationException("Unimplemented method 'executePayment'");
+
+    public String DelegatePayement() {
+        return "Payment Delegated after Appointment";
     }
 
-    @Override
     public double getTax() {
         return tax;
     }
@@ -17,7 +18,7 @@ public class CashPayment implements Payment {
     public void setTax(double tax) {
         this.tax = tax;
     }
-    @Override
+
     public String getDescription() {
         return description;
     }

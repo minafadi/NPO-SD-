@@ -35,7 +35,16 @@ public class ConcreteIllnessController {
             Illness i = new ChronicIllness();
             patient.setIllness(i);
         }
+
+        // Update the patient's illness
+        if (illness != null) {
+            patient.setIllness(illness);
+
+            // Use the Template Design Pattern to treat the illness
+            illness.treatIllness(patient);
         SymptomsController s = new SymptomsController(patient,dbProxy);
 
+            // After treating illness, proceed with the symptoms controller
+        }
     }
 }

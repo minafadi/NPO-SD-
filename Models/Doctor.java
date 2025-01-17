@@ -159,9 +159,6 @@ public class Doctor extends User {
     }
 
 
-    public Boolean removeDoctor(Doctor doctor) {
-        return true;
-    }
 
     public String getSpecialization() {
         return specialization;

@@ -1,10 +1,27 @@
 package Models;
 
 public class Headache extends Symptom {
+    DBProxy dbProxy;
 
     public Headache(Illness illness, DBProxy dbProxy) {
         this.illness = illness;
-        this.illness.addDrug(Drug.readAllDrugs("Headache", dbProxy));
+        this.dbProxy = dbProxy;
+    }
+
+
+    @Override
+    protected void prescribeDrugs() {
+        illness.prescribeDrugs(); // Delegate to the wrapped illness
+        Drug drug = Drug.readAllDrugs("Headache", dbProxy);
+        if (drug != null) {
+            illness.addDrug(drug); // Add the drug only if it's not null
+        }
+    }
+
+    @Override
+    protected double calculateTreatmentCost() {
+        // Delegate to the wrapped illness
+        return illness.calculateTreatmentCost() + 20;
     }
 
     @Override
@@ -14,12 +31,12 @@ public class Headache extends Symptom {
 
     @Override
     public String getDescription() {
-        return super.getDescription()+"headache,";
+        return illness.getDescription()+" Headache, ";
     }
 
     @Override
     public double calculateCost() {
-        return illness.calculateCost()+60;
+        return calculateTreatmentCost();
     }
 
 }

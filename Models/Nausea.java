@@ -1,14 +1,30 @@
 package Models;
 
 public class Nausea extends Symptom {
-    private int intensity;
-
+DBProxy dbProxy;
     public Nausea(Illness illness, DBProxy dbProxy) {
         this.illness = illness;
-        this.illness.addDrug(Drug.readAllDrugs("Nausea", dbProxy));
+        this.dbProxy = dbProxy;
+//        this.illness.addDrug(Drug.readAllDrugs("Nausea", dbProxy));
     }
+
+    @Override
+    protected void prescribeDrugs() {
+        illness.prescribeDrugs(); // Delegate to the wrapped illness
+        Drug drug = Drug.readAllDrugs("Nausea", dbProxy);
+        if (drug != null) {
+            illness.addDrug(drug); // Add the drug only if it's not null
+        }
+    }
+
+    @Override
+    protected double calculateTreatmentCost() {
+        // Delegate to the wrapped illness
+        return illness.calculateTreatmentCost() + 70;
+    }
+
     public String getDescription() {
-        return super.getDescription()+"nausea";
+        return illness.getDescription()+" nausea, ";
     }
     @Override
     public int severity() {
@@ -17,7 +33,7 @@ public class Nausea extends Symptom {
 
     @Override
     public double calculateCost() {
-        return  illness.calculateCost()+70;
+        return  calculateTreatmentCost();
     }
 
 }

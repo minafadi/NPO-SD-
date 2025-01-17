@@ -39,6 +39,8 @@ public class Appointment {
                     System.out.println(e.getMessage());
                     System.out.println("Failed to add new patient!");
                 }
+            } else {
+                System.out.println("Failed to add new patient.");
             }
 //            if (affectedRows > 0) {
 //                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
@@ -87,6 +89,7 @@ public class Appointment {
         this.notes = notes;
         this.id = id;
     }
+
 
     public Appointment(String d,int Did){
         this.date=d;

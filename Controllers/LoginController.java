@@ -18,6 +18,10 @@ public class LoginController {
                 Patient p = new Patient(name, password, dbProxy);
                 ConcreteIllnessController ConcreteIllnessController = new ConcreteIllnessController(p, dbProxy);
             }
+        if(selecteditem == "Patient" && Patient.AuthenticatePatient(name,password)){
+            Patient p = (Patient)UserFactory.createUser("Patient",name,password);
+            ConcreteIllnessController ConcreteIllnessController= new ConcreteIllnessController(p);
+
         }
         else if(selecteditem == "Admin" && Admin.AuthenticateAdmin(name,password)){
             AdminController adminController=new AdminController();

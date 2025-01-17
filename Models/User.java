@@ -10,7 +10,6 @@ public class User {
         this.name = name;
         this.phone = phone;
     }
-
     public int getId() {
         return id;
     }

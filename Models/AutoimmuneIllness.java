@@ -4,13 +4,25 @@ import static Models.Drug.readAllDrugs;
 
 public class AutoimmuneIllness extends Illness {
 
-    private String affectedOrganSystem;
+    public AutoimmuneIllness() {
+        this.description="Suffering from AutoImmune disease with symptoms:";
+        this.Severity=5;
+        this.treatmentCost=90;
+    }
 
-    public AutoimmuneIllness(DBProxy dbProxy) {
-        super.description="Suffering from AutoImmune disease with symptoms:";
-        super.Severity=5;
-        super.treatmentCost=90;
-        super.addDrug(readAllDrugs("AutoImmuneIllness", dbProxy ));
+
+    @Override
+    protected void prescribeDrugs() {
+        Drug drug = Drug.readAllDrugs("AutoImmuneIllness");
+        if (drug != null) {
+            addDrug(drug); // Add the drug only if it's not null
+        }
+
+    }
+
+    @Override
+    protected double calculateTreatmentCost() {
+        return treatmentCost;
     }
 
 
