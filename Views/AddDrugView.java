@@ -1,6 +1,8 @@
 package Views;
 
 import Controllers.AddDrugController;
+import Controllers.AdminController;
+import Models.Admin;
 import Models.Drug;
 
 import javax.swing.*;
@@ -15,6 +17,8 @@ public class AddDrugView extends JFrame{
     private JTextField textField3;
     private JPanel addrug;
     private JComboBox comboBox1;
+    private JTextField textField4;
+    private JButton deleteDrugButton;
 
     String drugName;
     int quantity;
@@ -48,6 +52,12 @@ public class AddDrugView extends JFrame{
                     JOptionPane.showMessageDialog(null, "Please enter valid numeric values for fields 2 and 3.");
                     ee.printStackTrace();
                 }
+            }
+        });
+        deleteDrugButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdminController.DeleteDrug(textField1.getText());
             }
         });
     }

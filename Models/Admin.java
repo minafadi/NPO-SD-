@@ -23,4 +23,29 @@ public class Admin extends User{
             return false;
         }
     }
+
+    public static void deleteDoctor(int id) {
+        String query = "DELETE FROM doctor WHERE id = " + id;
+        try {
+            ResultSet rowsAffected = db.executeQuery(query);
+        } catch (Exception e) {
+            System.err.println("Error while deleting Doctor: " + e.getMessage());
+        }
+    }
+    public static void deleteDrug(String name) {
+        String query = "DELETE FROM drug WHERE name = '" + name + "'";
+        try {
+            ResultSet rowsAffected = db.executeQuery(query);
+        } catch (Exception e) {
+            System.err.println("Error while deleting Drug: " + e.getMessage());
+        }
+    }
+    public static void deleteApp(int id) {
+        String query = "DELETE FROM appointment WHERE id = " + id;
+        try {
+            ResultSet rowsAffected = db.executeQuery(query);
+        } catch (Exception e) {
+            System.err.println("Error while deleting App: " + e.getMessage());
+        }
+    }
 }

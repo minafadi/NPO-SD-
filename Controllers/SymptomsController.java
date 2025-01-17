@@ -6,7 +6,7 @@ import Models.Doctor;
 import Models.*;
 import Views.SymptomsView;
 
-public class SymptomsController {
+public class SymptomsController extends ParentController implements State{
     private static SymptomsView view;
     private static Patient patient;
     static DBProxy dbProxy;
@@ -14,11 +14,13 @@ public class SymptomsController {
     public SymptomsController(Patient patient, DBProxy dbProxy) {
         this.dbProxy = dbProxy;
         this.patient = patient;
-        view = new SymptomsView(patient);
-        view.setVisible(true);
+        view = new SymptomsView(patient,this);
+        ParentController.setnextState(this);
+
+        //view.setVisible(true);
     }
 
-    public static void handleSymptomsSelection(
+    public void handleSymptomsSelection(
             boolean headacheSelected,
             boolean feverSelected,
             boolean nauseaSelected,
@@ -56,10 +58,27 @@ public class SymptomsController {
     public static void updateDoctorList() {
 //        DoctorController doctorController = new DoctorController(new Doctor(),dbProxy);
 //        doctorController.updateDoctorListView(patient);
-
+        /*
         DoctorsListController doctorsListController = new DoctorsListController(new Doctor(), dbProxy);
         doctorsListController.updateDoctorListView(patient);
+        */
+        ParentController.nextPage();
+    }
 
+    @Override
+    public void show() {
+        view.setVisible(true);
+    }
+
+    @Override
+    public void hide() {
+        view.setVisible(false);
+    }
+
+    @Override
+    public void init() {
+        DoctorsListController doctorsListController = new DoctorsListController(new Doctor(), dbProxy);
+        doctorsListController.updateDoctorListView(patient);
     }
 }
 

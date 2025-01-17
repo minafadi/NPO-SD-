@@ -17,8 +17,10 @@ public class SymptomsView extends JFrame {
     private JButton confirmButton;
     private JCheckBox fatigueCheckBox;
     private JCheckBox coughCheckBox;
+    public SymptomsController controller;
 
-    public SymptomsView(Patient patient) {
+    public SymptomsView(Patient patient, SymptomsController controller) {
+        this.controller=controller;
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize((int) (screenSize.width * 0.8), (int) (screenSize.height * 0.8));
         setLocationRelativeTo(null);
@@ -27,7 +29,7 @@ public class SymptomsView extends JFrame {
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SymptomsController.handleSymptomsSelection(
+                controller.handleSymptomsSelection(
                         headacheCheckBox.isSelected(),
                         feverCheckBox.isSelected(),
                         nauseaCheckBox.isSelected(),

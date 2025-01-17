@@ -10,11 +10,13 @@ import java.awt.event.ActionListener;
 
 public class ConcreteIllnessView extends JFrame {
     Patient patient;
+    ConcreteIllnessController controller;
     private JComboBox comboBox1;
     private JButton OKButton;
     //private JPanel ConcIll;
     private JPanel Concill;
-    public ConcreteIllnessView(Patient patient) {
+    public ConcreteIllnessView(Patient patient, ConcreteIllnessController controller) {
+        this.controller=controller;
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize((int)(screenSize.width * 0.8),(int)(screenSize.height * 0.8));
         setLocationRelativeTo(null);
@@ -24,7 +26,7 @@ public class ConcreteIllnessView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String illness = comboBox1.getSelectedItem().toString();
-                ConcreteIllnessController.updateIllness(illness, patient);
+                controller.updateIllness(illness, patient);
             }
         });
     }

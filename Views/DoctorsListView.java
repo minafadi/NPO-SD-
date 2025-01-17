@@ -16,8 +16,10 @@ public class DoctorsListView extends JFrame{
     public JTextArea textArea1;
     Doctor[] allDocs;
     Patient patient;
-    public DoctorsListView(Patient patient, Doctor[] allDocs){
+    DoctorsListController controller;
+    public DoctorsListView(Patient patient, Doctor[] allDocs,DoctorsListController controller){
         this.allDocs = allDocs;
+        this.controller=controller;
         this.patient = patient;
         this.setContentPane(DList);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -35,7 +37,7 @@ public class DoctorsListView extends JFrame{
         SubmitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DoctorsListController.chooseDoctor(DoctorCBox.getSelectedItem().toString(), allDocs, patient);
+                controller.chooseDoctor(DoctorCBox.getSelectedItem().toString(), allDocs, patient);
 //                Doctor chosendoctor;
 //                for (Doctor d : Alldocs){
 //                    if(d.getName().equals(DoctorCBox.getSelectedItem())){
