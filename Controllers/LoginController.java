@@ -12,7 +12,7 @@ public class LoginController {
     }
     public static void login(String name, String password, String selecteditem){
         if(selecteditem == "Patient" && Patient.AuthenticatePatient(name,password)){
-            Patient p = new Patient(name,password);
+            Patient p = (Patient)UserFactory.createUser("Patient",name,password);
             ConcreteIllnessController ConcreteIllnessController= new ConcreteIllnessController(p);
 
         }

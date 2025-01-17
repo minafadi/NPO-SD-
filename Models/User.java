@@ -1,16 +1,19 @@
 package Models;
 
 public class User {
+    public IUserFactory factory;
     protected int id;
     protected String name;
     protected String phone;
     protected String password;
     public User(){}
+    public User(IUserFactory factory){
+        this.factory = factory;
+    }
     public User(String name, String phone) {
         this.name = name;
         this.phone = phone;
     }
-
     public int getId() {
         return id;
     }
