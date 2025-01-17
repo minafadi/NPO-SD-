@@ -45,6 +45,7 @@ public class SymptomsController {
             illness = new Cough(illness);
         }
 
+        illness.treatIllness(patient);
         patient.setIllness(illness);
 
         if (illness.addIllnessToPatient(patient)) {

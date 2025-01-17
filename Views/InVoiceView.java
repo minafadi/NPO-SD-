@@ -43,11 +43,6 @@ public class InVoiceView extends JFrame{
 
                 NotificationsController cont = new NotificationsController(s);
 
-
-//                NotificationsView n = new NotificationsView();
-//                n.textArea1.setText(s);
-//                n.setVisible(true);
-
             }
         });
 
