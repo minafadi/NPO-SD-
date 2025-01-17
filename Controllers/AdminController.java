@@ -1,5 +1,6 @@
 package Controllers;
 import Commands.CommandAddAppointmentAdmin;
+import Models.Admin;
 import Models.DBProxy;
 import Models.ICommandAdmin;
 import Views.AdminView;
@@ -14,6 +15,16 @@ public class AdminController{
         this.view.setVisible(true);
     }
 
+    static public void DeleteDoctor(int id){
+        Admin.deleteDoctor(id);
+        return;
+    }
+    static public void DeleteDrug(String name){
+        Admin.deleteDrug(name);
+    }
+    static public void DeleteApp(int id){
+        Admin.deleteApp(id);
+    }
     static public void setCommand(ICommandAdmin c){
         command = c;
     }

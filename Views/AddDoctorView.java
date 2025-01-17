@@ -1,7 +1,7 @@
 package Views;
 
 import Controllers.AddDoctorController;
-import Models.Doctor;
+import Controllers.AdminController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +23,8 @@ public class AddDoctorView extends JFrame{
     private JPanel addDoctor;
     private JLabel errorMessage;
     private JLabel idlabel;
-
+    private JTextField textField5;
+    private JButton deleteDoctorButton;
 
 
     public AddDoctorView() {
@@ -51,6 +52,12 @@ public class AddDoctorView extends JFrame{
                 //Adding new Doctor using Static Function
                 String docID = AddDoctorController.AddNewDoctor(name, phoneNumeber, specialization, degree, graduationYear, salary, password);
                 idlabel.setText("New Doctor Added with ID: "+ docID);
+            }
+        });
+        deleteDoctorButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdminController.DeleteDoctor(Integer.parseInt(textField5.getText()));
             }
         });
     }

@@ -1,14 +1,12 @@
 package Views;
 
+import Controllers.AdminController;
 import Controllers.AppointmentController;
-import Models.Appointment;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
-import java.util.Date;
 
 public class AppointmentView extends JFrame {
     private JPanel Appointment;
@@ -20,6 +18,8 @@ public class AppointmentView extends JFrame {
     private JSpinner spinner1;
     private JSpinner spinner2;
     private JSpinner spinner3;
+    private JTextField textField4;
+    private JButton deleteButton;
     public AppointmentController controller;
 
     public AppointmentView(AppointmentController controller) {
@@ -58,6 +58,12 @@ public class AppointmentView extends JFrame {
 //                }
 //            }
 //        });
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdminController.DeleteApp(Integer.parseInt(textField4.getText()));
+            }
+        });
     }
 
     public JTextField getTextField1() {
