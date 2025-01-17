@@ -13,48 +13,12 @@ public class Appointment {
     private String doctorName;
     private String notes;
 
-
     public Appointment(String date, int doctorId, String notes, DBProxy dbProxy){
         this.notes = notes;
         this.date = date;
         this.doctorId = doctorId;
         this.doctorName = this.getDoctorName(dbProxy);
-        String query = "INSERT INTO appointment (date, Pid, Did, Notes) VALUES ('" + LocalDate.parse(this.date, DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "', " + this.patientId + ", " + this.doctorId + ", '" + this.notes +"')";
-//        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement("INSERT INTO appointment (date, Pid, Did, Notes) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
-//            stmt.setString(1, this.date.toString());
-//            stmt.setInt(2, this.patientId);
-//            //stmt.setString(3, illness.toString());
-//            stmt.setInt(3, this.doctorId);
-//            stmt.setString(4, this.notes);
-//            int affectedRows = stmt.executeUpdate();
-        try {
-            dbProxy.executeQuery(query);
-            ResultSet result = dbProxy.executeQuery("SELECT * FROM appointment WHERE Pid = " + this.patientId + " AND Did = " + this.doctorId);
-            if (result!=null){
-                try {
-                    result.next();
-                    this.id = result.getInt("id");
-                }
-                catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    System.out.println("Failed to add new patient!");
-                }
-            } else {
-                System.out.println("Failed to add new patient.");
-            }
-//            if (affectedRows > 0) {
-//                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-//                    if (generatedKeys.next()) {
-//                        this.id = generatedKeys.getInt(1); // Get the generated patient ID
-//                        System.out.println("New Appointment added with ID: " + this.id);
-//                    }
-//                }
-//            } else {
-//                System.out.println("Failed to add new patient.");
-//            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        insertappointment(date,doctorId,notes,dbProxy);
     }
 
     // Constructor with patientId provided
@@ -63,22 +27,7 @@ public class Appointment {
         this.date = date;
         this.doctorId = doctorId;
         this.notes = notes;
-        String query = "INSERT INTO appointment (date, Pid, Did, Notes) VALUES ('" + LocalDate.parse(this.date, DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "', " + this.patientId + ", " + this.doctorId + ", '" + this.notes +"')";
-        try {
-            dbProxy.executeQuery(query);
-            ResultSet result = dbProxy.executeQuery("SELECT * FROM appointment WHERE Pid = " + this.patientId + " AND Did = " + this.doctorId);
-            if (result != null) {
-                try {
-                    result.next();
-                    this.id = result.getInt("id");
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    System.out.println("Failed to add new patient!");
-                }
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
+        insertappointmentpatientprovided(patientId,date,doctorId,notes,dbProxy);
 
     }
 
@@ -98,60 +47,48 @@ public class Appointment {
     public Appointment(int Did){
         this.doctorId=Did;
     }
-//    public Appointment[] ReadDoctorApps(int doctorId, DBProxy dbProxy) {
-//        //System.out.println(doctorId);
-//        // Count how many appointments will be returned
-//        int appointmentCount = 0;
-//        // SQL query to fetch appointments for the specified doctor where patient = -1
-//        String appointmentQuery = "SELECT * FROM appointment WHERE Did = " + doctorId + " AND Pid = -1";
-//        ResultSet resultSet = dbProxy.executeQuery(appointmentQuery);
-//        Appointment[] appointmentsArray;
-//        try{
-//            for(int i = 0; resultSet.next(); i++){
-//                appointmentsArray[i] = new Appointment(resultSet.getInt("Pid"), resultSet.getString("date"), resultSet.getInt("Did"), resultSet.getString("Notes"));
-//            }
-//        }
-//        catch (Exception e){
-//
-//        }
-//        try (PreparedStatement appointmentStmt = DB.getInstance().getConnection().prepareStatement(appointmentQuery)) {
-//            // Set the doctorId in the appointment query
-//            appointmentStmt.setInt(1, doctorId);
-//
-//            // Execute the query to count the rows first
-//            try (ResultSet rs = appointmentStmt.executeQuery()) {
-//                while (rs.next()) {
-//                    appointmentCount++;
-//                }
-//            }
-//            //System.out.println(doctorId);
-//            // If no appointments found, return an empty array
-//            if (appointmentCount == 0) {
-//                return new Appointment[0];
-//            }
-//
-//            // Create an array to store the appointments
-//            appointmentsArray = new Appointment[appointmentCount];
-//
-//            // Now retrieve the appointments and populate the array
-//            try (ResultSet rs = appointmentStmt.executeQuery()) {
-//                int index = 0;
-//                while (rs.next()) {
-//                    String date = rs.getString("date"); // Assuming date is stored under this column
-//                    // Create the Appointment object and add it to the array
-//                    appointmentsArray[index] = new Appointment(date, doctorId);
-//                    System.out.println("oksh");
-//                    index++;
-//                }
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return null; // In case of an error, return null or handle as needed
-//        }
-//        //System.out.println(appointmentsArray[0].id);
-//        return appointmentsArray;
-//    }
+    public void insertappointmentpatientprovided(int patientId, String  date, int doctorId, String notes, DBProxy dbProxy){
+        String query = "INSERT INTO appointment (date, Pid, Did, Notes) VALUES ('" + LocalDate.parse(this.date, DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "', " + this.patientId + ", " + this.doctorId + ", '" + this.notes +"')";
+        try {
+            dbProxy.executeQuery(query);
+            ResultSet result = dbProxy.executeQuery("SELECT * FROM appointment WHERE Pid = " + this.patientId + " AND Did = " + this.doctorId);
+            if (result != null) {
+                try {
+                    result.next();
+                    this.id = result.getInt("id");
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    System.out.println("Failed to add new patient!");
+                }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
 
+    }
+
+    public void insertappointment(String date, int doctorId, String notes, DBProxy dbProxy){
+
+        String query = "INSERT INTO appointment (date, Pid, Did, Notes) VALUES ('" + LocalDate.parse(this.date, DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "', " + this.patientId + ", " + this.doctorId + ", '" + this.notes +"')";
+        try {
+            dbProxy.executeQuery(query);
+            ResultSet result = dbProxy.executeQuery("SELECT * FROM appointment WHERE Pid = " + this.patientId + " AND Did = " + this.doctorId);
+            if (result!=null){
+                try {
+                    result.next();
+                    this.id = result.getInt("id");
+                }
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    System.out.println("Failed to add new patient!");
+                }
+            } else {
+                System.out.println("Failed to add new patient.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public Appointment[] ReadDoctorApps(int doctorId, DBProxy dbProxy) {
         // SQL query to fetch appointments for the specified doctor where patient = -1
         String appointmentQuery = "SELECT * FROM appointment WHERE Did = " + doctorId + " AND Pid = 0";
