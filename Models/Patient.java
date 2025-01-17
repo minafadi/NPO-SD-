@@ -66,7 +66,8 @@ public class Patient extends User {
         this.age = age;
         this.gender = gender;
         this.password = password;
-        String query = "INSERT INTO patient (name, phone,age, gender, password) VALUES ('" + name + "', " + phone + ", " + age + ", '" + gender + "', '" + password + "')";
+        int genderNum = gender? 1:2;
+        String query = "INSERT INTO patient (name, phone,age, gender, password) VALUES ('" + name + "', " + phone + ", " + age + ", '" + genderNum + "', '" + password + "')";
         dbProxy.executeQuery(query);
         // Insert the new patient into the database
 //        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement("INSERT INTO patient (name, phone,age, gender, password) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
