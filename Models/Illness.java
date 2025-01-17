@@ -17,23 +17,20 @@ public abstract class Illness {
 
     // Template Design Pattern for defining the skeleton of the treatment process.
     public final void treatIllness(Patient patient) {
-        diagnose(); // For Diagnose the illness
         prescribeDrugs(); // For Prescribe of drugs
         calculateTreatmentCost(); // Calculate treatment cost
         addIllnessToPatient(patient); // Add illness to the patient record in the database
     }
 
     // Abstract methods to be implemented by subclasses illnesses
-    protected abstract void diagnose();
     protected abstract void prescribeDrugs();
     protected abstract double calculateTreatmentCost();
 
     // Concrete method to add illness to the patient's record
     public final boolean addIllnessToPatient(Patient patient) {
-        System.out.print("Drugs associated with illness: ");
-        for (Drug drug : this.getDrugList()) {
-            System.out.println(drug.getDrugName());
-        }
+//        for (Drug drug : this.getDrugList()) {
+//            System.out.println(drug.getDrugName());
+//        }
 
         // Use IllnessFacade to handle the operation
         IllnessFacade illnessFacade = new IllnessFacade();

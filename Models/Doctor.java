@@ -78,11 +78,8 @@ public class Doctor extends User {
                 try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         this.id = generatedKeys.getInt(1); // Get the generated patient ID
-                        System.out.println("New Doctor added with ID: " + this.id);
                     }
                 }
-            } else {
-                System.out.println("Failed to add new patient.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -143,9 +140,6 @@ public class Doctor extends User {
         return new DoctorsCollection(doctors);
     }
 
-    public Boolean removeDoctor(Doctor doctor) {
-        return true;
-    }
 
     public String getSpecialization() {
         return specialization;

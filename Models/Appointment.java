@@ -28,11 +28,8 @@ public class Appointment {
                 try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         this.id = generatedKeys.getInt(1); // Get the generated patient ID
-                        System.out.println("New Appointment added with ID: " + this.id);
                     }
                 }
-            } else {
-                System.out.println("Failed to add new patient.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -56,7 +53,6 @@ public class Appointment {
         this.doctorId=Did;
     }
     public Appointment[] ReadDoctorApps(int doctorId) {
-        //System.out.println(doctorId);
         // Count how many appointments will be returned
         int appointmentCount = 0;
         // SQL query to fetch appointments for the specified doctor where patient = -1
@@ -74,7 +70,6 @@ public class Appointment {
                     appointmentCount++;
                 }
             }
-            //System.out.println(doctorId);
             // If no appointments found, return an empty array
             if (appointmentCount == 0) {
                 return new Appointment[0];
@@ -90,7 +85,6 @@ public class Appointment {
                     String date = rs.getString("date"); // Assuming date is stored under this column
                     // Create the Appointment object and add it to the array
                     appointmentsArray[index] = new Appointment(date, doctorId);
-                    System.out.println("oksh");
                     index++;
                 }
             }

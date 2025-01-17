@@ -37,7 +37,6 @@ public class ConcreteIllnessController {
                 illnessInstance = new ChronicIllness();
                 break;
             default:
-                System.out.println("Unknown illness type: " + illness);
                 return;
         }
 

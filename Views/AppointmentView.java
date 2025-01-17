@@ -48,11 +48,9 @@ public class AppointmentView extends JFrame{
                 int month = (int) spinner2.getValue();
                 int year = (int) spinner3.getValue();
 
-                System.out.println(day + " - " + month + " - " + year);
                 LocalDate localDate = LocalDate.of(year, month, day);
                 String appdate = day + " - " + month + " - " + year;
                 Date appoinmentDate = java.sql.Date.valueOf(localDate);
-                System.out.println(appoinmentDate);
                 if(reserveForPatientCheckBox.isSelected()){
                     Appointment a = new Appointment(Integer.parseInt(textField1.getText()),appdate, Integer.parseInt(textField2.getText()), textField3.getText());
                 }

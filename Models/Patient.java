@@ -70,11 +70,8 @@ public class Patient extends User {
                 try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         this.id = generatedKeys.getInt(1); // Get the generated patient ID
-                        System.out.println("New patient added with ID: " + this.id);
                     }
                 }
-            } else {
-                System.out.println("Failed to add new patient.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -96,10 +93,6 @@ public class Patient extends User {
                 this.age = rs.getInt("age");
                 this.gender = rs.getBoolean("gender");
                 //this.illness = new MentalIllness(); // Replace with actual column name
-                System.out.println("Patient found: " + name);
-                System.out.println("Patient found: " + this.getId());
-            } else {
-                System.out.println("No patient found with the given name and password.");
             }
         } catch (SQLException e) {
             e.printStackTrace();

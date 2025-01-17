@@ -9,25 +9,15 @@ public class MentalIllness extends Illness {
     }
 
     @Override
-    protected void diagnose() {
-        System.out.println("Diagnosing mental illness...");
-    }
-
-    @Override
     protected void prescribeDrugs() {
-        System.out.println("Prescribing drugs for mental illness...");
         Drug drug = Drug.readAllDrugs("MentalIllness");
         if (drug != null) {
             addDrug(drug); // Add the drug only if it's not null
-        }
-        else {
-            System.out.println("No specific drugs found for mental illness.");
         }
     }
 
     @Override
     protected double calculateTreatmentCost() {
-        System.out.println("Calculating treatment cost for mental illness = " + treatmentCost);
         return treatmentCost;
     }
 

@@ -113,11 +113,5 @@ public class Invoice implements InterfaceInvoice{
     public static void insert(String name, String docName, Drug[] dd, double total) {
         InVoiceFacade invoiceFacade = new InVoiceFacade();
         boolean success = invoiceFacade.createInvoice(name, docName, dd, total);
-
-        if (success) {
-            System.out.println("Invoice and associated drugs added successfully.");
-        } else {
-            System.out.println("Failed to add invoice or drugs.");
-        }
     }
 }
