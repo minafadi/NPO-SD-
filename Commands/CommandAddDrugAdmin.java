@@ -1,22 +1,21 @@
 package Commands;
 
 import Controllers.AdminController;
+import Controllers.IAdminControllers;
 import Models.ICommandAdmin;
 import Views.AddDrugView;
 
 public class CommandAddDrugAdmin implements ICommandAdmin {
-    AddDrugView receiver;
-    public CommandAddDrugAdmin(){}
-    public CommandAddDrugAdmin(AddDrugView v){
-        receiver = v;
-    }
+    IAdminControllers receiver;
+    public CommandAddDrugAdmin(IAdminControllers receiver){this.receiver = receiver;}
+//    public CommandAddDrugAdmin(AddDrugView v){
+//        receiver = v;
+//    }
     @Override
     public void executecommand() {
-        receiver.setVisible(true);
+//        this.receiver=receiver;
     }
 
     @Override
-    public void undocommand() {
-        receiver.setVisible(false);
-    }
+    public void undocommand() {}
 }

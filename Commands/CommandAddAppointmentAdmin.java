@@ -1,22 +1,18 @@
 package Commands;
 
-import Controllers.AdminController;
+import Controllers.IAdminControllers;
 import Models.ICommandAdmin;
-import Views.*;
+
 public class CommandAddAppointmentAdmin implements ICommandAdmin {
-    AppointmentView receiver;
-    public CommandAddAppointmentAdmin(){}
-    public CommandAddAppointmentAdmin(AppointmentView v){
-        receiver = v;
-    }
+    ICommandAdmin receiver;
+    public CommandAddAppointmentAdmin(ICommandAdmin receiver){this.receiver = receiver;}
+//    public CommandAddAppointmentAdmin(AppointmentController v){
+//        receiver = v;
+//    }
 
     @Override
-    public void executecommand() {
-        receiver.setVisible(true);
-    }
+    public void executecommand() {}
 
     @Override
-    public void undocommand() {
-        receiver.setVisible(false);
-    }
+    public void undocommand() {}
 }

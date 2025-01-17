@@ -2,15 +2,17 @@ package Models;
 
 public class Cough extends Symptom {
     private int frequency;
+    DBProxy dbProxy;
 
-    public Cough(Illness illness) {
+    public Cough(Illness illness, DBProxy dbProxy) {
         this.illness = illness;
+        this.dbProxy = dbProxy;
     }
 
     @Override
     protected void prescribeDrugs() {
         illness.prescribeDrugs(); // Delegate to the wrapped illness
-        Drug drug = Drug.readAllDrugs("Cough");
+        Drug drug = Drug.readAllDrugs("Cough", dbProxy);
         if (drug != null) {
             illness.addDrug(drug); // Add the drug only if it's not null
         }

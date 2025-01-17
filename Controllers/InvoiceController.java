@@ -3,6 +3,7 @@ package Controllers;
 import Models.*;
 import Views.InVoiceView;
 
+import java.util.*;
 import javax.print.Doc;
 
 public class InvoiceController {
@@ -11,11 +12,30 @@ public class InvoiceController {
     static String total;
     public Doctor d;
     public Patient p;
-    public  InvoiceController(String total , Patient patient , Doctor doctor, String drugs){
+
+    Appointment appointment;
+
+    DBProxy dbProxy;
+
+    public static String removeDuplicates(String inputString) {
+        String[] words = inputString.split("\\s+");  // Split the string into words
+        Set<String> uniqueWords = new LinkedHashSet<>();  // Preserve the order of words
+        for (String word : words) {
+            uniqueWords.add(word);  // Add each word to the set (duplicates will be ignored)
+        }
+        return String.join(" ", uniqueWords);  // Join the unique words back into a string
+    }
+
+    public  InvoiceController(String total , Patient patient , Doctor doctor, String drugs, Appointment appointment, DBProxy dbProxy){
+        this.appointment = appointment;
+        this.dbProxy = dbProxy;
         p = patient;
         d = doctor;
+        view = new InVoiceView(patient.getId(), doctor.getDRid(),this);
         this.total = total;
-        view = new InVoiceView(patient.getId(), doctor.getDRid());
+        drugs = drugs.replaceAll("null","");
+        drugs = removeDuplicates(drugs);
+//        view = new InVoiceView(patient.getId(), doctor.getDRid());
         view.textField3.setText(total);
         view.PatientTF.setText(patient.getName());
         view.DoctorTF.setText(doctor.getName());
@@ -27,7 +47,7 @@ public class InvoiceController {
         view.setVisible(true);
     }
 
-    public static String PayPressed(String paymethod){
+    public String PayPressed(String paymethod){
         Invoice i = new Invoice();
         NotifybyEmail email = new NotifybyEmail(i);
         NotifybySMS SMS = new NotifybySMS(i);
@@ -48,6 +68,7 @@ public class InvoiceController {
         inv.pay((int) tota);
         String method = inv.getPayment().getDescription();
         s+=method;
+        appointment.reserve(dbProxy,p);
         //String contains notifications + payment method
         return s;
 

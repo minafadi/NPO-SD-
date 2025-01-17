@@ -11,6 +11,7 @@ public abstract class Symptom extends Illness {
     }
     public void addDrug(Drug drug) {
         illness.addDrug(drug);  // Use the wrapped illness's drug list
+        System.out.println("ADD DRUG!");
     }
 
     @Override
@@ -22,7 +23,8 @@ public abstract class Symptom extends Illness {
         return illness.getDuration();
     }
 
-    public boolean isContagious() {
+    @Override
+    public Boolean isContagious() {
         return illness.isContagious();
     }
 

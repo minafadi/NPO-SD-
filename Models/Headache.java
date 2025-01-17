@@ -1,16 +1,18 @@
 package Models;
 
 public class Headache extends Symptom {
+    DBProxy dbProxy;
 
-    public Headache(Illness illness) {
+    public Headache(Illness illness, DBProxy dbProxy) {
         this.illness = illness;
+        this.dbProxy = dbProxy;
     }
 
 
     @Override
     protected void prescribeDrugs() {
         illness.prescribeDrugs(); // Delegate to the wrapped illness
-        Drug drug = Drug.readAllDrugs("Headache");
+        Drug drug = Drug.readAllDrugs("Headache", dbProxy);
         if (drug != null) {
             illness.addDrug(drug); // Add the drug only if it's not null
         }

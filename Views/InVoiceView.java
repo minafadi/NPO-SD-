@@ -25,13 +25,15 @@ public class InVoiceView extends JFrame{
     public JTextField textField3;
     private JPanel invoice;
     private JComboBox comboBox1;
+    InvoiceController controller;
     String PaymentMethod;
     public InVoiceView(){
         setContentPane(invoice);
         setSize(500,500);
 
     }
-    public InVoiceView(int Did, int Pid){
+    public InVoiceView(int Did, int Pid,InvoiceController controller){
+        this.controller=controller;
         setContentPane(invoice);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize((int)(screenSize.width * 0.8),(int)(screenSize.height * 0.8));
@@ -39,7 +41,7 @@ public class InVoiceView extends JFrame{
         PayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String s = InvoiceController.PayPressed(comboBox1.getSelectedItem().toString());
+                String s = controller.PayPressed(comboBox1.getSelectedItem().toString());
 
                 NotificationsController cont = new NotificationsController(s);
 

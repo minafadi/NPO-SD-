@@ -16,10 +16,10 @@ public abstract class Illness {
     private final List<Drug> drugList = new ArrayList<>();
 
     // Template Design Pattern for defining the skeleton of the treatment process.
-    public final void treatIllness(Patient patient) {
+    public final void treatIllness(Patient patient, DBProxy dbProxy) {
         prescribeDrugs(); // For Prescribe of drugs
         calculateTreatmentCost(); // Calculate treatment cost
-        addIllnessToPatient(patient); // Add illness to the patient record in the database
+        addIllnessToPatient(patient, dbProxy); // Add illness to the patient record in the database
     }
 
     // Abstract methods to be implemented by subclasses illnesses
@@ -27,10 +27,14 @@ public abstract class Illness {
     protected abstract double calculateTreatmentCost();
 
     // Concrete method to add illness to the patient's record
-    public final boolean addIllnessToPatient(Patient patient) {
+    public final boolean addIllnessToPatient(Patient patient, DBProxy dbProxy) {
+//        for (Drug drug : this.getDrugList()) {
+//            System.out.println(drug.getDrugName());
+//        }
+
         // Use IllnessFacade to handle the operation
         IllnessFacade illnessFacade = new IllnessFacade();
-        return illnessFacade.addIllnessToPatient(patient, this);
+        return illnessFacade.addIllnessToPatient(patient, this, dbProxy);
     }
 
     //For subclasses of symptoms
