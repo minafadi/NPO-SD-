@@ -20,16 +20,23 @@ public class Drug {
         this.drugName = drugName;
         this.quantity = quantity;
         this.price = price;
-//        try {
-//            String sql = "INSERT INTO drug (name, quantity, price) VALUES (?, ?, ?)";
-//            PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement(sql);
-//            stmt.setString(1, this.drugName);
-//            stmt.setInt(2, this.quantity);
-//            stmt.setDouble(3, this.price);
-//            stmt.executeUpdate();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+        insertdrugtodb(drugName,quantity,price,dbProxy);
+    }
+
+    public Drug(String drugName, int quantity, double price, String treatment, DBProxy dbProxy) {
+        this.drugName = drugName;
+        this.quantity = quantity;
+        this.treatment = treatment;
+        this.price = price;
+        insertdrugtodbwithtreatment(drugName,quantity,price,treatment,dbProxy);
+
+    }
+
+    public int getDrugId() {
+        return drugId;
+    }
+
+    public void insertdrugtodb(String drugName, int quantity, double price, DBProxy dbProxy){
         String query = "INSERT INTO drug (name, quantity, price) VALUES ('" + this.drugName + "', " + this.quantity + ", " + this.price + ")";
         try {
             dbProxy.executeQuery(query);
@@ -39,23 +46,7 @@ public class Drug {
         }
     }
 
-    public Drug(String drugName, int quantity, double price, String treatment, DBProxy dbProxy) {
-        this.drugName = drugName;
-        this.quantity = quantity;
-        this.treatment = treatment;
-        this.price = price;
-//        try {
-//            String sql = "INSERT INTO drug (name, quantity, price,treatment) VALUES (?, ?, ?,?)";
-//            PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement(sql);
-//            stmt.setString(1, this.drugName);
-//            stmt.setInt(2, this.quantity);
-//            stmt.setDouble(3, this.price);
-//            stmt.setString(4, this.treatment);
-//
-//            stmt.executeUpdate();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+    public void insertdrugtodbwithtreatment(String drugName, int quantity, double price, String treatment, DBProxy dbProxy){
         String query = "INSERT INTO drug (name, quantity, price, treatment) VALUES ('" + this.drugName + "', " + this.quantity + ", " + this.price + ", '" + this.treatment +"')";
         try{
             dbProxy.executeQuery(query);
@@ -63,13 +54,7 @@ public class Drug {
         catch (Exception e){
 
         }
-
     }
-
-    public int getDrugId() {
-        return drugId;
-    }
-
     public static Drug readAllDrugs(String treatment, DBProxy dbProxy) {
 //        try {
             // Query to select the drug where treatment matches
