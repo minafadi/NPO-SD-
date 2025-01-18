@@ -37,8 +37,6 @@ public class AppointmentListController extends ParentController implements State
         InvoiceController i;
         for (Appointment a : Allapps){
             if(a.getDate().equals(date)) {
-                //i = new InvoiceController(total,patient,doctor,drugs,a, dbProxy);
-                //execute(total,patient,doctor,drugs,a,dbProxy);
                 total2=total;
                 patient2=patient;
                 doctor2=doctor;

@@ -12,7 +12,6 @@ public class IllnessFacade {
         pageCount++;
         //This is for checking if it is after the symptoms declaration
         if(pageCount%2==0) {
-            illness.prescribeDrugs();
             String sql = "INSERT INTO illness (description, severity, treatmentcost) VALUES ('" + illness.getDescription() + "', " + illness.getSeverity() + ", " + (int) illness.calculateCost() + ")";
             dbProxy.executeQuery(sql);
             sql = "SELECT * FROM illness WHERE description = '" + illness.getDescription() + "' AND severity = " + illness.getSeverity() + " AND treatmentcost = " + (int) illness.calculateCost();
@@ -21,35 +20,12 @@ public class IllnessFacade {
             try {
                 resultSet.next();
                 illness.setIllnessId(resultSet.getInt(1));
-                System.out.println("aeeeweutgfytsd");
                 return true;
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                System.out.println("sdvfkwugvefkuayve");
                 return false;
             }
-//            try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
-//                stmt.setString(1, illness.getDescription());
-//                stmt.setInt(2, illness.getSeverity());
-//                stmt.setDouble(3, illness.calculateCost());
-//
-//                int rowsInserted = stmt.executeUpdate();
-//                if (rowsInserted > 0) {
-//                    // Retrieve the generated IID
-//                    try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-//                        if (generatedKeys.next()) {
-//                            int illnessId = generatedKeys.getInt(1);
-//                            illness.setIllnessId(illnessId); // Set the illness ID for further use
-//                            return true;
-//                        }
-//                    }
-//                }
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//            return false;
-//        }
-//        return false;
+
         }
         return false;
     }
@@ -70,16 +46,6 @@ public class IllnessFacade {
             System.out.println(e.getMessage());
             return false;
         }
-//        try (PreparedStatement stmt = DB.getInstance().getConnection().prepareStatement(sql)) {
-//            stmt.setInt(1, patient.getId());
-//            stmt.setInt(2, illness.getIllnessId());
-//
-//            int rowsInserted = stmt.executeUpdate();
-//            return rowsInserted > 0;
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return false;
     }
 
     // Facade method to add illness and link it to a patient

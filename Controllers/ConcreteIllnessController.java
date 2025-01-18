@@ -13,24 +13,23 @@ public class ConcreteIllnessController extends ParentController implements State
         this.dbProxy = dbProxy;
         view = new ConcreteIllnessView(patient,this);
         ParentController.setnextState(this);
-        //view.setVisible(true);
     }
 
     public void updateIllness(String illness, Patient patient) {
         Illness i;
-        if (illness == "MentalIllness") {
+        if (illness == "Mental") {
             i = new MentalIllness(dbProxy);
             patient.setIllness(i);
-        } else if (illness == "InfectiousIllness") {
+        } else if (illness == "Infectious") {
             i = new InfectiousIllness(dbProxy);
             patient.setIllness(i);
-        } else if (illness == "GeneticIllness") {
+        } else if (illness == "Genetic") {
             i = new GeneticIllness(dbProxy);
             patient.setIllness(i);
-        } else if (illness == "AcuteIllness") {
+        } else if (illness == "Acute") {
             i = new AcuteIllness(dbProxy);
             patient.setIllness(i);
-        } else if (illness == "AutoImmuneIllness") {
+        } else if (illness == "Auto-Immune") {
             i = new AutoimmuneIllness(dbProxy);
             patient.setIllness(i);
         } else{
@@ -38,18 +37,11 @@ public class ConcreteIllnessController extends ParentController implements State
             patient.setIllness(i);
         }
 
-        // Update the patient's illness
-//        if (illness != null) {
-//            patient.setIllness(illness);
-
-            // Use the Template Design Pattern to treat the illness
+        // Use the Template Design Pattern to treat the illness
         i.treatIllness(patient, dbProxy);
 
-        //SymptomsController s = new SymptomsController(patient,dbProxy);
         ParentController.nextPage();
 
-            // After treating illness, proceed with the symptoms controller
-//        }
     }
 
     @Override

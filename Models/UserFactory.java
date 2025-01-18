@@ -20,10 +20,14 @@ public class UserFactory {
             if (userType.equalsIgnoreCase("Doctor")) {
                 if (remainingArgs.length == 2 && remainingArgs[0] instanceof Integer) {
                     return new Doctor((Integer) remainingArgs[0] , (DBProxy) remainingArgs[1]);
-                } else if (remainingArgs.length == 7 && remainingArgs[0] instanceof Integer &&
-                        remainingArgs[1] instanceof String && remainingArgs[2] instanceof String &&
-                        remainingArgs[3] instanceof String && remainingArgs[4] instanceof String &&
-                        remainingArgs[5] instanceof Integer && remainingArgs[6] instanceof Double) {
+                } else if (remainingArgs.length == 7 &&
+                        remainingArgs[0] instanceof Integer &&
+                        remainingArgs[1] instanceof String &&
+                        remainingArgs[2] instanceof String &&
+                        remainingArgs[3] instanceof String &&
+                        remainingArgs[4] instanceof String &&
+                        remainingArgs[5] instanceof Integer &&
+                        remainingArgs[6] instanceof Double) {
                     return new Doctor((Integer) remainingArgs[0], (String) remainingArgs[1], (String) remainingArgs[2],
                             (String) remainingArgs[3], (String) remainingArgs[4], (Integer) remainingArgs[5], (Double) remainingArgs[6]);
                 }

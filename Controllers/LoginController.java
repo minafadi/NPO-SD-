@@ -14,10 +14,7 @@ public class LoginController {
     public static void login(String name, String password, String selecteditem) {
         if (selecteditem == "Patient") {
             dbProxy = new DBProxy(0);
-//            if (Patient.AuthenticatePatient(name, password, dbProxy)) {
-//                Patient p = new Patient(name, password, dbProxy);
-//                ConcreteIllnessController ConcreteIllnessController = new ConcreteIllnessController(p, dbProxy);
-//            }
+
             if (selecteditem == "Patient" && Patient.AuthenticatePatient(name, password, dbProxy)) {
                 Patient p = (Patient) UserFactory.createUser("Patient", name, password,dbProxy);
                 ConcreteIllnessController ConcreteIllnessController = new ConcreteIllnessController(p, dbProxy);
@@ -28,7 +25,6 @@ public class LoginController {
         }
         else if (selecteditem == "Admin" && Admin.AuthenticateAdmin(name, password)) {
             AdminController adminController = new AdminController();
-//            AdminController adminController=new AdminController();
             adminController.ExecuteCommand();
         }
     }

@@ -14,32 +14,11 @@ public class InVoiceFacade {
         ResultSet resultSet = dbProxy.executeQuery(invoiceQuery);
         try{
             resultSet.next();
-            return resultSet.getInt(1);
+            return resultSet.getInt(1); // Return the generated invoice ID
         } catch (Exception e){
             System.out.println(e.getMessage());
             return -1;
         }
-//        try (PreparedStatement invoiceStmt = DB.getInstance().getConnection().prepareStatement(invoiceQuery, PreparedStatement.RETURN_GENERATED_KEYS)) {
-//            // Set parameters for the invoice
-//            invoiceStmt.setString(1, patientName);
-//            invoiceStmt.setString(2, doctorName);
-//            invoiceStmt.setDouble(3, total);
-//
-//            // Execute the query
-//            int rowsInserted = invoiceStmt.executeUpdate();
-//            if (rowsInserted > 0) {
-//                // Retrieve the generated invoice ID
-//                try (ResultSet generatedKeys = invoiceStmt.getGeneratedKeys()) {
-//                    if (generatedKeys.next()) {
-//                        return generatedKeys.getInt(1); // Return the generated invoice ID
-//                    }
-//                }
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-
-//        return -1; // Return -1 if the operation failed
     }
 
     // Method to link drugs to an invoice in the database
@@ -55,19 +34,7 @@ public class InVoiceFacade {
                 return false;
             }
         }
-        return true;
-//        try (PreparedStatement invDrugsStmt = DB.getInstance().getConnection().prepareStatement(invDrugsQuery)) {
-//            for (Drug drug : drugs) {
-//                invDrugsStmt.setInt(1, invoiceId); // Set the foreign key (invoice ID)
-//                invDrugsStmt.setString(2, drug.getDrugName()); // Set the drug name
-//                invDrugsStmt.executeUpdate();
-//            }
-//            return true; // Return true if all drugs were successfully added
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return false; // Return false if the operation failed
+        return true;  // Return true if all drugs were successfully added
     }
 
     // Facade method to add an invoice and link its drugs
