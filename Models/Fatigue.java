@@ -1,7 +1,7 @@
 package Models;
 
 public class Fatigue extends Symptom {
-    DBProxy dbProxy;
+
     public Fatigue(Illness illness, DBProxy dbProxy) {
         this.illness = illness;
         this.dbProxy = dbProxy;

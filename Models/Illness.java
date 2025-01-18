@@ -11,6 +11,7 @@ public abstract class Illness {
     private Duration duration;
     private boolean contagious;
     protected int illnessId;
+    protected DBProxy dbProxy;
     public double drugsCost = 0;
 
     private final List<Drug> drugList = new ArrayList<>();
@@ -28,9 +29,6 @@ public abstract class Illness {
 
     // Concrete method to add illness to the patient's record
     public final boolean addIllnessToPatient(Patient patient, DBProxy dbProxy) {
-//        for (Drug drug : this.getDrugList()) {
-//            System.out.println(drug.getDrugName());
-//        }
 
         // Use IllnessFacade to handle the operation
         IllnessFacade illnessFacade = new IllnessFacade();
@@ -116,15 +114,4 @@ public abstract class Illness {
         this.illnessId = illnessId;
     }
 
-//    public double getDrugsCost() {
-//        return drugsCost;
-//    }
-//
-//    static public double getDrugsCost(Drug[] drugList) {
-//        double totalCost = 0;
-//        for (Drug drug : drugList) {
-//            totalCost += drug.getPrice();
-//        }
-//        return totalCost;
-//    }
 }

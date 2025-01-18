@@ -1,11 +1,10 @@
 package Models;
 
 public class Nausea extends Symptom {
-DBProxy dbProxy;
+
     public Nausea(Illness illness, DBProxy dbProxy) {
         this.illness = illness;
         this.dbProxy = dbProxy;
-//        this.illness.addDrug(Drug.readAllDrugs("Nausea", dbProxy));
     }
 
     @Override

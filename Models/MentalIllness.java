@@ -1,7 +1,7 @@
 package Models;
 
 public class MentalIllness extends Illness {
-DBProxy dbProxy;
+
     public MentalIllness(DBProxy dbProxy) {
         this.description = "Suffering from Mental Illness with symptoms: ";
         this.Severity=9;
