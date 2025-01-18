@@ -52,7 +52,8 @@ public class Patient extends User {
         }
     }
     public void insertpatient(String name, String phone, int age, boolean gender, String password, DBProxy dbProxy){
-        String query = "INSERT INTO patient (name, phone,age, gender, password) VALUES ('" + name + "', " + phone + ", " + age + ", '" + gender + "', '" + password + "')";
+        int genderInt = gender?1:2;
+        String query = "INSERT INTO patient (name, phone,age, gender, password) VALUES ('" + name + "', " + phone + ", " + age + ", '" + genderInt + "', '" + password + "')";
         dbProxy.executeQuery(query);
     }
     public void initializepatient(int id, DBProxy dbProxy){

@@ -22,7 +22,7 @@ public class DBProxy implements DBInterface {
             System.out.println("Admin");
             return db.executeQuery(query);
         }
-        else if (query.contains("INSERT") && (query.contains("drug ") || query.contains("doctor") || query.contains("admin"))){
+        else if ((query.contains("INSERT") && (query.contains("drug ") || query.contains("doctor") || query.contains("admin"))) || query.contains("DELETE")){
             System.out.println("denied");
             return null;
         }
