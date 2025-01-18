@@ -17,10 +17,9 @@ public class SignUpView extends JFrame {
     public SignUpView() {
         // Set up the frame
         setTitle("Sign Up");
-        setSize(400, 400);  // Set a size for the window
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Close the application when the window is closed
+        setSize(500, 500);  // Set a size for the window
         setLocationRelativeTo(null);  // Center the window on the screen
-        setLayout(new GridLayout(7, 2));  // Use a GridLayout for positioning components
+        setLayout(new GridLayout(10, 8));  // Use a GridLayout for positioning components
 
         // Initialize components
         textField1 = new JTextField();

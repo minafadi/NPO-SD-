@@ -30,17 +30,6 @@ public class LoginView extends JFrame{
                 String selectedOccupation = (String) OccupationCBox.getSelectedItem();
 
                 LoginController.login(name,password,selectedOccupation);
-                /*if (OccupationCBox.getSelectedItem() == "Patient" && Patient.AuthenticatePatient(name,password)){
-                    Patient p = new Patient(name,password);
-                    ConcreteIllnessView conc = new ConcreteIllnessView(p);
-                    conc.setVisible(true);
-                }
-                else if(OccupationCBox.getSelectedItem() == "Admin" && Admin.AuthenticateAdmin(name,password)){
-                    AdminView p = new AdminView();
-                    p.setVisible(true);
-                }*/
-
-
             }
         });
         signUpButton.addActionListener(new ActionListener() {

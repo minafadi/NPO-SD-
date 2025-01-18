@@ -22,7 +22,7 @@
         </constraints>
         <properties>
           <font size="12"/>
-          <text value="Label"/>
+          <text value="Appointments Reservations"/>
         </properties>
       </component>
       <hspacer id="a8cc3">
